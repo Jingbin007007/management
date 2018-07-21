@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.equipments.management.mapper.StaffMapper">
+
+    <resultMap id="staffResultMap" type="com.equipments.management.domain.Staff">
+        <id property="id" column="staff_id"/>
+        <result property="loginname" column="staff_loginname"/>
+        <result property="password" column="staff_password"/>
+        <result property="name" column="staff_name"/>
+        <result property="sex" column="staff_sex"/>
+        <result property="age" column="staff_age"/>
+        <result property="phone" column="staff_phone"/>
+        <result property="grade" column="staff_grade"/>
+        <result property="state" column="staff_state"/>
+        <result property="email" column="staff_email"/>
+        <association property="department" column="staff_department_id"
+                     select="com.equipments.management.mapper.DepartmentMapper.getDepartmentById"
+                     javaType="com.equipments.management.domain.Department"/>
+    </resultMap>
+
+    <select id="getStaffById" parameterType="Integer"
+            resultMap="staffResultMap">
+        select * from EQ_STAFF where staff_id=#{id}
+    </select>
+    <select id="getAllStaff" resultMap="staffResultMap">
+        select * from EQ_STAFF
+    </select>
+
+    <insert id="addStaff" parameterType="com.equipments.management.domain.Staff"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into EQ_STAFF(staff_loginname,staff_password,staff_name,staff_sex,staff_age,staff_phone,staff_email,staff_department_id,staff_grade,staff_state)
+        values(#{loginname},#{password},#{name},#{sex},#{age},#{phone},
+        #{email},#{department.code},#{grade},#{state})
+    </insert>
+    <delete id="removeStaffById" parameterType="Integer">
+        delete from EQ_STAFF where staff_id = #{id}
+    </delete>
+
+    <!--获得指定条件的List<Country>-->
+    <select id="getStaffByAll" resultMap="staffResultMap">
+        select * from eq_staff
+        <where>
+            <if test="id !=null">staff_id=#{id}</if>
+            <if test="loginname !=null">AND staff_loginname=#{loginname}</if>
+            <if test="password !=null">AND staff_password=#{password}</if>
+            <if test="name !=null">AND staff_name=#{name}</if>
+            <if test="sex !=null">AND staff_sex=#{sex}</if>
+            <if test="age !=null">AND staff_age=#{age}</if>
+            <if test="phone !=null">AND staff_phone=#{phone}</if>
+            <if test="email !=null">AND staff_email=#{email}</if>
+            <if test="grade !=null">AND staff_grade=#{grade}</if>
+            <if test="department !=null and department.code !=null">AND staff_department_id=#{department.code}</if>
+        </where>
+    </select>
+
+    <!--获得指定条件的Staff-->
+    <update id="updateStaff" parameterType="com.equipments.management.domain.Staff">
+        update EQ_STAFF
+        <trim prefix="set" suffixOverrides=",">
+            <if test="loginname !=null">staff_loginname=#{loginname},</if>
+            <if test="password !=null">staff_password=#{password},</if>
+            <if test="name !=null">staff_name=#{name},</if>
+            <if test="sex !=null">staff_sex=#{sex},</if>
+            <if test="age !=null">staff_age=#{age},</if>
+            <if test="phone !=null">staff_phone=#{phone},</if>
+            <if test="email !=null">staff_email=#{email},</if>
+            <if test="grade !=null">staff_grade=#{grade},</if>
+            <if test="state !=null">staff_state=#{state},</if>
+            <if test="department !=null and department.code !=null">staff_department_id=#{department.code},</if>
+        </trim>
+        where staff_id=#{id}
+    </update>
+</mapper>

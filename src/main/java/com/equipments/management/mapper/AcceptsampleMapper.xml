@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.equipments.management.mapper.AcceptsampleMapper">
+
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+    <resultMap id="acceptsampleResultMap" type="com.equipments.management.domain.Acceptsample">
+        <id property="sampleno" column="SAMPLE_NO"/>
+        <result property="sampledesc" column="SAMPLE_DESC"/>
+        <result property="sampleresult" column="SAMPLE_RESULT"/>
+        <result property="advicekind" column="ADVICE_KIND"/>
+        <result property="visualobservation" column="VISUAL_OBSERVATION"/>
+        <result property="deelresult" column="DEEL_RESULT"/>
+        <result property="drawnum" column="DRAW_NUM"/>
+        <association property="applino" column="APPLI_NO"
+                     select="com.equipments.management.mapper.PatientappliMapper.getPatientappliById"
+                     javaType="com.equipments.management.domain.Patientappli"/>
+        <collection property="reportphotoList" column="SAMPLE_NO" ofType="com.equipments.management.domain.Reportphoto"
+                    select="com.equipments.management.mapper.ReportphotoMapper.getReportphotoByNo"/>
+        <collection property="samplephotodescList" column="SAMPLE_NO" ofType="com.equipments.management.domain.Samplephotodesc"
+                    select="com.equipments.management.mapper.SamplephotodescMapper.getSamplephotodescByNo"/>
+    </resultMap>
+
+    <select id="getAcceptsampleById" parameterType="Integer"
+            resultMap="acceptsampleResultMap">
+        select * from eq_accept_sample where SAMPLE_NO=#{sampleno}
+    </select>
+    <select id="getAllAcceptsamples" resultMap="acceptsampleResultMap">
+        select * from eq_accept_sample
+    </select>
+
+    <select id="selectByIds" resultMap="acceptsampleResultMap">
+        select * from eq_accept_sample
+        <where>
+            <if test="array !=null">
+                <foreach collection="array" index="index" item="item" open="and APPLI_NO in (" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="countById" resultType="java.lang.Integer" >
+        select count(1) from eq_accept_sample
+    </select>
+    <insert id="addAcceptsample" parameterType="com.equipments.management.domain.Acceptsample"
+            useGeneratedKeys="true" keyProperty="sampleno">
+        insert into eq_accept_sample(APPLI_NO,SAMPLE_DESC,SAMPLE_RESULT,ADVICE_KIND,VISUAL_OBSERVATION,DEEL_RESULT,DRAW_NU)
+        values(#{applino.applino},#{sampledesc},#{sampleresult},#{advicekind},#{visualobservation},#{deelresult},#{drawnum})
+    </insert>
+    <delete id="removeAcceptsampleById" parameterType="Integer">
+        delete from eq_accept_sample where SAMPLE_NO = #{sampleno}
+    </delete>
+
+    <select id="getAcceptsampleByAll" resultMap="acceptsampleResultMap">
+        select * from eq_accept_sample
+        <where>
+            <if test="sampleno !=null">SAMPLE_NO=#{sampleno}</if>
+            <if test="applino !=null and applino.applino !=null">and APPLI_NO=#{applino.applino}</if>
+            <if test="sampledesc !=null">and SAMPLE_DESC=#{sampledesc}</if>
+            <if test="sampleresult !=null">and SAMPLE_RESULT=#{sampleresult}</if>
+
+            <if test="advicekind !=null">and ADVICE_KIND=#{advicekind}</if>
+            <if test="visualobservation !=null">and VISUAL_OBSERVATION=#{visualobservation}</if>
+            <if test="deelresult !=null">and DEEL_RESULT=#{deelresult}</if>
+        </where>
+    </select>
+
+    <update id="updateAcceptsample">
+        update eq_accept_sample
+        <trim prefix="set" suffixOverrides=",">
+            <if test="applino !=null and applino.applino !=null">APPLI_NO=#{applino.applino},</if>
+            <if test="sampledesc !=null">SAMPLE_DESC=#{sampledesc},</if>
+            <if test="sampleresult !=null">SAMPLE_RESULT=#{sampleresult},</if>
+            <if test="advicekind !=null">ADVICE_KIND=#{advicekind},</if>
+            <if test="visualobservation !=null">VISUAL_OBSERVATION=#{visualobservation},</if>
+            <if test="deelresult !=null">DEEL_RESULT=#{deelresult},</if>
+        </trim>
+        where SAMPLE_NO=#{sampleno}
+    </update>
+
+
+    <!--新结构-->
+    <resultMap id="acceptsampleResult001Map" type="com.equipments.management.domain.gradation.Acceptsample001">
+        <id property="sampleno" column="SAMPLE_NO"/>
+        <result property="sampledesc" column="SAMPLE_DESC"/>
+        <result property="sampleresult" column="SAMPLE_RESULT"/>
+        <result property="advicekind" column="ADVICE_KIND"/>
+        <result property="visualobservation" column="VISUAL_OBSERVATION"/>
+        <result property="deelresult" column="DEEL_RESULT"/>
+        <result property="drawnum" column="DRAW_NUM"/>
+        <association property="pathologydiagnosis" column="SAMPLE_NO"
+                     select="com.equipments.management.mapper.PathologydiagnosisMapper.getPathologydiagnosisBySampleno"
+                     javaType="com.equipments.management.domain.gradation.Pathologydiagnosis001"/>
+        <collection property="reportphotoList" column="SAMPLE_NO" ofType="com.equipments.management.domain.Reportphoto"
+                    select="com.equipments.management.mapper.ReportphotoMapper.getReportphotoByNo"/>
+        <collection property="samplephotodescList" column="SAMPLE_NO" ofType="com.equipments.management.domain.Samplephotodesc"
+                    select="com.equipments.management.mapper.SamplephotodescMapper.getSamplephotodescByNo"/>
+        <collection property="pathologydraw001List" column="SAMPLE_NO" ofType="com.equipments.management.domain.gradation.Pathologydraw001"
+                    select="com.equipments.management.mapper.PathologydrawMapper.getPathologydrawBySampleno"/>
+    </resultMap>
+
+    <select id="getAcceptsampleByApplino" parameterType="Integer"
+            resultMap="acceptsampleResult001Map">
+        select * from eq_accept_sample where APPLI_NO=#{applino}
+    </select>
+</mapper>

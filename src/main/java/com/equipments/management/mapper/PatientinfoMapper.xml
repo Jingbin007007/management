@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.equipments.management.mapper.PatientinfoMapper">
+
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+    <resultMap id="patientinfoResultMap" type="com.equipments.management.domain.Patientinfo">
+        <id property="patientno" column="PATIENT_NO"/>
+        <result property="treatno" column="TREAT_NO"/>
+        <result property="patientname" column="PATIENT_NAME"/>
+        <result property="gender" column="PATIENT_GENDER"/>
+        <result property="age" column="PATIENT_AGE"/>
+
+        <result property="patientmarriage" column="PATIENT_MARRIAGE"/>
+        <result property="outpatientid" column="OUTPATIENT_ID"/>
+        <result property="hospitalizetionid" column="HOSPITALIZETION_ID"/>
+        <result property="departmentid" column="DEPARTMENT_ID"/>
+        <result property="bedid" column="BED_ID"/>
+        <result property="contactinfoaddr" column="CONTACT_INFO_ADDR"/>
+        <result property="contactinfotel" column="CONTACT_INFO_TEL"/>
+        <result property="contactinfoemail" column="CONTACT_INFO_EMAIL"/>
+        <result property="advicedictor" column="ADVICE_DICTOR"/>
+        <result property="inforclinical" column="INFOR_CLINICAL"/>
+
+        <result property="ethnic" column="PATIENT_ETHNIC"/>
+        <result property="career" column="PATIENT_CAREER"/>
+        <result property="identinumber" column="PATIENT_IDENTI_NUMBER"/>
+        <result property="source" column="PATIENT_SOURCE"/>
+        <result property="ward" column="PATIENT_WARD"/>
+        <result property="contactinfoaddrprovince" column="CONTACT_INFOADDR_PROVINCE"/>
+        <result property="contactinfoaddrcity" column="CONTACT_INFOADDR_CITY"/>
+        <result property="contactinfoaddrdistinct" column="CONTACT_INFOADDR_DISTINCT"/>
+    </resultMap>
+
+    <select id="getPatientinfoById" parameterType="Integer"
+            resultMap="patientinfoResultMap">
+        select * from eq_patient_info where PATIENT_NO=#{patientno}
+    </select>
+
+    <select id="getPatientinfoByHospitalizetionid" parameterType="Integer"
+            resultMap="patientinfoResultMap">
+        select * from eq_patient_info where HOSPITALIZETION_ID=#{hospitalizetionid}
+    </select>
+    <select id="getAllPatientinfos" resultMap="patientinfoResultMap">
+        select * from eq_patient_info
+    </select>
+
+    <select id="getAllPatientinfoNames" resultType="java.lang.String">
+        select DISTINCT PATIENT_NAME from eq_patient_info
+    </select>
+
+    <insert id="addPatientinfo" parameterType="com.equipments.management.domain.Patientinfo"
+            useGeneratedKeys="true" keyProperty="patientno">
+        insert into eq_patient_info(TREAT_NO,PATIENT_NAME,PATIENT_GENDER,PATIENT_AGE,PATIENT_MARRIAGE,OUTPATIENT_ID,HOSPITALIZETION_ID,DEPARTMENT_ID,BED_ID,CONTACT_INFO_ADDR,CONTACT_INFO_TEL,CONTACT_INFO_EMAIL,ADVICE_DICTOR,INFOR_CLINICAL,PATIENT_ETHNIC,PATIENT_CAREER,PATIENT_IDENTI_NUMBER,PATIENT_SOURCE,PATIENT_WARD,CONTACT_INFOADDR_PROVINCE,CONTACT_INFOADDR_CITY,CONTACT_INFOADDR_DISTINCT)
+        values(#{treatno},#{patientname},#{gender},#{age},#{patientmarriage},#{outpatientid},#{hospitalizetionid},#{departmentid},#{bedid},#{contactinfoaddr},#{contactinfotel},#{contactinfoemail},#{advicedictor},#{inforclinical},#{ethnic},#{career},#{identinumber},#{source},#{ward},#{contactinfoaddrprovince},#{contactinfoaddrcity},#{contactinfoaddrdistinct})
+    </insert>
+    <delete id="removePatientinfoById" parameterType="Integer">
+        delete from eq_patient_info where PATIENT_NO = #{patientno}
+    </delete>
+
+    <select id="countById" resultType="java.lang.Integer" >
+        select count(1) from eq_patient_info
+    </select>
+
+    <select id="getPatientinfoByAll" resultMap="patientinfoResultMap">
+        select * from eq_patient_info
+        <where>
+            <if test="patientno !=null">PATIENT_NO=#{patientno}</if>
+            <if test="treatno !=null">and TREAT_NO=#{treatno}</if>
+            <if test="patientname !=null">and PATIENT_NAME=#{patientname}</if>
+            <if test="gender !=null">and PATIENT_GENDER=#{gender}</if>
+            <if test="age !=null">and PATIENT_AGE=#{age}</if>
+            <if test="patientmarriage !=null">and PATIENT_MARRIAGE=#{patientmarriage}</if>
+            <if test="outpatientid !=null">and OUTPATIENT_ID=#{outpatientid}</if>
+            <if test="hospitalizetionid !=null">and HOSPITALIZETION_ID=#{hospitalizetionid}</if>
+            <if test="departmentid !=null">and DEPARTMENT_ID=#{departmentid}</if>
+            <if test="bedid !=null">and BED_ID=#{bedid}</if>
+            <if test="contactinfoaddr !=null">and CONTACT_INFO_ADDR=#{contactinfoaddr}</if>
+            <if test="contactinfotel !=null">and CONTACT_INFO_TEL=#{contactinfotel}</if>
+            <if test="contactinfoemail !=null">and CONTACT_INFO_EMAIL=#{contactinfoemail}</if>
+            <if test="advicedictor !=null">and ADVICE_DICTOR=#{advicedictor}</if>
+            <if test="inforclinical !=null">and INFOR_CLINICAL=#{inforclinical}</if>
+            <if test="ethnic !=null">and PATIENT_ETHNIC=#{ethnic}</if>
+            <if test="career !=null">and PATIENT_CAREER=#{career}</if>
+            <if test="identinumber !=null">and PATIENT_IDENTI_NUMBER=#{identinumber}</if>
+            <if test="source !=null">and PATIENT_SOURCE=#{source}</if>
+            <if test="ward !=null">and PATIENT_WARD=#{ward}</if>
+            <if test="contactinfoaddrprovince !=null">and CONTACT_INFOADDR_PROVINCE=#{contactinfoaddrprovince}</if>
+            <if test="contactinfoaddrcity !=null">and CONTACT_INFOADDR_CITY=#{contactinfoaddrcity}</if>
+            <if test="contactinfoaddrdistinct !=null">and CONTACT_INFOADDR_DISTINCT=#{contactinfoaddrdistinct}</if>
+        </where>
+    </select>
+
+    <update id="updatePatientinfo" parameterType="com.equipments.management.domain.Patientinfo">
+        update eq_patient_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="treatno !=null">TREAT_NO=#{treatno},</if>
+            <if test="patientname !=null">PATIENT_NAME=#{patientname},</if>
+            <if test="gender !=null">PATIENT_GENDER=#{gender},</if>
+            <if test="age !=null">PATIENT_AGE=#{age},</if>
+            <if test="patientmarriage !=null">PATIENT_MARRIAGE=#{patientmarriage},</if>
+            <if test="outpatientid !=null">OUTPATIENT_ID=#{outpatientid},</if>
+            <if test="hospitalizetionid !=null">HOSPITALIZETION_ID=#{hospitalizetionid},</if>
+            <if test="departmentid !=null">DEPARTMENT_ID=#{departmentid},</if>
+            <if test="bedid !=null">BED_ID=#{bedid},</if>
+            <if test="contactinfoaddr !=null">CONTACT_INFO_ADDR=#{contactinfoaddr},</if>
+            <if test="contactinfotel !=null">CONTACT_INFO_TEL=#{contactinfotel},</if>
+            <if test="contactinfoemail !=null">CONTACT_INFO_EMAIL=#{contactinfoemail},</if>
+            <if test="advicedictor !=null">ADVICE_DICTOR=#{advicedictor},</if>
+            <if test="inforclinical !=null">INFOR_CLINICAL=#{inforclinical},</if>
+
+            <if test="ethnic !=null">and PATIENT_ETHNIC=#{ethnic},</if>
+            <if test="career !=null">and PATIENT_CAREER=#{career},</if>
+            <if test="identinumber !=null">and PATIENT_IDENTI_NUMBER=#{identinumber},</if>
+            <if test="source !=null">and PATIENT_SOURCE=#{source},</if>
+            <if test="ward !=null">and PATIENT_WARD=#{ward},</if>
+            <if test="contactinfoaddrprovince !=null">and CONTACT_INFOADDR_PROVINCE=#{contactinfoaddrprovince},</if>
+            <if test="contactinfoaddrcity !=null">and CONTACT_INFOADDR_CITY=#{contactinfoaddrcity},</if>
+            <if test="contactinfoaddrdistinct !=null">and CONTACT_INFOADDR_DISTINCT=#{contactinfoaddrdistinct},</if>
+        </trim>
+        where PATIENT_NO=#{patientno}
+    </update>
+
+
+    <resultMap id="patientinfoResult001Map" type="com.equipments.management.domain.gradation.Patientinfo001">
+        <id property="patientno" column="PATIENT_NO"/>
+        <result property="treatno" column="TREAT_NO"/>
+        <result property="patientname" column="PATIENT_NAME"/>
+        <result property="gender" column="PATIENT_GENDER"/>
+        <result property="age" column="PATIENT_AGE"/>
+
+        <result property="patientmarriage" column="PATIENT_MARRIAGE"/>
+        <result property="outpatientid" column="OUTPATIENT_ID"/>
+        <result property="hospitalizetionid" column="HOSPITALIZETION_ID"/>
+        <result property="departmentid" column="DEPARTMENT_ID"/>
+        <result property="bedid" column="BED_ID"/>
+        <result property="contactinfoaddr" column="CONTACT_INFO_ADDR"/>
+        <result property="contactinfotel" column="CONTACT_INFO_TEL"/>
+        <result property="contactinfoemail" column="CONTACT_INFO_EMAIL"/>
+        <result property="advicedictor" column="ADVICE_DICTOR"/>
+        <result property="inforclinical" column="INFOR_CLINICAL"/>
+
+        <result property="ethnic" column="PATIENT_ETHNIC"/>
+        <result property="career" column="PATIENT_CAREER"/>
+        <result property="identinumber" column="PATIENT_IDENTI_NUMBER"/>
+        <result property="source" column="PATIENT_SOURCE"/>
+        <result property="ward" column="PATIENT_WARD"/>
+        <result property="contactinfoaddrprovince" column="CONTACT_INFOADDR_PROVINCE"/>
+        <result property="contactinfoaddrcity" column="CONTACT_INFOADDR_CITY"/>
+        <result property="contactinfoaddrdistinct" column="CONTACT_INFOADDR_DISTINCT"/>
+
+        <collection property="patientappli001List" column="PATIENT_NO" ofType="com.equipments.management.domain.gradation.Patientappli001"
+                    select="com.equipments.management.mapper.PatientappliMapper.getPatientappliByPatientno"/>
+    </resultMap>
+
+    <select id="getPatientinfoByPatientno" parameterType="Integer"
+            resultMap="patientinfoResult001Map">
+        select * from eq_patient_info where PATIENT_NO=#{patientno}
+    </select>
+
+    <select id="getPatientinfoByAllAvaliable" parameterType="java.util.Map" resultMap="patientinfoResult001Map">
+        select * from eq_patient_info PAIN
+        left join eq_patient_appli PAAP on PAIN.PATIENT_NO = PAAP.PATIENT_NO
+        <where>
+            <if test="hospitalizetionid !=null">PAIN.HOSPITALIZETION_ID=#{hospitalizetionid}</if>
+            <if test="applino !=null">and PAAP.PATIENT_NO=#{applino}</if>
+            <if test="dicinspmethodname !=null">and PAAP.INSP_METHOD_LIST LIKE concat(concat('%',#{dicinspmethodname}),'%')</if>
+            <if test="deptname !=null">and PAAP.INSP_DEPART_ID=#{deptname}</if>
+            <if test="specialrequire !=null">and PAAP.SPECIAL_REQUIRE=#{specialrequire}</if>
+            <if test="patientdiagkind !=null">and PAAP.PATIENT_DIAG_KIND=#{patientdiagkind}</if>
+            <if test="advicestatus !=null">and PAAP.ADVICE_STATUS=#{advicestatus}</if>
+            <if test="inspdate001 != null">
+                <![CDATA[ and date(PAAP.INSP_DATE) >= date(#{inspdate001,jdbcType=DATE})]]>
+            </if>
+            <if test="inspdate002 != null">
+                <![CDATA[ and date(PAAP.INSP_DATE) <= date(#{inspdate002,jdbcType=DATE})]]>
+            </if>
+            <if test="acceptdate001 != null">
+                <![CDATA[ and date(PAAP.ACCEPT_DATE) >= date(#{acceptdate001,jdbcType=DATE})]]>
+            </if>
+            <if test="acceptdate002 != null">
+                <![CDATA[ and date(PAAP.ACCEPT_DATE) <= date(#{acceptdate002,jdbcType=DATE})]]>
+            </if>
+        </where>
+    </select>
+</mapper>

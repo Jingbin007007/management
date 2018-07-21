@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.equipments.management.mapper.ReviewdetailMapper">
+
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+    <resultMap id="reviewdetailResultMap" type="com.equipments.management.domain.Reviewdetail">
+        <id property="reviewdetailno" column="REVIEW_DETAIL_NO"/>
+        <result property="reviewdetaildate" column="REVIEW_DETAIL_DATE"/>
+        <result property="reviewdetailresult" column="REVIEW_DETAIL_RESULT"/>
+        <result property="reviewdetailnote" column="REVIEW_DETAIL_NOTE"/>
+
+        <association property="reviewno" column="REVIEW_NO"
+                     select="com.equipments.management.mapper.PathologyreviewMapper.getPathologyreviewById"
+                     javaType="com.equipments.management.domain.Pathologyreview"/>
+        <association property="reviewdoctorid" column="REVIEW_DOCTOR_ID"
+                     select="com.equipments.management.mapper.StaffMapper.getStaffById"
+                     javaType="com.equipments.management.domain.Staff"/>
+    </resultMap>
+
+    <select id="getReviewdetailById" parameterType="Integer"
+            resultMap="reviewdetailResultMap">
+        select * from eq_review_detail where REVIEW_DETAIL_NO=#{reviewdetailno}
+    </select>
+    <select id="getReviewdetailByCode" parameterType="String"
+            resultMap="reviewdetailResultMap">
+        select * from  eq_review_detail where REVIEW_NO=#{reviewno.reviewno}
+    </select>
+    <select id="getAllReviewdetails" resultMap="reviewdetailResultMap">
+        select * from eq_review_detail
+    </select>
+
+
+    <insert id="addReviewdetail" parameterType="com.equipments.management.domain.Reviewdetail"
+            useGeneratedKeys="true" keyProperty="no">
+        insert into eq_review_detail(REVIEW_NO,REVIEW_DOCTOR_ID,REVIEW_DETAIL_DATE,REVIEW_DETAIL_RESULT,REVIEW_DETAIL_NOTE)
+        values(#{reviewno.reviewno},#{reviewdoctorid.id},#{reviewdetaildate},#{reviewdetailresult},#{reviewdetailnote})
+    </insert>
+    <delete id="removeReviewdetailById" parameterType="Integer">
+        delete from eq_review_detail where REVIEW_DETAIL_NO = #{reviewdetailno}
+    </delete>
+
+    <select id="getReviewdetailByAll" resultMap="reviewdetailResultMap">
+        select * from eq_review_detail
+        <where>
+            <if test="reviewdetailno !=null">REVIEW_DETAIL_NO=#{reviewdetailno}</if>
+            <if test="reviewno !=null and reviewno.reviewno">and REVIEW_NO=#{reviewno.reviewno}</if>
+            <if test="reviewdoctorid !=null and reviewdoctorid.id !=null">and REVIEW_DOCTOR_ID=#{reviewdoctorid.id}</if>
+            <if test="reviewdetaildate !=null">and REVIEW_DETAIL_DATE=#{reviewdetaildate}</if>
+            <if test="reviewdetailresult !=null">and REVIEW_DETAIL_RESULT=#{reviewdetailresult}</if>
+            <if test="reviewdetailnote !=null">and REVIEW_DETAIL_NOTE=#{reviewdetailnote}</if>
+        </where>
+    </select>
+
+    <!--获得指定条件的Reviewdetail-->
+    <update id="updateReviewdetail">
+        update country_dict
+        <set>
+            <if test="reviewno !=null and reviewno.reviewno">REVIEW_NO=#{reviewno.reviewno}</if>
+            <if test="reviewdoctorid !=null and reviewdoctorid.id !=null">REVIEW_DOCTOR_ID=#{reviewdoctorid.id}</if>
+            <if test="reviewdetaildate !=null">REVIEW_DETAIL_DATE=#{reviewdetaildate}</if>
+            <if test="reviewdetailresult !=null">REVIEW_DETAIL_RESULT=#{reviewdetailresult}</if>
+            <if test="reviewdetailnote !=null">REVIEW_DETAIL_NOTE=#{reviewdetailnote}</if>
+        </set>
+        where REVIEW_DETAIL_NO=#{reviewdetailno}
+    </update>
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.equipments.management.mapper.ReportphotoMapper">
+
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+    <resultMap id="reportphotoResultMap" type="com.equipments.management.domain.Reportphoto">
+        <id property="reportphotono" column="REPORT_PHOTO_NO"/>
+        <result property="sampleno" column="SAMPLE_NO"/>
+        <result property="filepath" column="FILE_PATH"/>
+        <result property="filedesc" column="FILE_DESC"/>
+    </resultMap>
+
+    <select id="getReportphotoById" parameterType="Integer"
+            resultMap="reportphotoResultMap">
+        select * from report_photo where REPORT_PHOTO_NO=#{reportphotono}
+    </select>
+    <select id="getReportphotoByNo" parameterType="Integer"
+            resultMap="reportphotoResultMap">
+        select * from report_photo where SAMPLE_NO=#{sampleno}
+    </select>
+    <select id="getAllReportphotos" resultMap="reportphotoResultMap">
+        select * from report_photo
+    </select>
+
+    <select id="countById" resultType="java.lang.Integer" >
+        select count(1) from report_photo
+    </select>
+    <insert id="addReportphoto" parameterType="com.equipments.management.domain.Reportphoto"
+            useGeneratedKeys="true" keyProperty="reportphotono">
+        insert into report_photo(SAMPLE_NO,FILE_PATH,FILE_DESC)
+        values(#{sampleno},#{filepath},#{filedesc})
+    </insert>
+    <delete id="removeReportphotoById" parameterType="Integer">
+        delete from report_photo where REPORT_PHOTO_NO = #{reportphotono}
+    </delete>
+
+    <select id="getReportphotoByAll" resultMap="reportphotoResultMap">
+        select * from report_photo
+        <where>
+            <if test="reportphotono !=null">REPORT_PHOTO_NO=#{reportphotono}</if>
+            <if test="sampleno !=null">and SAMPLE_NO=#{sampleno}</if>
+            <if test="filepath !=null">and FILE_PATH=#{filepath}</if>
+            <if test="filedesc !=null">and FILE_DESC=#{filedesc}</if>
+        </where>
+    </select>
+
+    <update id="updateReportphoto">
+        update report_photo
+        <trim prefix="set" suffixOverrides=",">
+            <if test="sampleno !=null">SAMPLE_NO=#{sampleno},</if>
+            <if test="filepath !=null">FILE_PATH=#{filepath},</if>
+            <if test="filedesc !=null">FILE_DESC=#{filedesc},</if>
+        </trim>
+        where REPORT_PHOTO_NO=#{reportphotono}
+    </update>
+</mapper>

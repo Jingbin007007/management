@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.equipments.management.mapper.CollectanatomyMapper">
+
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+    <resultMap id="collectanatomyResultMap" type="com.equipments.management.domain.Collectanatomy">
+        <id property="collectanatomyno" column="COLLECT_ANATOMY_NO"/>
+        <result property="applino" column="APPLI_NO"/>
+
+        <association property="collectno" column="COLLECT_NO"
+                     select="com.equipments.management.mapper.DiccollectanatomyMapper.getDiccollectanatomyById"
+                     javaType="com.equipments.management.domain.Diccollectanatomy"/>
+    </resultMap>
+
+    <select id="getCollectanatomyById" parameterType="Integer"
+            resultMap="collectanatomyResultMap">
+        select * from eq_collect_anatomy where COLLECT_ANATOMY_NO=#{collectanatomyno}
+    </select>
+    <select id="getCollectanatomyByNo" parameterType="Integer"
+            resultMap="collectanatomyResultMap">
+        select * from eq_collect_anatomy where APPLI_NO=#{applino}
+    </select>
+    <select id="getAllCollectanatomys" resultMap="collectanatomyResultMap">
+        select * from eq_collect_anatomy
+    </select>
+
+    <select id="countById" resultType="java.lang.Integer" >
+        select count(1) from eq_collect_anatomy
+    </select>
+    <insert id="addCollectanatomy" parameterType="com.equipments.management.domain.Collectanatomy"
+            useGeneratedKeys="true" keyProperty="collectanatomyno">
+        insert into eq_collect_anatomy(APPLI_NO,COLLECT_NO)
+        values(#{applino},#{collectno.collectno})
+    </insert>
+    <delete id="removeCollectanatomyById" parameterType="Integer">
+        delete from eq_collect_anatomy where COLLECT_ANATOMY_NO = #{collectanatomyno}
+    </delete>
+
+    <select id="getCollectanatomyByAll" resultMap="collectanatomyResultMap">
+        select * from eq_collect_anatomy
+        <where>
+            <if test="collectanatomyno !=null">COLLECT_ANATOMY_NO=#{collectanatomyno}</if>
+            <if test="applino !=null">and APPLI_NO=#{applino}</if>
+            <if test="collectno !=null and collectno.collectno !=null">and COLLECT_NO=#{collectno.collectno}</if>
+        </where>
+    </select>
+
+    <update id="updateCollectanatomy">
+        update eq_collect_anatomy
+        <trim prefix="set" suffixOverrides=",">
+            <if test="applino !=null">APPLI_NO=#{applino},</if>
+            <if test="collectno !=null and collectno.collectno !=null">COLLECT_NO=#{collectno.collectno},</if>
+        </trim>
+        where COLLECT_ANATOMY_NO=#{collectanatomyno}
+    </update>
+
+    <!--新结构-->
+    <resultMap id="collectanatomyResult001Map" type="com.equipments.management.domain.gradation.Collectanatomy001">
+        <id property="collectanatomyno" column="COLLECT_ANATOMY_NO"/>
+        <result property="applino" column="APPLI_NO"/>
+
+        <collection property="diccollectanatomyList" column="COLLECT_NO"
+                     select="com.equipments.management.mapper.DiccollectanatomyMapper.getDiccollectanatomyById"
+                    ofType="com.equipments.management.domain.Diccollectanatomy"/>
+    </resultMap>
+
+    <select id="getCollectanatomyByApplino" parameterType="Integer"
+            resultMap="collectanatomyResult001Map">
+        select * from eq_collect_anatomy where APPLI_NO=#{applino}
+    </select>
+</mapper>

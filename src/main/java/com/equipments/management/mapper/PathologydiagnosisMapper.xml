@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.equipments.management.mapper.PathologydiagnosisMapper">
+
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+    <resultMap id="pathologydiagnosisMap" type="com.equipments.management.domain.Pathologydiagnosis">
+        <id property="diagnosisno" column="DIAGNOSIS_NO"/>
+        <result property="diagnosismicroscope" column="DIAGNOSIS_MICROSCOPE"/>
+        <result property="diagnosisspecial" column="DIAGNOSIS_SPECIAL"/>
+        <result property="diagnosispathology" column="DIAGNOSIS_PATHOLOGY"/>
+        <result property="diagnosisnote" column="DIAGNOSIS_NOTE"/>
+        <result property="reportdate" column="REPORT_DATE"/>
+
+        <association property="sampleno" column="SAMPLE_NO"
+                     select="com.equipments.management.mapper.AcceptsampleMapper.getAcceptsampleById"
+                     javaType="com.equipments.management.domain.Acceptsample"/>
+        <association property="reportdoctorid" column="REPORT_DOCTOR_ID"
+                     select="com.equipments.management.mapper.StaffMapper.getStaffById"
+                     javaType="com.equipments.management.domain.Staff"/>
+    </resultMap>
+
+    <select id="getPathologydiagnosisById" parameterType="Integer"
+            resultMap="pathologydiagnosisMap">
+        select * from eq_pathology_diagnosis where DIAGNOSIS_NO=#{diagnosisno}
+    </select>
+    <select id="getAllPathologydiagnosiss" resultMap="pathologydiagnosisMap">
+        select * from eq_pathology_diagnosis
+    </select>
+
+
+    <insert id="addPathologydiagnosis" parameterType="com.equipments.management.domain.Pathologydiagnosis"
+            useGeneratedKeys="true" keyProperty="diagnosisno">
+        insert into eq_pathology_diagnosis(SAMPLE_NO,DIAGNOSIS_MICROSCOPE,DIAGNOSIS_SPECIAL,DIAGNOSIS_PATHOLOGY,DIAGNOSIS_NOTE,REPORT_DATE,REPORT_DOCTOR_ID)
+        values(#{sampleno.sampleno},#{diagnosismicroscope},#{diagnosisspecial},#{diagnosispathology},#{diagnosisnote},#{reportdate},#{reportdoctorid.id})
+    </insert>
+    <delete id="removePathologydiagnosisById" parameterType="Integer">
+        delete from eq_pathology_diagnosis where DIAGNOSIS_NO = #{diagnosisno}
+    </delete>
+
+    <select id="getPathologydiagnosisByAll" parameterType="com.equipments.management.domain.Pathologydiagnosis" resultMap="pathologydiagnosisMap">
+        select * from eq_pathology_diagnosis
+        <where>
+            <if test="diagnosisno !=null">DIAGNOSIS_NO=#{diagnosisno}</if>
+            <if test="sampleno !=null and sampleno.sampleno !=null">and SAMPLE_NO=#{sampleno.sampleno}</if>
+            <if test="diagnosismicroscope !=null">and DIAGNOSIS_MICROSCOPE=#{diagnosismicroscope}</if>
+            <if test="diagnosisspecial !=null">and DIAGNOSIS_SPECIAL=#{diagnosisspecial}</if>
+            <if test="diagnosispathology !=null">and DIAGNOSIS_PATHOLOGY=#{diagnosispathology}</if>
+            <if test="diagnosisnote !=null">and DIAGNOSIS_NOTE=#{diagnosisnote}</if>
+            <if test="reportdate !=null">and REPORT_DATE=#{reportdate}</if>
+            <if test="reportdoctorid !=null and reportdoctorid.id !=null">and REPORT_DOCTOR_ID=#{reportdoctorid.id}</if>
+
+        </where>
+    </select>
+
+    <update id="updatePathologydiagnosis"  parameterType="com.equipments.management.domain.Pathologydiagnosis">
+        update eq_pathology_diagnosis
+        <trim prefix="set" suffixOverrides=",">
+            <if test="sampleno !=null and sampleno.sampleno !=null">SAMPLE_NO=#{sampleno.sampleno},</if>
+            <if test="diagnosismicroscope !=null">DIAGNOSIS_MICROSCOPE=#{diagnosismicroscope},</if>
+            <if test="diagnosisspecial !=null">DIAGNOSIS_SPECIAL=#{diagnosisspecial},</if>
+            <if test="diagnosispathology !=null">DIAGNOSIS_PATHOLOGY=#{diagnosispathology},</if>
+            <if test="diagnosisnote !=null">DIAGNOSIS_NOTE=#{diagnosisnote},</if>
+            <if test="reportdate !=null">REPORT_DATE=#{reportdate},</if>
+            <if test="reportdoctorid !=null and reportdoctorid.id !=null">REPORT_DOCTOR_ID=#{reportdoctorid.id},</if>
+        </trim>
+        where DIAGNOSIS_NO=#{diagnosisno}
+    </update>
+
+<!--新结构-->
+    <resultMap id="pathologydiagnosis001Map" type="com.equipments.management.domain.gradation.Pathologydiagnosis001">
+        <id property="diagnosisno" column="DIAGNOSIS_NO"/>
+        <result property="diagnosismicroscope" column="DIAGNOSIS_MICROSCOPE"/>
+        <result property="diagnosisspecial" column="DIAGNOSIS_SPECIAL"/>
+        <result property="diagnosispathology" column="DIAGNOSIS_PATHOLOGY"/>
+        <result property="diagnosisnote" column="DIAGNOSIS_NOTE"/>
+        <result property="reportdate" column="REPORT_DATE"/>
+
+        <association property="reportdoctorid" column="REPORT_DOCTOR_ID"
+                     select="com.equipments.management.mapper.StaffMapper.getStaffById"
+                     javaType="com.equipments.management.domain.Staff"/>
+        <collection property="doctoradvice001List" column="DIAGNOSIS_NO"
+                     select="com.equipments.management.mapper.DoctoradviceMapper.getDoctoradviceByDiagnosisno"
+                    ofType="com.equipments.management.domain.gradation.Doctoradvice001"/>
+    </resultMap>
+    <select id="getPathologydiagnosisBySampleno" parameterType="Integer"
+            resultMap="pathologydiagnosis001Map">
+        select * from eq_pathology_diagnosis where SAMPLE_NO=#{sampleno}
+    </select>
+</mapper>

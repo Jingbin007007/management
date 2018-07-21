@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+
+<mapper namespace="com.equipments.management.mapper.ProductMapper">
+
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+
+    <resultMap id="ProductMap" type="com.equipments.management.domain.Product">
+        <id property="productno" column="PRODUCT_NO"/>
+        <result property="productdesc" column="PRODUCT_DESC"/>
+        <result property="productstatus" column="PRODUCT_STATUS"/>
+        <result property="resultkind" column="RESULT_KIND"/>
+        <result property="productdate" column="PRODUCT_DATE"/>
+        <result property="productnote" column="PRODUCT_NOTE"/>
+
+        <result property="productfile" column="PRODUCT_FILE"/>
+        <result property="thumbnailfile" column="THUMBNAIL_FILE"/>
+        <result property="scandate" column="SCAN_DATE"/>
+
+        <result property="productrequire" column="PRODUCT_REQUIRE"/>
+        <result property="storeposition" column="STORE_POSITION"/>
+        <result property="productquality" column="PRODUCT_QUALITY"/>
+        <result property="unlawreason" column="UNLAW_REASON"/>
+        <result property="productadvice" column="PRODUCT_ADVICE"/>
+
+        <association property="drawno" column="DRAW_NO"
+                     select="com.equipments.management.mapper.PathologydrawMapper.getPathologydrawById"
+                     javaType="com.equipments.management.domain.Pathologydraw"/>
+        <association property="productdoctorid" column="PRODUCT_DOCTOR_ID"
+                     select="com.equipments.management.mapper.StaffMapper.getStaffById"
+                     javaType="com.equipments.management.domain.Staff"/>
+        <association property="scandoctorid" column="SCAN_DOCTOR_ID"
+                     select="com.equipments.management.mapper.StaffMapper.getStaffById"
+                     javaType="com.equipments.management.domain.Staff"/>
+    </resultMap>
+
+    <select id="getProductById" parameterType="Integer"
+            resultMap="ProductMap">
+        select * from eq_product where PRODUCT_NO=#{productno}
+    </select>
+    <select id="getProductByNo" parameterType="Integer"
+            resultMap="ProductMap">
+        select * from eq_product where DRAW_NO=#{drawno}
+    </select>
+    <select id="getAllProducts" resultMap="ProductMap">
+        select * from eq_product
+    </select>
+
+    <select id="countById" resultType="java.lang.Integer" >
+        select count(1) from eq_product
+    </select>
+
+    <select id="countByApplino" resultType="java.lang.Integer" parameterType="Integer">
+        select count(1) from eq_product PR
+        left join eq_pathology_draw PD on PD.DRAW_NO = PR.DRAW_NO
+        left join eq_accept_sample ASA on ASA.SAMPLE_NO = PD.SAMPLE_NO
+        left join eq_patient_appli PA on PA.APPLI_NO = ASA.APPLI_NO
+        where PA.APPLI_NO = #{applino}
+    </select>
+
+    <update id="updateBatch">
+        <foreach collection="array" item="item" index="index" open="" close=";" separator=";">update eq_product<set>PRODUCT_STATUS= '已完成'</set> where PRODUCT_NO = ${item}</foreach>
+    </update>
+
+    <insert id="addProduct" parameterType="com.equipments.management.domain.Product"
+            useGeneratedKeys="true" keyProperty="productno">
+        insert into eq_product(PRODUCT_DOCTOR_ID,DRAW_NO,PRODUCT_DESC,PRODUCT_STATUS,RESULT_KIND,PRODUCT_DATE,PRODUCT_NOTE,PRODUCT_FILE,THUMBNAIL_FILE,SCAN_DOCTOR_ID,SCAN_DATE,PRODUCT_REQUIRE,STORE_POSITION,PRODUCT_QUALITY,UNLAW_REASON,PRODUCT_ADVICE)
+        values(#{productdoctorid.id},#{drawno.drawno},#{productdesc},#{productstatus},#{resultkind},date(#{productdate}),#{productnote},#{productfile},#{thumbnailfile},#{scandoctorid.id},date(#{scandate}),#{productrequire},#{storeposition},#{productquality},#{unlawreason},#{productadvice})
+    </insert>
+    <delete id="removeProductById" parameterType="Integer">
+        delete from eq_product where PRODUCT_NO = #{productno}
+    </delete>
+
+    <select id="getProductByAllAvaliable" resultMap="ProductMap" parameterType="com.equipments.management.domain.query.Productquery">
+        select * from eq_product
+        <where>
+            <if test="productno !=null">PRODUCT_NO=#{productno}</if>
+            <if test="productdoctorid !=null and productdoctorid.id !=null">and PRODUCT_DOCTOR_ID=#{productdoctorid.id}</if>
+            <if test="drawno !=null and drawno.drawno !=null">and DRAW_NO=#{drawno.drawno}</if>
+            <if test="productdesc !=null">and PRODUCT_DESC=#{productdesc}</if>
+            <if test="productstatus !=null">and PRODUCT_STATUS=#{productstatus}</if>
+            <if test="resultkind !=null">and RESULT_KIND=#{resultkind}</if>
+            <if test="productnote !=null">and PRODUCT_NOTE=#{productnote}</if>
+            <if test="productdate001 != null">
+                <![CDATA[ and date(PRODUCT_DATE) >= date(#{productdate001,jdbcType=DATE})]]>
+            </if>
+            <if test="productdate002 != null">
+                <![CDATA[ and date(PRODUCT_DATE) <= date(#{productdate002,jdbcType=DATE})]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByIds" resultMap="ProductMap">
+        select * from eq_product
+        <where>
+            <if test="array !=null">
+                <foreach collection="array" index="index" item="item" open="and PRODUCT_NO in (" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <update id="updateProduct" parameterType="com.equipments.management.domain.Product">
+        update eq_product
+        <trim prefix="set" suffixOverrides=",">
+            <if test="productdoctorid !=null and productdoctorid.id !=null">PRODUCT_DOCTOR_ID=#{productdoctorid.id},</if>
+            <if test="drawno !=null and drawno.drawno !=null">DRAW_NO=#{drawno.drawno},</if>
+            <if test="productdesc !=null">PRODUCT_DESC=#{productdesc},</if>
+            <if test="productstatus !=null">PRODUCT_STATUS=#{productstatus},</if>
+            <if test="resultkind !=null">RESULT_KIND=#{resultkind},</if>
+            <if test="productdate !=null">PRODUCT_DATE=#{productdate},</if>
+            <if test="productnote !=null">PRODUCT_NOTE=#{productnote},</if>
+
+            <if test="productfile !=null">PRODUCT_FILE=#{productfile},</if>
+            <if test="thumbnailfile !=null">THUMBNAIL_FILE=#{thumbnailfile},</if>
+            <if test="scandoctorid !=null and scandoctorid.id !=null">PRODUCT_NOTE=#{scandoctorid.id},</if>
+            <if test="scandate !=null">SCAN_DATE=#{scandate},</if>
+
+            <if test="productrequire !=null">PRODUCT_REQUIRE=#{productrequire},</if>
+            <if test="storeposition !=null">STORE_POSITION=#{storeposition},</if>
+            <if test="productquality !=null">PRODUCT_QUALITY=#{productquality},</if>
+            <if test="unlawreason !=null">UNLAW_REASON=#{unlawreason},</if>
+            <if test="productadvice !=null">PRODUCT_ADVICE=#{productadvice},</if>
+
+        </trim>
+        where PRODUCT_NO=#{productno}
+    </update>
+
+<!--更新的结构-->
+    <resultMap id="Product001Map" type="com.equipments.management.domain.gradation.Product001">
+        <id property="productno" column="PRODUCT_NO"/>
+        <result property="productdesc" column="PRODUCT_DESC"/>
+        <result property="productstatus" column="PRODUCT_STATUS"/>
+        <result property="resultkind" column="RESULT_KIND"/>
+        <result property="productdate" column="PRODUCT_DATE"/>
+        <result property="productnote" column="PRODUCT_NOTE"/>
+
+        <result property="productfile" column="PRODUCT_FILE"/>
+        <result property="thumbnailfile" column="THUMBNAIL_FILE"/>
+        <result property="scandate" column="SCAN_DATE"/>
+
+        <result property="productrequire" column="PRODUCT_REQUIRE"/>
+        <result property="storeposition" column="STORE_POSITION"/>
+        <result property="productquality" column="PRODUCT_QUALITY"/>
+        <result property="unlawreason" column="UNLAW_REASON"/>
+        <result property="productadvice" column="PRODUCT_ADVICE"/>
+
+        <association property="productdoctorid" column="PRODUCT_DOCTOR_ID"
+                     select="com.equipments.management.mapper.StaffMapper.getStaffById"
+                     javaType="com.equipments.management.domain.Staff"/>
+        <association property="scandoctorid" column="SCAN_DOCTOR_ID"
+                     select="com.equipments.management.mapper.StaffMapper.getStaffById"
+                     javaType="com.equipments.management.domain.Staff"/>
+    </resultMap>
+
+    <select id="getProduct001ById" parameterType="Integer"
+            resultMap="Product001Map">
+        select * from eq_product where PRODUCT_NO=#{productno}
+    </select>
+
+    <select id="getProduct001ByDrawno" parameterType="Integer"
+            resultMap="Product001Map">
+        select * from eq_product where DRAW_NO=#{drawno}
+    </select>
+
+
+    <select id="getMapResultByDiagnosis" resultType="java.util.Map" parameterType="java.lang.String">
+        select PAAP.APPLI_NO as applino,
+        PAIN.PATIENT_NAME as patientname,
+        max(PROD.PRODUCT_DATE) as productdate
+        from eq_patient_appli PAAP,
+        eq_patient_info PAIN,
+        eq_product PROD,
+        eq_accept_sample ACSA,
+        eq_pathology_draw PADR,
+        eq_pathology_review PARE
+        where PAAP.PATIENT_NO=PAIN.PATIENT_NO
+        and PAAP.APPLI_NO=ACSA.APPLI_NO
+        and ACSA.SAMPLE_NO=PADR.SAMPLE_NO
+        and PADR.DRAW_NO=PROD.DRAW_NO
+        and PARE.APPLI_NO=PAAP.APPLI_NO
+        and PARE.DIAGNOSIS_STATUS=#{diagnosisstatus}
+        group by PAAP.APPLI_NO
+    </select>
+
+    <select id="getMapResultByDiagnosis123" resultType="java.util.Map" parameterType="java.util.Map">
+        select PAAP.APPLI_NO as applino,
+        PAIN.PATIENT_NAME as patientname,
+        max(PROD.PRODUCT_DATE) as productdate
+        from eq_patient_appli PAAP,
+        eq_patient_info PAIN,
+        eq_product PROD,
+        eq_accept_sample ACSA,
+        eq_pathology_draw PADR,
+        eq_pathology_review PARE
+        where PAAP.PATIENT_NO=PAIN.PATIENT_NO
+        and PAAP.APPLI_NO=ACSA.APPLI_NO
+        and ACSA.SAMPLE_NO=PADR.SAMPLE_NO
+        and PADR.DRAW_NO=PROD.DRAW_NO
+        and PARE.APPLI_NO=PAAP.APPLI_NO
+        and PARE.REVIEW_STATUS=#{reviewstatus}
+        group by PAAP.APPLI_NO
+    </select>
+
+</mapper>

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>APIS系统</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="">
+  <!-- Stylesheets -->
+  <link href="style/bootstrap.css" rel="stylesheet">
+  <!-- Font awesome icon -->
+  <link rel="stylesheet" href="style/font-awesome.css">
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="style/jquery-ui.css">
+  <!-- Calendar -->
+  <link rel="stylesheet" href="style/fullcalendar.css">
+  <!-- prettyPhoto -->
+  <link rel="stylesheet" href="style/prettyPhoto.css">
+  <!-- Star rating -->
+  <link rel="stylesheet" href="style/rateit.css">
+  <!-- Date picker -->
+  <link rel="stylesheet" href="style/bootstrap-datetimepicker.min.css">
+  <!-- CLEditor -->
+  <link rel="stylesheet" href="style/jquery.cleditor.css">
+  <!-- Uniform -->
+  <link rel="stylesheet" href="style/uniform.default.css">
+  <!-- Bootstrap toggle -->
+  <link rel="stylesheet" href="style/bootstrap-switch.css">
+  <!-- Main stylesheet -->
+  <link href="style/style.css" rel="stylesheet">
+  <!-- Widgets stylesheet -->
+  <link href="style/widgets.css" rel="stylesheet">
+
+  <!-- HTML5 Support for IE -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shim.js"></script>
+  <![endif]-->
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="img/favicon/favicon.png">
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
+
+  <div class="conjtainer">
+    <!-- Menu button for smallar screens -->
+    <div class="navbar-header">
+      <button class="navbar-toggle btn-navbar" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span>菜单</span>
+      </button>
+      <!-- Site name for smallar screens -->
+      <a href="index.jsp" class="navbar-brand hidden-lg">APIS</a>
+    </div>
+
+
+
+    <!-- Navigation starts -->
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+
+      <ul class="nav navbar-nav navbar-left">
+
+        <!-- Upload to server link. Class "dropdown-big" creates big dropdown -->
+        <li class="dropdown dropdown-big">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-success"><i class="icon-cloud-upload"></i></span> 上传到云服务器</a>
+          <!-- Dropdown -->
+          <ul class="dropdown-menu">
+            <li>
+              <!-- Progress bar -->
+              <p>电子档案上传进度</p>
+              <!-- Bootstrap progress bar -->
+              <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-info"  role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <span class="sr-only">完成40%</span>
+                </div>
+              </div>
+
+              <hr />
+
+              <!-- Progress bar -->
+              <p>数字切片上传进度</p>
+              <!-- Bootstrap progress bar -->
+              <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                  <span class="sr-only">完成80%</span>
+                </div>
+              </div>
+
+              <hr />
+
+              <!-- Dropdown menu footer -->
+              <div class="drop-foot">
+                <a href="#">查看所有</a>
+              </div>
+
+            </li>
+          </ul>
+        </li>
+
+        <!-- Sync to server link -->
+        <li class="dropdown dropdown-big">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-danger"><i class="icon-refresh"></i></span> 同步到服务器</a>
+          <!-- Dropdown -->
+          <ul class="dropdown-menu">
+            <li>
+              <!-- Using "icon-spin" class to rotate icon. -->
+              <p><span class="label label-info"><i class="icon-cloud"></i></span>同步数字切片到服务器</p>
+              <hr />
+              <p><span class="label label-warning"><i class="icon-cloud"></i></span>同步数字切片到云端</p>
+
+              <hr />
+
+              <!-- Dropdown menu footer -->
+              <div class="drop-foot">
+                <a href="#">查看所有</a>
+              </div>
+
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+
+      <!-- Search form -->
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+      </form>
+      <!-- Links -->
+      <ul class="nav navbar-nav pull-right">
+        <li class="dropdown pull-right">
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="dropdown_user_name">
+            <i class="icon-user"></i><span></span><b class="caret"></b>
+          </a>
+
+          <!-- Dropdown menu -->
+          <ul class="dropdown-menu">
+            <li><a href="#"><i class="icon-user"></i> 资料</a></li>
+            <li><a href="#"><i class="icon-cogs"></i> 设置</a></li>
+            <li><a href="login.jsp"><i class="icon-off"></i> 退出</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
+
+<!-- Header starts -->
+<header>
+  <div class="container">
+    <div class="row">
+
+      <!-- Logo section -->
+      <div class="col-md-4">
+        <!-- Logo. -->
+        <div class="logo">
+          <h1><a href="#">APIS<span class="bold"></span></a></h1>
+          <p class="meta">业务流管理系统</p>
+        </div>
+        <!-- Logo ends -->
+      </div>
+
+      <!-- Button section -->
+      <div class="col-md-4">
+
+        <!-- Buttons -->
+        <ul class="nav nav-pills">
+
+          <!-- Comment button with number of latest comments count -->
+          <li class="dropdown dropdown-big">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <i class="icon-comments"></i> 留言 <span class="label label-info">6</span>
+            </a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <!-- Heading - h5 -->
+                <h5><i class="icon-comments"></i> 留言</h5>
+                <!-- Use hr tag to add border -->
+                <hr />
+              </li>
+              <li>
+                <!-- List item heading h6 -->
+                <h6><a href="#">你好 :)</a> <span class="label label-warning pull-right">10:42</span></h6>
+                <div class="clearfix"></div>
+                <hr />
+              </li>
+              <li>
+                <h6><a href="#">你怎么样?</a> <span class="label label-warning pull-right">20:42</span></h6>
+                <div class="clearfix"></div>
+                <hr />
+              </li>
+              <li>
+                <h6><a href="#">你在干撒呢?</a> <span class="label label-warning pull-right">14:42</span></h6>
+                <div class="clearfix"></div>
+                <hr />
+              </li>
+              <li>
+                <div class="drop-foot">
+                  <a href="#">查看所有</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Message button with number of latest messages count-->
+          <li class="dropdown dropdown-big">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <i class="icon-envelope-alt"></i> 收件箱 <span class="label label-primary">6</span>
+            </a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <!-- Heading - h5 -->
+                <h5><i class="icon-envelope-alt"></i> 消息</h5>
+                <!-- Use hr tag to add border -->
+                <hr />
+              </li>
+              <li>
+                <!-- List item heading h6 -->
+                <h6><a href="#">你好啊?</a></h6>
+                <!-- List item para -->
+                <p>最近咋样啊...</p>
+                <hr />
+              </li>
+              <li>
+                <h6><a href="#">今天很好啊?</a></h6>
+                <p>相当好...</p>
+                <hr />
+              </li>
+              <li>
+                <div class="drop-foot">
+                  <a href="#">查看所有</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Members button with number of latest members count -->
+          <li class="dropdown dropdown-big">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <i class="icon-user"></i> 用户 <span class="label label-success">6</span>
+            </a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <!-- Heading - h5 -->
+                <h5><i class="icon-user"></i> 用户</h5>
+                <!-- Use hr tag to add border -->
+                <hr />
+              </li>
+              <li>
+                <!-- List item heading h6-->
+                <h6><a href="#">Ravi Kumar</a> <span class="label label-warning pull-right">免费</span></h6>
+                <div class="clearfix"></div>
+                <hr />
+              </li>
+              <li>
+                <h6><a href="#">Balaji</a> <span class="label label-important pull-right">高级</span></h6>
+                <div class="clearfix"></div>
+                <hr />
+              </li>
+              <li>
+                <h6><a href="#">Kumarasamy</a> <span class="label label-warning pull-right">免费</span></h6>
+                <div class="clearfix"></div>
+                <hr />
+              </li>
+              <li>
+                <div class="drop-foot">
+                  <a href="#">查看所有</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+
+      </div>
+
+      <!-- Data section -->
+
+      <div class="col-md-4">
+        <div class="header-data">
+
+          <!-- Traffic data -->
+          <div class="hdata">
+            <div class="mcol-left">
+              <!-- Icon with red background -->
+              <i class="icon-signal bred"></i>
+            </div>
+            <div class="mcol-right">
+              <!-- Number of visitors -->
+              <p><a href="#">7000</a> <em>访问</em></p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+          <!-- Members data -->
+          <div class="hdata">
+            <div class="mcol-left">
+              <!-- Icon with blue background -->
+              <i class="icon-user bblue"></i>
+            </div>
+            <div class="mcol-right">
+              <!-- Number of visitors -->
+              <p><a href="#">3000</a> <em>用户</em></p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+          <!-- revenue data -->
+          <div class="hdata">
+            <div class="mcol-left">
+              <!-- Icon with green background -->
+              <i class="icon-money bgreen"></i>
+            </div>
+            <div class="mcol-right">
+              <!-- Number of visitors -->
+              <p><a href="#">5000</a><em>订单</em></p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- Header ends -->
+
+<!-- Main content starts -->
+
+<div class="content">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-dropdown"><a href="#">导航</a></div>
+
+    <!--- Sidebar navigation -->
+    <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
+    <ul id="nav">
+      <!-- Main menu with font awesome icon -->
+      <li><a href="index.jsp" class="open"><i class="icon-home"></i> 首页 </a></li>
+      <li class="has_sub"><a href="#"><i class="icon-list-alt"></i> 申请登记 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+        <ul>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 申请登记 </a></li>
+          <li><a href="widgets2.html"><i class="icon-list-alt"></i> 冰冻预约 </a></li>
+        </ul>
+      </li>
+      <li class="has_sub"><a href="#"><i class="icon-file-alt"></i> 取材制片 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+        <ul>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 大体取材 </a></li>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 制片管理 </a></li>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 特殊检验 </a></li>
+        </ul>
+      </li>
+      <li class="has_sub"><a href="charts.html"><i class="icon-bar-chart"></i> 扫描管理 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+        <ul>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 扫描管理 </a></li>
+        </ul>
+      </li>
+      <li class="has_sub"><a href="charts.html"><i class="icon-table"></i> 诊断管理 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+        <ul>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 阅片诊断 </a></li>
+        </ul>
+      </li>
+      <li class="has_sub"><a href="charts.html"><i class="icon-tasks"></i> 报告管理 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+        <ul>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 报告签收 </a></li>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 报告归档 </a></li>
+        </ul>
+      </li>
+      <li class="has_sub"><a href="charts.html"><i class="icon-magic"></i> 质控管理 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+        <ul>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 质控管理 </a></li>
+        </ul>
+      </li>
+      <li class="has_sub"><a href="charts.html"><i class="icon-calendar"></i> 系统配置 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+        <ul>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 数据字典 </a></li>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> 常用语 </a></li>
+          <li><a href="postTask.html"><i class="icon-list-alt"></i> ICH项目 </a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sidebar ends -->
+
+  <!-- Main bar -->
+  <div class="mainbar">
+
+    <!-- Page heading -->
+    <div class="page-head">
+      <h2 class="pull-left"><i class="icon-home"></i> 首页</h2>
+
+      <!-- Breadcrumb -->
+      <div class="bread-crumb pull-right">
+        <a href="index.html"><i class="icon-home"></i> 首页</a>
+        <!-- Divider -->
+        <span class="divider">/</span>
+        <a href="#" class="bread-current">控制台</a>
+      </div>
+
+      <div class="clearfix"></div>
+    </div>
+    <!-- Page heading ends -->
+      <!-- Page heading ends -->
+
+
+	    <!-- Matter -->
+
+	    <div class="matter">
+        <div class="container">
+          <div class="row">
+            <!-- post sidebar -->
+            <div class="col-md-12">
+              <div class="widget-content">
+                <div class="panel-body" style="padding-bottom:0px;">
+                  <div class="widget">
+                    <div class="widget-head">
+                      <div class="pull-left">基本信息</div>
+                      <div class="widget-icons pull-right">
+                        <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                        <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                      <form id="formSearch001" class="form-horizontal">
+                        <div class="form-group" style="margin-top:15px">
+                          <label class="control-label col-sm-1">病人信息</label>
+                        </div>
+                        <div class="form-group" style="margin-top:15px">
+                          <!--姓名name-->
+                          <label class="control-label col-sm-1" for="txt_search_xingming">姓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_xingming">
+                          </div>
+                          <!--性别gender-->
+                          <label class="control-label col-sm-1" for="txt_search_gender">性&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp别</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_gender" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择性别'></select>
+                          </div>
+                          <!--年龄age-->
+                          <label class="control-label col-sm-1" for="txt_search_age">年&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp龄</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_age">
+                          </div>
+                          <!--年龄单位unit-->
+                          <div class="col-sm-1">
+                            <select id="txt_search_unit" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择单位'></select>
+                          </div>
+                          <!--婚否marrage-->
+                          <label class="control-label col-sm-1" for="txt_search_marrage">婚&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp否</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_marrage" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择婚否'></select>
+                          </div>
+                          <!--民族minzu-->
+                          <label class="control-label col-sm-1" for="txt_search_minzu">民&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp族</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_minzu">
+                          </div>
+                          <!--职业zhiye-->
+                          <label class="control-label col-sm-1" for="txt_search_zhiye">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_zhiye">
+                          </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top:15px">
+                          <!--电话tel-->
+                          <label class="control-label col-sm-1" for="txt_search_tel">电&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp话</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" id="txt_search_tel">
+                          </div>
+                          <!--身份证号shenfenzheng-->
+                          <label class="control-label col-sm-1" for="txt_search_shenfenzheng">身份证号</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" id="txt_search_shenfenzheng">
+                          </div>
+                          <!--住址address-->
+                          <label class="control-label col-sm-1" for="txt_search_address">住&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp址</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_address" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入省'></select>
+                          </div>
+                          <div class="col-sm-1">
+                            <select id="txt_search_addresscity" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入市'></select>
+                          </div>
+                          <div class="col-sm-1">
+                            <select id="txt_search_addressdistinct" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入区'></select>
+                          </div>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" id="txt_search_addressother">
+                          </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top:15px">
+                          <!--就医来源source-->
+                          <label class="control-label col-sm-1" for="txt_search_source">就医来源</label>
+                          <div class="col-sm-2">
+                            <select id="txt_search_source" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入就医来源'></select>
+                          </div>
+                          <!--病区bingqu-->
+                          <label class="control-label col-sm-1" for="txt_search_bingqu">病&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp区</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_bingqu" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入就医来源'></select>
+                          </div>
+                          <!--床号bedcode-->
+                          <label class="control-label col-sm-1" for="txt_search_bedcode">床&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_bedcode">
+                          </div>
+                        </div>
+                        <hr />
+                        <!--分割-->
+                        <div class="form-group" style="margin-top:15px">
+                          <label class="control-label col-sm-1">临床诊断</label>
+                        </div>
+                        <div class="form-group" style="margin-top:15px">
+                          <!--症状zhengzhuang-->
+                          <label class="control-label col-sm-1" for="txt_search_zhengzhuang"> 症&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp状</label>
+                          <div class="col-sm-5">
+                            <textarea class="form-control" rows="3" placeholder="Textarea" id="txt_search_zhengzhuang"></textarea>
+                          </div>
+                          <!--体征tizheng-->
+                          <label class="control-label col-sm-1" for="txt_search_tizheng"> 体&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp征</label>
+                          <div class="col-sm-5">
+                            <textarea class="form-control" rows="3" placeholder="Textarea" id="txt_search_tizheng"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group" style="margin-top:15px">
+                          <!--临床诊断linchuangzhenduan-->
+                          <label class="control-label col-sm-1" for="txt_search_linchuangzhenduan"> 临床诊断</label>
+                          <div class="col-sm-5">
+                            <textarea class="form-control" rows="3" placeholder="Textarea" id="txt_search_linchuangzhenduan"></textarea>
+                          </div>
+                          <!--其它诊断qitazhenduan-->
+                          <label class="control-label col-sm-1" for="txt_search_qitazhenduan"> 其它诊断</label>
+                          <div class="col-sm-5">
+                            <textarea class="form-control" rows="3" placeholder="Textarea" id="txt_search_qitazhenduan"></textarea>
+                          </div>
+                        </div>
+                        <hr/>
+                        <!--分割-->
+                        <div class="form-group" style="margin-top:15px">
+                          <label class="col-sm-2">&nbsp&nbsp&nbsp&nbsp送检标本注意事项</label>
+                        </div>
+                        <div class="form-group" style="margin-top:15px">
+                          <!--是否曾在本院做过病理检查sfczby-->
+                          <label class="col-sm-2" for="txt_search_sfczby">&nbsp&nbsp&nbsp&nbsp是否曾在本院做过病理检查</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_sfczby" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否曾在本院做过病理检查'></select>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-12">
+              <div class="widget-content">
+                <div class="panel-body" style="padding-bottom:0px;">
+                  <div class="widget">
+                    <div class="widget-head">
+                      <div class="pull-left">肿瘤患者填写信息</div>
+                      <div class="widget-icons pull-right">
+                        <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                        <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                      <form id="formSearch002" class="form-horizontal">
+                        <div class="form-group" style="margin-top:15px">
+                          <!--肿瘤发现时间zlfxsj-->
+                          <label class="control-label col-sm-1" for="txt_search_zlfxsj">发现时间</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_zlfxsj">
+                          </div>
+                          <label class="control-label col-sm-1" for="txt_search_zlfxsj">年</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_zlfxsjyue">
+                          </div>
+                          <label class="control-label col-sm-1" for="txt_search_zlfxsj">月</label>
+
+                          <!--肿瘤部位zlbw-->
+                          <label class="control-label col-sm-1" for="txt_search_zlbw">肿瘤部位</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_zlbw">
+                          </div>
+                          <!--肿瘤大小zldx-->
+                          <label class="control-label col-sm-2" for="txt_search_zldx">肿瘤大小</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_zldx">
+                          </div>
+                        </div>
+                        <div class="form-group" style="margin-top:15px">
+                          <!--转移zhuanyi-->
+                          <label class="control-label col-sm-1" for="txt_search_zhuanyi">有无转移</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_zhuanyi" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='有无转移'></select>
+                          </div>
+                          <!--转移位置zhuanyiweizhi-->
+                          <label class="control-label col-sm-1" for="txt_search_zhuanyiweizhi">转移位置</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_zhuanyiweizhi">
+                          </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top:15px">
+                          <!--放化疗fanghualiao-->
+                          <label class="control-label col-sm-1" for="txt_search_fanghualiao">放化疗？</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_fanghualiao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='有无转移'></select>
+                          </div>
+                          <!--肿瘤大小zhongliudaxiao-->
+                          <label class="control-label col-sm-1" for="txt_search_zhongliudaxiao">肿瘤大小</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_zhongliudaxiao">
+                          </div>
+                          <!--肿瘤大小对应时间-->
+                          <div id="datetimepicker1" class="input-append col-sm-2">
+                            <input data-format="yyyy-MM-dd'" type="text" class="form-control dtpicker" id="txt_search_pizhunriqi1">
+                            <span class="add-on">
+                              <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-12">
+              <div class="widget-content">
+                <div class="panel-body" style="padding-bottom:0px;">
+                  <div class="widget">
+                    <div class="widget-head">
+                      <div class="pull-left">如为妇科患者请填写</div>
+                      <div class="widget-icons pull-right">
+                        <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                        <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                      <form id="formSearch003" class="form-horizontal">
+                        <div class="form-group" style="margin-top:15px">
+                          <!--月经周期yjzq-->
+                          <label class="control-label col-sm-1" for="txt_search_yjzq">月经周期</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_yjzq">
+                          </div>
+                          <label class="control-label col-sm-1" for="txt_search_yjzq">天</label>
+                          <!--月经持续时间yjcxsj-->
+                          <label class="control-label col-sm-1" for="txt_search_yjcxsj">持续时间</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_yjcxsj">
+                          </div>
+                          <label class="control-label col-sm-1" for="txt_search_yjcxsj">天/次</label>
+                        </div>
+                        <div class="form-group" style="margin-top:15px">
+                          <!--上次月经scyj-->
+                          <label class="control-label col-sm-1" for="txt_search_scyj">上次月经</label>
+                          <div id="datetimepicker2" class="input-append col-sm-2">
+                            <input data-format="yyyy-MM-dd'" type="text" class="form-control dtpicker" id="txt_search_scyj">
+                            <span class="add-on">
+                              <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                            </span>
+                          </div>
+                          <!--周期治疗？zqzl-->
+                          <label class="control-label col-sm-1" for="txt_search_zqzl">周期治疗</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_zqzl" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否施行周期治疗'></select>
+                          </div>
+                          <!--周期治疗时间zqzlsj-->
+                          <label class="control-label col-sm-1" for="txt_search_zqzlsj">时间</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_zqzlsj">
+                          </div>
+                          <!--剂量zqzljl-->
+                          <label class="control-label col-sm-1" for="txt_search_zqzljl">剂量</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_zqzljl">
+                          </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top:15px">
+                          <!--生产史shengchanshi-->
+                          <label class="control-label col-sm-1" for="txt_search_shengchanshi">生产史</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_shengchanshi">
+                          </div>
+                          <!--剂量zqzljl-->
+                          <label class="control-label col-sm-1" for="txt_search_shengchanshi">胎</label>
+                          <div class="col-sm-1">
+                            <input type="text" class="form-control" id="txt_search_shengchanshichan">
+                          </div>
+                          <label class="control-label col-sm-1" for="txt_search_shengchanshi">产</label>
+                        </div>
+
+                      <div class="form-group" style="margin-top:15px">
+                        <!--避孕youfoubiyun-->
+                        <label class="control-label col-sm-1" for="txt_search_youfoubiyun">有否避孕</label>
+                        <div class="col-sm-1">
+                          <select id="txt_search_youfoubiyun" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='有否避孕'></select>
+                        </div>
+                        <!--避孕方式biyunfangshi-->
+                        <label class="control-label col-sm-1" for="txt_search_biyunfangshi">避孕方式</label>
+                        <div class="col-sm-1">
+                          <select id="txt_search_biyunfangshi" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='避孕方式'></select>
+                        </div>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-12">
+              <div class="widget-content">
+                <div class="panel-body" style="padding-bottom:0px;">
+                  <div class="widget">
+                    <div class="widget-head">
+                      <div class="pull-left">如为甲状腺标本请填写</div>
+                      <div class="widget-icons pull-right">
+                        <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                        <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                      <form id="formSearch004" class="form-horizontal">
+                        <div class="form-group" style="margin-top:15px">
+                          <!--碘剂治疗dianjizhiliao-->
+                          <label class="control-label col-sm-2" for="txt_search_dianjizhiliao">&nbsp&nbsp&nbsp&nbsp是否接受过碘剂治疗</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_dianjizhiliao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否接受过碘剂治疗'></select>
+                          </div>
+                          <!--硫尿嘧啶类治疗lnmdzl-->
+                          <label class="control-label col-sm-2" for="txt_search_lnmdzl">&nbsp&nbsp&nbsp&nbsp是否接受过硫尿嘧啶类治疗</label>
+                          <div class="col-sm-1">
+                            <select id="txt_search_lnmdzl" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否接受过硫尿嘧啶类治疗'></select>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-12">
+              <div class="widget-content">
+                <div class="panel-body" style="padding-bottom:0px;">
+                  <div class="widget">
+                    <div class="widget-head">
+                      <div class="pull-left">外科手术切除标本送检请填写</div>
+                      <div class="widget-icons pull-right">
+                        <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                        <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                      <form id="formSearch005" class="form-horizontal">
+                        <div class="form-group" style="margin-top:15px">
+                          <!--手术所见shoushusuojian-->
+                          <label class="control-label col-sm-1" for="txt_search_shoushusuojian">手术所见</label>
+                          <div class="col-sm-11">
+                            <textarea class="form-control" rows="3" placeholder="Textarea" id="txt_search_shoushusuojian"></textarea>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+		  </div>
+
+		<!-- Matter ends -->
+
+    </div>
+
+   <!-- Mainbar ends -->	    	
+   <div class="clearfix"></div>
+
+</div>
+<!-- Content ends -->
+
+<!-- Footer starts -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+            <!-- Copyright info -->
+            <p class="copy">Copyright &copy; 2018 | <a href="#">蓝创公司</a> </p>
+      </div>
+    </div>
+  </div>
+</footer> 	
+
+<!-- Footer ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
+
+<!-- JS -->
+<script src="js/jquery.js"></script> <!-- jQuery -->
+<script src="js/bootstrap.js"></script> <!-- Bootstrap -->
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
+<script src="js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+<script src="js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
+<script src="js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+
+<!-- jQuery Flot -->
+<script src="js/excanvas.min.js"></script>
+<script src="js/jquery.flot.js"></script>
+<script src="js/jquery.flot.resize.js"></script>
+<script src="js/jquery.flot.pie.js"></script>
+<script src="js/jquery.flot.stack.js"></script>
+
+<!-- jQuery Notification - Noty -->
+<script src="js/jquery.noty.js"></script> <!-- jQuery Notify -->
+<script src="js/themes/default.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/bottom.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/topRight.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/top.js"></script> <!-- jQuery Notify -->
+<!-- jQuery Notification ends -->
+
+<script src="js/sparklines.js"></script> <!-- Sparklines -->
+<script src="js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
+<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
+<script src="js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
+<script src="js/filter.js"></script> <!-- Filter for support page -->
+<script src="js/custom.js"></script> <!-- Custom codes -->
+<script src="js/charts.js"></script> <!-- Charts & Graphs -->
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.equipments.management.mapper.SamplephotodescMapper">
+
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+    <resultMap id="samplephotodescResultMap" type="com.equipments.management.domain.Samplephotodesc">
+        <id property="photodescno" column="PHOTO_DESC_NO"/>
+        <result property="sampleno" column="SAMPLE_NO"/>
+        <result property="filepath" column="FILE_PATH"/>
+        <result property="filedesc" column="FILE_DESC"/>
+    </resultMap>
+
+    <select id="getSamplephotodescById" parameterType="Integer"
+            resultMap="samplephotodescResultMap">
+        select * from sample_photo_desc where PHOTO_DESC_NO=#{photodescno}
+    </select>
+    <select id="getSamplephotodescByNo" parameterType="Integer"
+            resultMap="samplephotodescResultMap">
+        select * from sample_photo_desc where SAMPLE_NO=#{sampleno}
+    </select>
+    <select id="getAllSamplephotodescs" resultMap="samplephotodescResultMap">
+        select * from sample_photo_desc
+    </select>
+
+    <select id="countById" resultType="java.lang.Integer" >
+        select count(1) from sample_photo_desc
+    </select>
+    <insert id="addSamplephotodesc" parameterType="com.equipments.management.domain.Samplephotodesc"
+            useGeneratedKeys="true" keyProperty="photodescno">
+        insert into sample_photo_desc(SAMPLE_NO,FILE_PATH,FILE_DESC)
+        values(#{sampleno},#{filepath},#{filedesc})
+    </insert>
+    <delete id="removeSamplephotodescById" parameterType="Integer">
+        delete from sample_photo_desc where PHOTO_DESC_NO = #{photodescno}
+    </delete>
+
+    <select id="getSamplephotodescByAll" resultMap="samplephotodescResultMap">
+        select * from sample_photo_desc
+        <where>
+            <if test="photodescno !=null">PHOTO_DESC_NO=#{photodescno}</if>
+            <if test="sampleno !=null">and SAMPLE_NO=#{sampleno}</if>
+            <if test="filepath !=null">and FILE_PATH=#{filepath}</if>
+            <if test="filedesc !=null">and FILE_DESC=#{filedesc}</if>
+        </where>
+    </select>
+
+    <update id="updateSamplephotodesc">
+        update sample_photo_desc
+        <trim prefix="set" suffixOverrides=",">
+            <if test="sampleno !=null">SAMPLE_NO=#{sampleno},</if>
+            <if test="filepath !=null">FILE_PATH=#{filepath},</if>
+            <if test="filedesc !=null">FILE_DESC=#{filedesc},</if>
+        </trim>
+        where PHOTO_DESC_NO=#{photodescno}
+    </update>
+</mapper>

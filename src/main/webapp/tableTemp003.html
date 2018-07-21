@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!-- Title and other stuffs -->
+    <title>医疗设备页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="">
+    <!-- Stylesheets -->
+    <link href="style/bootstrap.css" rel="stylesheet">
+    <!-- Font awesome icon -->
+    <link rel="stylesheet" href="style/font-awesome.css">
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="style/jquery-ui.css">
+    <!-- Calendar -->
+    <link rel="stylesheet" href="style/fullcalendar.css">
+    <!-- prettyPhoto -->
+    <link rel="stylesheet" href="style/prettyPhoto.css">
+    <!-- Star rating -->
+    <link rel="stylesheet" href="style/rateit.css">
+    <!-- Date picker -->
+    <link rel="stylesheet" href="style/bootstrap-datetimepicker.min.css">
+    <!-- CLEditor -->
+    <link rel="stylesheet" href="style/jquery.cleditor.css">
+    <!-- Bootstrap toggle -->
+    <link rel="stylesheet" href="style/bootstrap-switch.css">
+    <!-- Main stylesheet -->
+    <link href="style/style.css" rel="stylesheet">
+    <!-- Widgets stylesheet -->
+    <link href="style/widgets.css" rel="stylesheet">
+
+    <!--将表格列宽设置为可定制-->
+    <style type="text/css">
+        table {
+            table-layout: fixed;
+        }
+    </style>
+
+    <!-- HTML5 Support for IE -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shim.js"></script>
+    <![endif]-->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    <link rel="stylesheet" href="/style/bootstrap.css">
+    <link rel="stylesheet" href="/style/bootstrap-table.css">
+    <link rel="stylesheet" href="/style/bootstrap-editable.css">
+
+
+    <script src="js/jquery.js"></script> <!-- jQuery -->
+    <script src="js/bootstrap.js"></script> <!-- Bootstrap -->
+
+    <script src="/js/bootstrap-table.js"></script>
+    <script src="/js/bootstrap-table-zh-CN.js"></script>
+    <script src="/js/bootstrap-editable.js"></script>
+    <script src="/js/bootstrap-table-editable.js"></script>
+    <script src="/js/bootstrap-table-export.js"></script>
+
+    <script src="/js/tableExport.js"></script>
+    <script>
+
+        Date.prototype.Format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        };
+
+
+        $(function () {
+
+            //1.初始化Table
+            var oTable = new TableInit();
+            oTable.Init();
+
+            //2.初始化Button的点击事件
+            var oButtonInit = new ButtonInit();
+            oButtonInit.Init();
+
+
+            var tempButton = $('#btn_add');
+            var tempButtondel = $('#btn_delete');
+            var newRowData = {
+                no:'',
+                docu:'',
+                name:'',
+                'code.name':'',
+                location:'',
+                measure:'',
+                stand:'',
+                typ:'',
+                'manufacture.name':'',
+                'fund.source':'',
+                price:'',
+                'department.name':'',
+                produ:'',
+                handl:'',
+                leave:'',
+                start:'',
+                quality:'',
+                category:'',
+                useyears:'',
+                stock:'',
+                serv:'',
+                'agent.name':'',
+                use:'',
+                ind:'',
+                armycode:'',
+                'staff.name':''
+            };
+
+            tempButton.click(function () {
+                $('#tb_departments').bootstrapTable('append', newRowData);
+                $('#tb_departments').bootstrapTable('scrollTo', 'bottom');
+                //alert("btn_add");
+            });
+            tempButtondel.click(function () {
+                var ids = $.map($('#tb_departments').bootstrapTable('getSelections'), function (row) {
+                    return row.no;
+                });
+                if (ids.length < 1 ) {
+                    alert("请选择一行删除!");
+                    return;
+                }
+                $('#tb_departments').bootstrapTable('remove', {
+                    field: 'no',
+                    values: ids
+                });
+            });
+        });
+
+
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_departments').bootstrapTable({
+                    url: '/testEquipment', //请求后台的URL（*）
+                    method: 'get', //请求方式（*）
+                    dataType: "json",
+                    toolbar: '#toolbar', //工具按钮用哪个容器
+                    striped: true, //是否显示行间隔色
+                    cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    pagination: true, //是否显示分页（*）
+                    sortable: true, //是否启用排序
+                    sortOrder: "asc", //排序方式
+                    queryParams: oTableInit.queryParams,//传递参数（*）
+                    queryParamsType: "undefined",
+                    singleSelect: false,//复选框只能选择一条记录
+                    sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+                    pageNumber:1, //初始化加载第一页，默认第一页
+                    pageSize: 10, //每页的记录行数（*）
+                    pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
+                    search: true, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                    strictSearch: true,
+                    showColumns: true, //是否显示所有的列
+                    showRefresh: true, //是否显示刷新按钮
+                    minimumCountColumns: 2, //最少允许的列数
+                    clickToSelect: true, //是否启用点击选中行
+                    height: 'auto', //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                    uniqueId: "ID", //每一行的唯一标识，一般为主键列
+                    showToggle:true, //是否显示详细视图和列表视图的切换按钮
+                    cardView: false, //是否显示详细视图
+                    detailView: false, //是否显示父子表
+                    showExport: true,
+                    exportDataType: "selected",              //basic', 'all', 'selected'.
+                    columns: [
+                        {checkbox: true},
+                        {field:'no',title:'ID',width:60,align:'center',sortable : true},
+                        {field:'docu',title:'档案号',width:100,align:'center',editable:true,sortable : true},
+                        {field:'code.name',title:'设备标准名',width:120,align:'left',editable:true,sortable : true,formatter:function(value,row,index){
+                            if(row.code == null) {
+                                return "";
+                            }
+                        }},
+                        {field:'name',title:'设备名称',width:200,align:'left',editable:true,sortable : true},
+                        {field:'location',title:'位置',width:100,align:'left',editable:true,sortable : true},
+                        {field:'measure',title:'单位',width:70, align:'center',editable:true,sortable : true},
+                        {field:'stand',title:'规格',width:150,align:'left',editable:true,sortable : true},
+                        {field:'typ',title:'型号',width:150,align:'left',editable:true,sortable : true},
+                        {field:'manufacture.name',title:'生产厂家',width:250,align:'left',editable:true,sortable : true},
+                        {field:'fund.source',title:'经费来源',width:100,align:'center',editable:true,sortable : true},
+                        {field:'department.name',title:'使用科室',width:100,align:'left',editable:true,sortable : true},
+                        {field:'produ',title:'生产日期',width:110,align:'left',editable:true,sortable : true,formatter:function(value,row,index){
+                            if(row.produ !=null){
+                                return new Date(row.produ).Format("yyyy-MM-dd");
+                            }
+                            else{
+                                return "";
+                            }
+                        }},
+                        {field:'handl',title:'购置日期',width:110,align:'left',editable:true,sortable : true,formatter:function(value,row,index){
+                    if(row.produ !=null){
+                        return new Date(row.produ).Format("yyyy-MM-dd");
+                    }
+                    else{
+                        return "";
+                    }
+                }},
+                        {field:'leave',title:'出库日期',width:110,align:'left',editable:true,sortable : true,formatter:function(value,row,index){
+                            if(row.produ !=null){
+                                return new Date(row.produ).Format("yyyy-MM-dd");
+                            }
+                            else{
+                                return "";
+                            }
+                        }},
+                        {field:'start',title:'启用日期',width:110,align:'left',editable:true,sortable : true,formatter:function(value,row,index){
+                            if(row.produ !=null){
+                                return new Date(row.produ).Format("yyyy-MM-dd");
+                            }
+                            else{
+                                return "";
+                            }
+                        }},
+                        {field:'quality',title:'质量等级',width:100,align:'left',editable:true,sortable : true},
+                        {field:'category',title:'类别',width:100,align:'left',editable:true,sortable : true},
+                        {field:'useyears',title:'使用年限',width:100,align:'left',editable:true,sortable : true},
+                        {field:'stock',title:'库存标识',width:100,align:'left',editable:true,sortable : true},
+                        {field:'serv',title:'送修状态',width:100,align:'left',editable:true,sortable : true},
+                        {field:'agent.name',title:'代理商名称',width:200,align:'left',editable:true,sortable : true},
+                        {field:'use',title:'用途',width:90,align:'left',editable:true,sortable : true},
+                        {field:'ind',title:'入库日期',width:110,align:'left',editable:true,sortable : true,formatter:function(value,row,index){
+                            if(row.produ !=null){
+                                return new Date(row.produ).Format("yyyy-MM-dd");
+                            }
+                            else{
+                                return "";
+                            }
+                        }},
+                        {field:'armycode',title:'军标码',width:90,align:'left',editable:true,sortable : true},
+                        {field:'staff.name',title:'保管人',width:90,align:'left',editable:true,sortable : true}],
+
+                    onEditableSave: function (field, row, oldValue, $el) {
+                        $.ajax({
+                            type: "post",
+                            url: "/testEquipment",
+                            data: { strJson: JSON.stringify(row),strField:field,strOldValue:oldValue},
+                            success: function (data, status) {
+                                if (status == "success") {
+                                    alert("编辑成功");
+                                }
+                            },
+                            error: function () {
+                                alert("Error");
+                            },
+                            complete: function () {
+
+                            }
+
+                        });
+                    }
+
+                });
+            };
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    pageSize: params.pageSize, //页面大小
+                    pageNumber: params.pageNumber, //页码
+                    departmentname: $("#txt_search_departmentname").val(),
+                    statu: $("#txt_search_statu").val(),
+                    sortName:this.sortName,
+                    sortOrder:this.sortOrder
+                };
+                return temp;
+            };
+            return oTableInit;
+        };
+
+
+        var ButtonInit = function () {
+            var oInit = new Object();
+            var postdata = {};
+
+            oInit.Init = function () {
+                //初始化页面上面的按钮事件
+            };
+
+            return oInit;
+        };
+    </script>
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
+
+    <div class="container">
+        <!-- Menu button for smallar screens -->
+        <div class="navbar-header">
+            <button class="navbar-toggle btn-navbar" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span>Menu</span>
+            </button>
+            <!-- Site name for smallar screens -->
+            <a href="index.html" class="navbar-brand hidden-lg">MacBeth</a>
+        </div>
+
+
+
+        <!-- Navigation starts -->
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+
+            <ul class="nav navbar-nav">
+
+                <!-- Upload to server link. Class "dropdown-big" creates big dropdown -->
+                <li class="dropdown dropdown-big">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-success"><i class="icon-cloud-upload"></i></span> Upload to Cloud</a>
+                    <!-- Dropdown -->
+                    <ul class="dropdown-menu">
+                        <li>
+                            <!-- Progress bar -->
+                            <p>Photo Upload in Progress</p>
+                            <!-- Bootstrap progress bar -->
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-info"  role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                    <span class="sr-only">40% Complete</span>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <!-- Progress bar -->
+                            <p>Video Upload in Progress</p>
+                            <!-- Bootstrap progress bar -->
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                    <span class="sr-only">80% Complete</span>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <!-- Dropdown menu footer -->
+                            <div class="drop-foot">
+                                <a href="#">View All</a>
+                            </div>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Sync to server link -->
+                <li class="dropdown dropdown-big">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-danger"><i class="icon-refresh"></i></span> Sync with Server</a>
+                    <!-- Dropdown -->
+                    <ul class="dropdown-menu">
+                        <li>
+                            <!-- Using "icon-spin" class to rotate icon. -->
+                            <p><span class="label label-info"><i class="icon-cloud"></i></span> Syncing Members Lists to Server</p>
+                            <hr />
+                            <p><span class="label label-warning"><i class="icon-cloud"></i></span> Syncing Bookmarks Lists to Cloud</p>
+
+                            <hr />
+
+                            <!-- Dropdown menu footer -->
+                            <div class="drop-foot">
+                                <a href="#">View All</a>
+                            </div>
+
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+            <!-- Search form -->
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
+            <!-- Links -->
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown pull-right">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="icon-user"></i> Admin <b class="caret"></b>
+                    </a>
+
+                    <!-- Dropdown menu -->
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="icon-user"></i> Profile</a></li>
+                        <li><a href="#"><i class="icon-cogs"></i> Settings</a></li>
+                        <li><a href="login.html"><i class="icon-off"></i> Logout</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+
+    </div>
+</div>
+
+
+<!-- Header starts -->
+<header>
+    <div class="container">
+        <div class="row">
+
+            <!-- Logo section -->
+            <div class="col-md-4">
+                <!-- Logo. -->
+                <div class="logo">
+                    <h1><a href="#">Mac<span class="bold"></span></a></h1>
+                    <p class="meta">后台管理系统</p>
+                </div>
+                <!-- Logo ends -->
+            </div>
+
+            <!-- Button section -->
+            <div class="col-md-4">
+
+                <!-- Buttons -->
+                <ul class="nav nav-pills">
+
+                    <!-- Comment button with number of latest comments count -->
+                    <li class="dropdown dropdown-big">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="icon-comments"></i> Chats <span   class="label label-info">6</span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <!-- Heading - h5 -->
+                                <h5><i class="icon-comments"></i> Chats</h5>
+                                <!-- Use hr tag to add border -->
+                                <hr />
+                            </li>
+                            <li>
+                                <!-- List item heading h6 -->
+                                <h6><a href="#">Hi :)</a> <span class="label label-warning pull-right">10:42</span></h6>
+                                <div class="clearfix"></div>
+                                <hr />
+                            </li>
+                            <li>
+                                <h6><a href="#">How are you?</a> <span class="label label-warning pull-right">20:42</span></h6>
+                                <div class="clearfix"></div>
+                                <hr />
+                            </li>
+                            <li>
+                                <h6><a href="#">What are you doing?</a> <span class="label label-warning pull-right">14:42</span></h6>
+                                <div class="clearfix"></div>
+                                <hr />
+                            </li>
+                            <li>
+                                <div class="drop-foot">
+                                    <a href="#">View All</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Message button with number of latest messages count-->
+                    <li class="dropdown dropdown-big">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="icon-envelope-alt"></i> Inbox <span class="label label-primary">6</span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <!-- Heading - h5 -->
+                                <h5><i class="icon-envelope-alt"></i> Messages</h5>
+                                <!-- Use hr tag to add border -->
+                                <hr />
+                            </li>
+                            <li>
+                                <!-- List item heading h6 -->
+                                <h6><a href="#">Hello how are you?</a></h6>
+                                <!-- List item para -->
+                                <p>Quisque eu consectetur erat eget  semper...</p>
+                                <hr />
+                            </li>
+                            <li>
+                                <h6><a href="#">Today is wonderful?</a></h6>
+                                <p>Quisque eu consectetur erat eget  semper...</p>
+                                <hr />
+                            </li>
+                            <li>
+                                <div class="drop-foot">
+                                    <a href="#">View All</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Members button with number of latest members count -->
+                    <li class="dropdown dropdown-big">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="icon-user"></i> Users <span   class="label label-success">6</span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <!-- Heading - h5 -->
+                                <h5><i class="icon-user"></i> Users</h5>
+                                <!-- Use hr tag to add border -->
+                                <hr />
+                            </li>
+                            <li>
+                                <!-- List item heading h6-->
+                                <h6><a href="#">Ravi Kumar</a> <span class="label label-warning pull-right">Free</span></h6>
+                                <div class="clearfix"></div>
+                                <hr />
+                            </li>
+                            <li>
+                                <h6><a href="#">Balaji</a> <span class="label label-important pull-right">Premium</span></h6>
+                                <div class="clearfix"></div>
+                                <hr />
+                            </li>
+                            <li>
+                                <h6><a href="#">Kumarasamy</a> <span class="label label-warning pull-right">Free</span></h6>
+                                <div class="clearfix"></div>
+                                <hr />
+                            </li>
+                            <li>
+                                <div class="drop-foot">
+                                    <a href="#">View All</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- Data section -->
+
+            <div class="col-md-4">
+                <div class="header-data">
+
+                    <!-- Traffic data -->
+                    <div class="hdata">
+                        <div class="mcol-left">
+                            <!-- Icon with red background -->
+                            <i class="icon-signal bred"></i>
+                        </div>
+                        <div class="mcol-right">
+                            <!-- Number of visitors -->
+                            <p><a href="#">7000</a> <em>visits</em></p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <!-- Members data -->
+                    <div class="hdata">
+                        <div class="mcol-left">
+                            <!-- Icon with blue background -->
+                            <i class="icon-user bblue"></i>
+                        </div>
+                        <div class="mcol-right">
+                            <!-- Number of visitors -->
+                            <p><a href="#">3000</a> <em>users</em></p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <!-- revenue data -->
+                    <div class="hdata">
+                        <div class="mcol-left">
+                            <!-- Icon with green background -->
+                            <i class="icon-money bgreen"></i>
+                        </div>
+                        <div class="mcol-right">
+                            <!-- Number of visitors -->
+                            <p><a href="#">5000</a><em>orders</em></p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- Header ends -->
+
+<!-- Main content starts -->
+
+<div class="content">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
+
+        <!--- Sidebar navigation -->
+        <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
+        <ul id="nav">
+            <!-- Main menu with font awesome icon -->
+            <li><a href="index.html"><i class="icon-home"></i> Dashboard</a>
+                <!-- Sub menu markup
+                <ul>
+                  <li><a href="#">Submenu #1</a></li>
+                  <li><a href="#">Submenu #2</a></li>
+                  <li><a href="#">Submenu #3</a></li>
+                </ul>-->
+            </li>
+            <li class="has_sub"><a href="#"><i class="icon-list-alt"></i> Widgets  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+                <ul>
+                    <li><a href="widgets1.html">Widgets #1</a></li>
+                    <li><a href="widgets2.html">Widgets #2</a></li>
+                    <li><a href="widgets3.html">Widgets #3</a></li>
+                </ul>
+            </li>
+            <li class="has_sub"><a href="#"><i class="icon-file-alt"></i> Pages #1  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+                <ul>
+                    <li><a href="post.html">Post</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="invoice.html">Invoice</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </li>
+            <li class="has_sub"><a href="#"><i class="icon-file-alt"></i> Pages #2  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+                <ul>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="statement.html">Statement</a></li>
+                    <li><a href="error.html">Error</a></li>
+                    <li><a href="error-log.html">Error Log</a></li>
+                    <li><a href="calendar.html">Calendar</a></li>
+                    <li><a href="grid.html">Grid</a></li>
+                </ul>
+            </li>
+            <li><a href="charts.html"><i class="icon-bar-chart"></i> Charts</a></li>
+            <li class="has_sub"><a href="#"><i class="icon-table"></i> Tables  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+                <ul>
+                    <li><a href="tableTemp002.html">人员列表</a></li>
+                    <li><a href="statement.html">Statement</a></li>
+                    <li><a href="error.html">Error</a></li>
+                    <li><a href="error-log.html">Error Log</a></li>
+                    <li><a href="calendar.html">Calendar</a></li>
+                    <li><a href="grid.html">Grid</a></li>
+                </ul>
+            </li>
+            <li><a href="forms.html"><i class="icon-tasks"></i> Forms</a></li>
+            <li><a href="ui.html"><i class="icon-magic"></i> User Interface</a></li>
+            <li><a href="calendar.html"><i class="icon-calendar"></i> Calendar</a></li>
+        </ul>
+    </div>
+
+    <!-- Sidebar ends -->
+
+    <!-- Main bar -->
+    <div class="mainbar">
+
+        <!-- Page heading -->
+        <div class="page-head">
+            <h2 class="pull-left"><i class="icon-table"></i> Tables</h2>
+
+            <!-- Breadcrumb -->
+            <div class="bread-crumb pull-right">
+                <a href="index.html"><i class="icon-home"></i> Home</a>
+                <!-- Divider -->
+                <span class="divider">/</span>
+                <a href="#" class="bread-current">Dashboard</a>
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+        <!-- Page heading ends -->
+
+        <!-- Matter -->
+
+        <div class="matter">
+            <div class="container">
+
+                <!-- Table -->
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="widget">
+
+                        <div class="widget-head">
+                            <div class="pull-left">Tables</div>
+                            <div class="widget-icons pull-right">
+                                <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                                <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="widget-content">
+                        <div class="panel-body" style="padding-bottom:0px;">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">查询条件</div>
+                                <div class="panel-body">
+                                    <form id="formSearch" class="form-horizontal">
+                                        <div class="form-group" style="margin-top:15px">
+                                            <label class="control-label col-sm-1" for="txt_search_departmentname">部门名称</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="txt_search_departmentname">
+                                            </div>
+                                            <label class="control-label col-sm-1" for="txt_search_statu">状态</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="txt_search_statu">
+                                            </div>
+                                            <div class="col-sm-3" style="text-align:left;">
+                                                <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div id="toolbar" class="btn-group">
+                                <button id="btn_add" type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                                </button>
+                                <button id="btn_edit" type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                                </button>
+                                <button id="btn_delete" type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                                </button>
+                            </div>
+                            <table id="tb_departments"></table>
+                        </div>
+                        </div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Matter ends -->
+
+</div>
+
+<!-- Mainbar ends -->
+<div class="clearfix"></div>
+
+<!-- Content ends -->
+
+<!-- Footer starts -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Copyright info -->
+                <p class="copy">Copyright &copy; 2017 | <a href="#">Your Site</a> </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Footer ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
+
+<!-- JS -->
+
+
+<!--
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+-->
+<script src="js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+<script src="js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
+<script src="js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+
+<!-- jQuery Flot -->
+<script src="js/excanvas.min.js"></script>
+<script src="js/jquery.flot.js"></script>
+<script src="js/jquery.flot.resize.js"></script>
+<script src="js/jquery.flot.pie.js"></script>
+<script src="js/jquery.flot.stack.js"></script>
+
+<!-- jQuery Notification - Noty -->
+<script src="js/jquery.noty.js"></script> <!-- jQuery Notify -->
+<script src="js/themes/default.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/bottom.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/topRight.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/top.js"></script> <!-- jQuery Notify -->
+<!-- jQuery Notification ends -->
+<script src="js/sparklines.js"></script> <!-- Sparklines -->
+<script src="js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
+<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
+<script src="js/filter.js"></script> <!-- Filter for support page -->
+<script src="js/custom.js"></script> <!-- Custom codes -->
+<script src="js/charts.js"></script> <!-- Charts & Graphs -->
+
+
+</body>
+</html>

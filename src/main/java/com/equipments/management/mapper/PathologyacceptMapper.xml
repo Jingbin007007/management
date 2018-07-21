@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.equipments.management.mapper.PathologyacceptMapper">
+
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+    <resultMap id="pathologyacceptResultMap" type="com.equipments.management.domain.Pathologyaccept">
+        <id property="acceptno" column="ACCEPT_NO"/>
+        <result property="acceptdesc" column="ACCEPT_DESC"/>
+        <result property="acceptresult" column="ACCEPT_RESULT"/>
+
+        <result property="acceptdate" column="ACCEPT_DATE"/>
+
+        <association property="patientappli" column="APPLI_NO"
+                     select="com.equipments.management.mapper.PatientappliMapper.getPatientappliById"
+                     javaType="com.equipments.management.domain.Patientappli"/>
+        <association property="acceptdoctorid" column="ACCEPT_DOCTOR_ID"
+                     select="com.equipments.management.mapper.StaffMapper.getStaffById"
+                     javaType="com.equipments.management.domain.Staff"/>
+    </resultMap>
+
+    <select id="getPathologyacceptById" parameterType="Integer"
+            resultMap="pathologyacceptResultMap">
+        select * from eq_pathology_accept where ACCEPT_NO=#{acceptno}
+    </select>
+    <select id="getAllPathologyaccepts" resultMap="pathologyacceptResultMap">
+        select * from eq_pathology_accept
+    </select>
+
+
+    <insert id="addPathologyaccept" parameterType="com.equipments.management.domain.Pathologyaccept"
+            useGeneratedKeys="true" keyProperty="acceptno">
+        insert into eq_pathology_accept(APPLI_NO,ACCEPT_DESC,ACCEPT_RESULT,ACCEPT_DOCTOR_ID,ACCEPT_DATE)
+        values(#{patientappli.applino},#{acceptdesc},#{acceptresult},#{acceptdoctorid.id},#{acceptdate})
+    </insert>
+    <delete id="removePathologyacceptById" parameterType="Integer">
+        delete from eq_pathology_accept where ACCEPT_NO = #{acceptno}
+    </delete>
+
+    <select id="getPathologyacceptByAll" resultMap="pathologyacceptResultMap">
+        select * from eq_pathology_accept
+        <where>
+            <if test="acceptno !=null">ACCEPT_NO=#{acceptno}</if>
+            <if test="patientappli !=null and patientappli.applino !=null">and APPLI_NO=#{patientappli.applino}</if>
+            <if test="acceptdesc !=null">and ACCEPT_DESC=#{acceptdesc}</if>
+            <if test="acceptresult !=null">and ACCEPT_RESULT=#{acceptresult}</if>
+            <if test="acceptdoctorid !=null and acceptdoctorid.id =null">and ACCEPT_DOCTOR_ID=#{acceptdoctorid.id}</if>
+            <if test="acceptdate !=null">and ACCEPT_DATE=#{acceptdate}</if>
+        </where>
+    </select>
+
+    <update id="updatePathologyaccept">
+        update eq_pathology_accept
+        <set>
+            <if test="patientappli !=null and patientappli.applino !=null">APPLI_NO=#{patientappli.applino}</if>
+            <if test="acceptdesc !=null">ACCEPT_DESC=#{acceptdesc}</if>
+            <if test="acceptresult !=null">ACCEPT_RESULT=#{acceptresult}</if>
+            <if test="acceptdoctorid !=null and acceptdoctorid.id =null">ACCEPT_DOCTOR_ID=#{acceptdoctorid.id}</if>
+            <if test="acceptdate !=null">ACCEPT_DATE=#{acceptdate}</if>
+        </set>
+        where ACCEPT_NO=#{acceptno}
+    </update>
+</mapper>
