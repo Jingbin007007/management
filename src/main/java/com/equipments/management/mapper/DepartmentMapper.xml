@@ -52,10 +52,12 @@
     <!--获得指定条件的Department-->
     <update id="updateDepartment">
         update eq_department
-        <set>
-            <if test="name !=null">DEPARTMENT_NAME=#{name}</if>
-            <if test="cate !=null">DEPARTMENT_CATE=#{cate}</if>
-        </set>
+        <trim prefix="set" suffixOverrides=",">
+            <set>
+                <if test="name !=null">DEPARTMENT_NAME=#{name},</if>
+                <if test="cate !=null">DEPARTMENT_CATE=#{cate},</if>
+            </set>
+        </trim>
         where DEPARTMENT_ID=#{id}
     </update>
 

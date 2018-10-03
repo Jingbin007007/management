@@ -4,6 +4,7 @@ package com.equipments.management.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.equipments.management.domain.Baomi;
 import com.equipments.management.domain.Department;
 import com.equipments.management.domain.Staff;
 import com.equipments.management.domain.Staffextend;
@@ -355,6 +356,31 @@ public class EqController {
             maker.exportDoc("F:\\test.doc","template.ftl",tempMap);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/testMapper")
+    @ResponseBody
+    public void testMapper(HttpServletResponse response,HttpServletRequest request){
+        sqlSession = factory.openSession(true);
+
+        Baomi baomi = new Baomi();
+        baomi.setId(2);
+        baomi.setBuzhibie("密");
+        baomi.setXddzsblx1("呵呵");
+
+        sqlSession.update("com.equipments.management.mapper.BaomiMapper.updateBaomi",baomi);
+        sqlSession.close();
+
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = null;
+        try{
+            out = response.getWriter();
+            //out.println(JSON.toJSONString(baomiList,SerializerFeature.DisableCircularReferenceDetect));
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            out.close();
         }
     }
 }

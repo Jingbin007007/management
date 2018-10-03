@@ -42,5 +42,13 @@
         <mapper resource="com/equipments/management/mapper/StaffMapper.xml"/>
         <mapper resource="com/equipments/management/mapper/DepartmentMapper.xml"/>
         <mapper resource="com/equipments/management/mapper/StaffextendMapper.xml"/>
+
+        <mapper resource="com/equipments/management/mapper/BaomiMapper.xml"/>
+        <mapper resource="com/equipments/management/mapper/ChuxingdetailMapper.xml"/>
+        <mapper resource="com/equipments/management/mapper/ChuxingMapper.xml"/>
+        <mapper resource="com/equipments/management/mapper/Hbtask1Mapper.xml"/>
+        <mapper resource="com/equipments/management/mapper/Hbtask2Mapper.xml"/>
+        <mapper resource="com/equipments/management/mapper/NewsMapper.xml"/>
+        <mapper resource="com/equipments/management/mapper/TaskMapper.xml"/>
     </mappers>
 </configuration>

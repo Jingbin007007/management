@@ -84,7 +84,7 @@
 
     <insert id="addStaffextend" parameterType="com.equipments.management.domain.Staffextend"
             useGeneratedKeys="true" keyProperty="extendid">
-        insert into eq_staff_extend(extend_nation,extend_educationle,extend_qkbzwhzc,extend_qkbjxhjb,extend_zzmianmao,extend_bysjbyyx,extend_wgysp,extend_ywhuzhao,extend_huzhaohao,extend_huzhaoyouxiaoqi,passport_huzhaozhonglei,passport_fazhaoriqi,passport_yanqi,passport_beizhu,extend_gzjlsj001,extend_gzjlsj002,extend_gzjlsj003,extend_gzjlsj004,extend_gzjlsj005,extend_gzjlcsgzjzw001,extend_gzjlcsgzjzw002,extend_gzjlcsgzjzw003,extend_gzjlcsgzjzw004,extend_gzjlcsgzjzw005,extend_cgqksj001,extend_cgqksj002,extend_cgqksj003,extend_cgqkgjjrw001,extend_cgqkgjjrw002,extend_cgqkgjjrw003,extend_cgqkdwsf001,extend_cgqkdwsf002,extend_cgqkdwsf003,extend_jtqkxm001,extend_jtqkxm002,extend_jtqkxm003,extend_jtqkgx001,extend_jtqkgx002,extend_jtqkgx003,extend_jtqkgzjzw001,extend_jtqkgzjzw002,extend_jtqkgzjzw003,extend_jtqkgwf001,extend_jtqkgwf002,extend_jtqkgwf003,staffdetail_yjfxcjgx,staffdetail_grjjgdzd,task_swscmxm,task_swscmdh,task_id,staff_id)
+        insert into eq_staff_extend(extend_nation,extend_educationle,extend_qkbzwhzc,extend_qkbjxhjb,extend_zzmianmao,extend_bysjbyyx,extend_wgysp,extend_ywhuzhao,passport_huzhaohao,passport_huzhaoyouxiaoqi,passport_huzhaozhonglei,passport_fazhaoriqi,passport_yanqi,passport_beizhu,extend_gzjlsj001,extend_gzjlsj002,extend_gzjlsj003,extend_gzjlsj004,extend_gzjlsj005,extend_gzjlcsgzjzw001,extend_gzjlcsgzjzw002,extend_gzjlcsgzjzw003,extend_gzjlcsgzjzw004,extend_gzjlcsgzjzw005,extend_cgqksj001,extend_cgqksj002,extend_cgqksj003,extend_cgqkgjjrw001,extend_cgqkgjjrw002,extend_cgqkgjjrw003,extend_cgqkdwsf001,extend_cgqkdwsf002,extend_cgqkdwsf003,extend_jtqkxm001,extend_jtqkxm002,extend_jtqkxm003,extend_jtqkgx001,extend_jtqkgx002,extend_jtqkgx003,extend_jtqkgzjzw001,extend_jtqkgzjzw002,extend_jtqkgzjzw003,extend_jtqkgwf001,extend_jtqkgwf002,extend_jtqkgwf003,staffdetail_yjfxcjgx,staffdetail_grjjgdzd,task_swscmxm,task_swscmdh,task_id,staff_id)
         values(#{nation},#{educationle},#{qkbzwhzc},#{qkbjxhjb},#{zzmianmao},#{bysjbyyx},#{wgysp},#{ywhuzhao},#{huzhaohao},#{huzhaoyouxiaoqi,jdbcType=DATE},#{huzhaozhonglei},#{fazhaoriqi,jdbcType=DATE},#{yanqi,jdbcType=DATE},#{beizhu},#{gzjlsj001},#{gzjlsj002},#{gzjlsj003},#{gzjlsj004},#{gzjlsj005},#{gzjlcsgzjzw001},#{gzjlcsgzjzw002},#{gzjlcsgzjzw003},#{gzjlcsgzjzw004},#{gzjlcsgzjzw005},#{cgqksj001},#{cgqksj002},#{cgqksj003},#{cgqkgjjrw001},#{cgqkgjjrw002},#{cgqkgjjrw003},#{cgqkdwsf001},#{cgqkdwsf002},#{cgqkdwsf003},#{jtqkxm001},#{jtqkxm002},#{jtqkxm003},#{jtqkgx001},#{jtqkgx002},#{jtqkgx003},#{jtqkgzjzw001},#{jtqkgzjzw002},#{jtqkgzjzw003},#{jtqkgwf001},#{jtqkgwf002},#{jtqkgwf003},#{yjfxcjgx},#{grjjgdzd},#{swscmxm},#{swscmdh},#{taskid.id},#{staffid.id})
     </insert>
     <delete id="removeStaffextendById" parameterType="Integer">
@@ -105,9 +105,9 @@
                 <if test="bysjbyyx !=null">AND extend_bysjbyyx=#{bysjbyyx}</if>
                 <if test="wgysp !=null">AND extend_wgysp=#{wgysp}</if>
                 <if test="ywhuzhao !=null">AND extend_ywhuzhao=#{ywhuzhao}</if>
-                <if test="huzhaohao !=null">AND extend_huzhaohao=#{huzhaohao}</if>
+                <if test="huzhaohao !=null">AND passport_huzhaohao=#{huzhaohao}</if>
                 <if test="huzhaozhonglei !=null">AND passport_huzhaozhonglei=#{huzhaozhonglei}</if>
-                <if test="huzhaohao !=null">AND extend_huzhaohao=#{huzhaohao}</if>
+                <if test="huzhaohao !=null">AND passport_huzhaohao=#{huzhaohao}</if>
                 <if test="beizhu !=null">AND passport_beizhu=#{beizhu}</if>
                 <if test="gzjlsj001 !=null">AND extend_gzjlsj001=#{gzjlsj001}</if>
                 <if test="gzjlsj002 !=null">AND extend_gzjlsj002=#{gzjlsj002}</if>
@@ -148,7 +148,7 @@
                     <![CDATA[ and date(passport_fazhaoriqi) = date(#{fazhaoriqi,jdbcType=DATE})]]>
                 </if>
                 <if test="huzhaoyouxiaoqi != null">
-                    <![CDATA[ and date(extend_huzhaoyouxiaoqi) = date(#{huzhaoyouxiaoqi,jdbcType=DATE})]]>
+                    <![CDATA[ and date(passport_huzhaoyouxiaoqi) = date(#{huzhaoyouxiaoqi,jdbcType=DATE})]]>
                 </if>
                 <if test="yanqi != null">
                     <![CDATA[ and date(passport_yanqi) = date(#{yanqi,jdbcType=DATE})]]>
@@ -160,63 +160,63 @@
         <update id="updateStaffextend" parameterType="com.equipments.management.domain.Staffextend">
             update eq_staff_extend
             <trim prefix="set" suffixOverrides=",">
-                <if test="staffid !=null and staffid.id !=null">AND staff_id=#{staffid.id}</if>
-                <if test="taskid !=null and taskid.id !=null">AND task_id=#{taskid.id}</if>
-                <if test="nation !=null">AND extend_nation=#{nation}</if>
-                <if test="educationle !=null">AND extend_educationle=#{educationle}</if>
-                <if test="qkbzwhzc !=null">AND extend_qkbzwhzc=#{qkbzwhzc}</if>
-                <if test="qkbjxhjb !=null">AND extend_qkbjxhjb=#{qkbjxhjb}</if>
-                <if test="zzmianmao !=null">AND extend_zzmianmao=#{zzmianmao}</if>
-                <if test="bysjbyyx !=null">AND extend_bysjbyyx=#{bysjbyyx}</if>
-                <if test="wgysp !=null">AND extend_wgysp=#{wgysp}</if>
-                <if test="ywhuzhao !=null">AND extend_ywhuzhao=#{ywhuzhao}</if>
-                <if test="huzhaohao !=null">AND extend_huzhaohao=#{huzhaohao}</if>
-                <if test="huzhaozhonglei !=null">AND passport_huzhaozhonglei=#{huzhaozhonglei}</if>
-                <if test="huzhaohao !=null">AND extend_huzhaohao=#{huzhaohao}</if>
-                <if test="beizhu !=null">AND passport_beizhu=#{beizhu}</if>
-                <if test="gzjlsj001 !=null">AND extend_gzjlsj001=#{gzjlsj001}</if>
-                <if test="gzjlsj002 !=null">AND extend_gzjlsj002=#{gzjlsj002}</if>
-                <if test="gzjlsj003 !=null">AND extend_gzjlsj003=#{gzjlsj003}</if>
-                <if test="gzjlsj004 !=null">AND extend_gzjlsj004=#{gzjlsj004}</if>
-                <if test="gzjlsj005 !=null">AND extend_gzjlsj005=#{gzjlsj005}</if>
-                <if test="gzjlcsgzjzw001 !=null">AND extend_gzjlcsgzjzw001=#{gzjlcsgzjzw001}</if>
-                <if test="gzjlcsgzjzw002 !=null">AND extend_gzjlcsgzjzw002=#{gzjlcsgzjzw002}</if>
-                <if test="gzjlcsgzjzw003 !=null">AND extend_gzjlcsgzjzw003=#{gzjlcsgzjzw003}</if>
-                <if test="gzjlcsgzjzw004 !=null">AND extend_gzjlcsgzjzw004=#{gzjlcsgzjzw004}</if>
-                <if test="gzjlcsgzjzw005 !=null">AND extend_gzjlcsgzjzw005=#{gzjlcsgzjzw005}</if>
-                <if test="cgqksj001 !=null">AND extend_cgqksj001=#{cgqksj001}</if>
-                <if test="cgqksj002 !=null">AND extend_cgqksj002=#{cgqksj002}</if>
-                <if test="cgqksj003 !=null">AND extend_cgqksj002=#{cgqksj003}</if>
-                <if test="cgqkgjjrw001 !=null">AND extend_cgqkgjjrw001=#{cgqkgjjrw001}</if>
-                <if test="cgqkgjjrw002 !=null">AND extend_cgqkgjjrw002=#{cgqkgjjrw002}</if>
-                <if test="cgqkgjjrw003 !=null">AND extend_cgqkgjjrw002=#{cgqkgjjrw003}</if>
-                <if test="cgqkdwsf001 !=null">AND extend_cgqkdwsf001=#{cgqkdwsf001}</if>
-                <if test="cgqkdwsf002 !=null">AND extend_cgqkdwsf002=#{cgqkdwsf002}</if>
-                <if test="cgqkdwsf003 !=null">AND extend_cgqkdwsf002=#{cgqkdwsf003}</if>
-                <if test="jtqkxm001 !=null">AND extend_jtqkxm001=#{jtqkxm001}</if>
-                <if test="jtqkxm002 !=null">AND extend_jtqkxm002=#{jtqkxm002}</if>
-                <if test="jtqkxm003 !=null">AND extend_jtqkxm003=#{jtqkxm003}</if>
-                <if test="jtqkgx001 !=null">AND extend_jtqkgx001=#{jtqkgx001}</if>
-                <if test="jtqkgx002 !=null">AND extend_jtqkgx002=#{jtqkgx002}</if>
-                <if test="jtqkgx003 !=null">AND extend_jtqkgx003=#{jtqkgx003}</if>
-                <if test="jtqkgzjzw001 !=null">AND extend_jtqkgzjzw001=#{jtqkgzjzw001}</if>
-                <if test="jtqkgzjzw002 !=null">AND extend_jtqkgzjzw002=#{jtqkgzjzw002}</if>
-                <if test="jtqkgzjzw003 !=null">AND extend_jtqkgzjzw003=#{jtqkgzjzw003}</if>
-                <if test="jtqkgwf001 !=null">AND extend_jtqkgwf001=#{jtqkgwf001}</if>
-                <if test="jtqkgwf002 !=null">AND extend_jtqkgwf002=#{jtqkgwf002}</if>
-                <if test="jtqkgwf003 !=null">AND extend_jtqkgwf003=#{jtqkgwf003}</if>
-                <if test="yjfxcjgx !=null">AND staffdetail_yjfxcjgx=#{yjfxcjgx}</if>
-                <if test="grjjgdzd !=null">AND staffdetail_grjjgdzd=#{grjjgdzd}</if>
-                <if test="swscmxm !=null">AND task_swscmxm=#{swscmxm}</if>
-                <if test="swscmdh !=null">AND task_swscmdh=#{swscmdh}</if>
+                <if test="staffid !=null and staffid.id !=null">staff_id=#{staffid.id},</if>
+                <if test="taskid !=null and taskid.id !=null">task_id=#{taskid.id},</if>
+                <if test="nation !=null">extend_nation=#{nation},</if>
+                <if test="educationle !=null">extend_educationle=#{educationle},</if>
+                <if test="qkbzwhzc !=null">extend_qkbzwhzc=#{qkbzwhzc},</if>
+                <if test="qkbjxhjb !=null">extend_qkbjxhjb=#{qkbjxhjb},</if>
+                <if test="zzmianmao !=null">extend_zzmianmao=#{zzmianmao},</if>
+                <if test="bysjbyyx !=null">extend_bysjbyyx=#{bysjbyyx},</if>
+                <if test="wgysp !=null">extend_wgysp=#{wgysp},</if>
+                <if test="ywhuzhao !=null">extend_ywhuzhao=#{ywhuzhao},</if>
+                <if test="huzhaohao !=null">passport_huzhaohao=#{huzhaohao},</if>
+                <if test="huzhaozhonglei !=null">passport_huzhaozhonglei=#{huzhaozhonglei},</if>
+                <if test="huzhaohao !=null">passport_huzhaohao=#{huzhaohao},</if>
+                <if test="beizhu !=null">passport_beizhu=#{beizhu},</if>
+                <if test="gzjlsj001 !=null">extend_gzjlsj001=#{gzjlsj001},</if>
+                <if test="gzjlsj002 !=null">extend_gzjlsj002=#{gzjlsj002},</if>
+                <if test="gzjlsj003 !=null">extend_gzjlsj003=#{gzjlsj003},</if>
+                <if test="gzjlsj004 !=null">extend_gzjlsj004=#{gzjlsj004},</if>
+                <if test="gzjlsj005 !=null">extend_gzjlsj005=#{gzjlsj005},</if>
+                <if test="gzjlcsgzjzw001 !=null">extend_gzjlcsgzjzw001=#{gzjlcsgzjzw001},</if>
+                <if test="gzjlcsgzjzw002 !=null">extend_gzjlcsgzjzw002=#{gzjlcsgzjzw002},</if>
+                <if test="gzjlcsgzjzw003 !=null">extend_gzjlcsgzjzw003=#{gzjlcsgzjzw003},</if>
+                <if test="gzjlcsgzjzw004 !=null">extend_gzjlcsgzjzw004=#{gzjlcsgzjzw004},</if>
+                <if test="gzjlcsgzjzw005 !=null">extend_gzjlcsgzjzw005=#{gzjlcsgzjzw005},</if>
+                <if test="cgqksj001 !=null">extend_cgqksj001=#{cgqksj001},</if>
+                <if test="cgqksj002 !=null">extend_cgqksj002=#{cgqksj002},</if>
+                <if test="cgqksj003 !=null">extend_cgqksj002=#{cgqksj003},</if>
+                <if test="cgqkgjjrw001 !=null">extend_cgqkgjjrw001=#{cgqkgjjrw001},</if>
+                <if test="cgqkgjjrw002 !=null">extend_cgqkgjjrw002=#{cgqkgjjrw002},</if>
+                <if test="cgqkgjjrw003 !=null">extend_cgqkgjjrw002=#{cgqkgjjrw003},</if>
+                <if test="cgqkdwsf001 !=null">extend_cgqkdwsf001=#{cgqkdwsf001},</if>
+                <if test="cgqkdwsf002 !=null">extend_cgqkdwsf002=#{cgqkdwsf002},</if>
+                <if test="cgqkdwsf003 !=null">extend_cgqkdwsf002=#{cgqkdwsf003},</if>
+                <if test="jtqkxm001 !=null">extend_jtqkxm001=#{jtqkxm001},</if>
+                <if test="jtqkxm002 !=null">extend_jtqkxm002=#{jtqkxm002},</if>
+                <if test="jtqkxm003 !=null">extend_jtqkxm003=#{jtqkxm003},</if>
+                <if test="jtqkgx001 !=null">extend_jtqkgx001=#{jtqkgx001},</if>
+                <if test="jtqkgx002 !=null">extend_jtqkgx002=#{jtqkgx002},</if>
+                <if test="jtqkgx003 !=null">extend_jtqkgx003=#{jtqkgx003},</if>
+                <if test="jtqkgzjzw001 !=null">extend_jtqkgzjzw001=#{jtqkgzjzw001},</if>
+                <if test="jtqkgzjzw002 !=null">extend_jtqkgzjzw002=#{jtqkgzjzw002},</if>
+                <if test="jtqkgzjzw003 !=null">extend_jtqkgzjzw003=#{jtqkgzjzw003},</if>
+                <if test="jtqkgwf001 !=null">extend_jtqkgwf001=#{jtqkgwf001},</if>
+                <if test="jtqkgwf002 !=null">extend_jtqkgwf002=#{jtqkgwf002},</if>
+                <if test="jtqkgwf003 !=null">extend_jtqkgwf003=#{jtqkgwf003},</if>
+                <if test="yjfxcjgx !=null">staffdetail_yjfxcjgx=#{yjfxcjgx},</if>
+                <if test="grjjgdzd !=null">staffdetail_grjjgdzd=#{grjjgdzd},</if>
+                <if test="swscmxm !=null">task_swscmxm=#{swscmxm},</if>
+                <if test="swscmdh !=null">task_swscmdh=#{swscmdh},</if>
                 <if test="fazhaoriqi != null">
-                    <![CDATA[ and date(passport_fazhaoriqi) = date(#{fazhaoriqi,jdbcType=DATE})]]>
+                    <![CDATA[ date(passport_fazhaoriqi) = date(#{fazhaoriqi,jdbcType=DATE})]]>,
                 </if>
                 <if test="huzhaoyouxiaoqi != null">
-                    <![CDATA[ and date(extend_huzhaoyouxiaoqi) = date(#{huzhaoyouxiaoqi,jdbcType=DATE})]]>
+                    <![CDATA[ date(passport_huzhaoyouxiaoqi) = date(#{huzhaoyouxiaoqi,jdbcType=DATE})]]>,
                 </if>
                 <if test="yanqi != null">
-                    <![CDATA[ and date(passport_yanqi) = date(#{yanqi,jdbcType=DATE})]]>
+                    <![CDATA[ date(passport_yanqi) = date(#{yanqi,jdbcType=DATE})]]>,
                 </if>
             </trim>
             where extend_id=#{extendid}

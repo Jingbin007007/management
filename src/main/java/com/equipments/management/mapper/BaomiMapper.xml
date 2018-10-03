@@ -95,40 +95,39 @@
         </select>
 
 
-        <update id="updateTask" parameterType="com.equipments.management.domain.Task">
-            update EQ_TASK
-            <trim prefix="set" suffixOverrides=",">
-                <if test="staffid !=null and staffid.id !=null">AND staff_id=#{staffid.id}</if>
-                <if test="taskid !=null and taskid.id !=null">AND task_id=#{taskid.id}</if>
+    <update id="updateBaomi" parameterType="com.equipments.management.domain.Baomi">
+        update eq_staff_baomi
+        <trim prefix="set" suffixOverrides=",">
+            <if test="staffid !=null and staffid.id !=null">staff_id=#{staffid.id},</if>
+            <if test="taskid !=null and taskid.id !=null">task_id=#{taskid.id},</if>
 
-                <if test="buzhibie !=null">AND baomi_buzhibie=#{buzhibie}</if>
-                <if test="zhiji !=null">AND baomi_zhiji=#{zhiji}</if>
-                <if test="xddzsblx1 !=null">AND baomi_xddzsblx1=#{xddzsblx1}</if>
-                <if test="xddzsblx2 !=null">AND baomi_xddzsblx2=#{xddzsblx2}</if>
-                <if test="xddzsbxh1 !=null">AND baomi_xddzsbxh1=#{xddzsbxh1}</if>
-                <if test="xddzsbxh2 !=null">AND baomi_xddzsbxh2=#{xddzsbxh2}</if>
-                <if test="xddzsbsmdj1 !=null">AND baomi_xddzsbsmdj1=#{xddzsbsmdj1}</if>
-                <if test="xddzsbsmdj2 !=null">AND baomi_xddzsbsmdj2=#{xddzsbsmdj2}</if>
-                <if test="xddzsbyf !=null">AND baomi_xddzsbyf=#{xddzsbyf}</if>
-                <if test="duihao1 !=null">AND baomi_duihao1=#{duihao1}</if>
+            <if test="buzhibie !=null">baomi_buzhibie=#{buzhibie},</if>
+            <if test="zhiji !=null">baomi_zhiji=#{zhiji},</if>
+            <if test="xddzsblx1 !=null">baomi_xddzsblx1=#{xddzsblx1},</if>
+            <if test="xddzsblx2 !=null">baomi_xddzsblx2=#{xddzsblx2},</if>
+            <if test="xddzsbxh1 !=null">baomi_xddzsbxh1=#{xddzsbxh1},</if>
+            <if test="xddzsbxh2 !=null">baomi_xddzsbxh2=#{xddzsbxh2},</if>
+            <if test="xddzsbsmdj1 !=null">baomi_xddzsbsmdj1=#{xddzsbsmdj1},</if>
+            <if test="xddzsbsmdj2 !=null">baomi_xddzsbsmdj2=#{xddzsbsmdj2},</if>
+            <if test="xddzsbyf !=null">baomi_xddzsbyf=#{xddzsbyf},</if>
+            <if test="duihao1 !=null">baomi_duihao1=#{duihao1},</if>
 
-                <if test="xdsmzlmc1 !=null">AND baomi_xdsmzlmc1=#{xdsmzlmc1}</if>
-                <if test="xdsmzlmc2 !=null">AND baomi_xdsmzlmc2=#{xdsmzlmc2}</if>
-                <if test="xdsmzlfs1 !=null">AND baomi_xdsmzlfs1=#{xdsmzlfs1}</if>
-                <if test="xdsmzlfs2 !=null">AND baomi_xdsmzlfs2=#{xdsmzlfs2}</if>
-                <if test="xdsmzlsmdj1 !=null">AND baomi_xdsmzlsmdj1=#{xdsmzlsmdj1}</if>
-                <if test="xdsmzlsmdj2 !=null">AND baomi_xdsmzlsmdj2=#{xdsmzlsmdj2}</if>
-                <if test="xdsmzlyf !=null">AND baomi_xdsmzlyf=#{xdsmzlyf}</if>
-                <if test="duihao2 !=null">AND baomi_duihao2=#{duihao2}</if>
+            <if test="xdsmzlmc1 !=null">baomi_xdsmzlmc1=#{xdsmzlmc1},</if>
+            <if test="xdsmzlmc2 !=null">baomi_xdsmzlmc2=#{xdsmzlmc2},</if>
+            <if test="xdsmzlfs1 !=null">baomi_xdsmzlfs1=#{xdsmzlfs1},</if>
+            <if test="xdsmzlfs2 !=null">baomi_xdsmzlfs2=#{xdsmzlfs2},</if>
+            <if test="xdsmzlsmdj1 !=null">baomi_xdsmzlsmdj1=#{xdsmzlsmdj1},</if>
+            <if test="xdsmzlsmdj2 !=null">baomi_xdsmzlsmdj2=#{xdsmzlsmdj2},</if>
+            <if test="xdsmzlyf !=null">baomi_xdsmzlyf=#{xdsmzlyf},</if>
+            <if test="duihao2 !=null">baomi_duihao2=#{duihao2},</if>
 
-
-                <if test="jwtlbeg != null">
-                    <![CDATA[ and date(baomi_jwtlbeg) = date(#{jwtlbeg,jdbcType=DATE})]]>
-                </if>
-                <if test="jwtlend != null">
-                    <![CDATA[ and date(baomi_jwtlend) = date(#{jwtlend,jdbcType=DATE})]]>
-                </if>
-            </trim>
-            where baomi_id=#{id}
-        </update>
+            <if test="jwtlbeg != null">
+                <![CDATA[ date(baomi_jwtlbeg) = date(#{jwtlbeg,jdbcType=DATE})]]>,
+            </if>
+            <if test="jwtlend != null">
+                <![CDATA[ date(baomi_jwtlend) = date(#{jwtlend,jdbcType=DATE})]]>,
+            </if>
+        </trim>
+        where baomi_id=#{id}
+    </update>
 </mapper>
