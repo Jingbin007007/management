@@ -5,9 +5,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <!-- Title and other stuffs -->
-  <title>登录页面</title> 
+  <title>军事医学研究院因公出国(境)审批系统</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="">
+  <link href="img/icons/title.png" rel="SHORTCUT ICON" />
   <!-- Stylesheets -->
   <link href="style/bootstrap.css" rel="stylesheet">
   <link rel="stylesheet" href="style/font-awesome.css">
@@ -33,7 +34,8 @@
               form.submit();
           }
       });
-      $().ready(function() {
+      $().ready(function() {body {margin:0; padding:0 10px 0 10px;height:100%;overflow:auto;background:#333;font-size:12px;}
+
           $("#form-hor").validate();
       });
   </script>
@@ -42,18 +44,37 @@
       color:red;
     }
   </style>
+
+    <mce:style><!--
+#wrap {bottom:0px;left:1px!important;left:18px;width:200px;line-height:30px;position:fixed;border:1px solid #fff;text-align:center;color:#000000; }
+*html{overflow-x:auto;overflow-y:auto;}
+* html #wrap {position:absolute;}
+--></mce:style><style mce_bogus="1">body {margin:0; padding:0 10px 0 10px;height:100%;overflow:auto;font-size:12px;}
+#wrap {bottom:0px;left:1px!important;left:18px;width:200px;line-height:30px;position:fixed;border:1px solid #fff;text-align:center;color:#000000;}
+*html{overflow-x:auto;overflow-y:auto;}
+* html #wrap {position:absolute;}</style>
+
+
 </head>
 
 <body>
-
+<div id="top" style="text-align:center;margin:10px auto;" align="center"  class="login-logo">
+  <a href="#" >
+    <img src="img/login.jpg" width="55%" height="55%"  alt="军事医学研究院" />
+  </a>
+</div>
 <!-- Form area -->
-<div class="admin-form">
+<div class="admin-form" style="margin-top: 7px;">
   <div class="container">
+
 
     <div class="row">
       <div class="col-md-12">
+        <!-- Widget logo -->
+
         <!-- Widget starts -->
             <div class="widget worange">
+
               <!-- Widget head -->
               <div class="widget-head">
                 <i class="icon-lock"></i> 登录界面 
@@ -99,14 +120,21 @@
               
                 <div class="widget-foot">
                   尚未注册? <a href="register.jsp">点击注册</a>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color: gray; font-size: 13px; margin: 5px 5px 5px 5px;"> 首次登录需要先注册</span>
                 </div>
             </div>  
       </div>
     </div>
   </div> 
 </div>
-	
-		
+
+  <div  id="wrap">
+      <!-- Copyright info -->
+      <p class="copy">Copyright &copy; 2018 | 院信息中心 </p>
+
+  </div>
+
+
 
 <!-- JS -->
 </body>

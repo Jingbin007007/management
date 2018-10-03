@@ -1,12 +1,10 @@
 ﻿<!DOCTYPE html>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="application/msword; charset=UTF-8" pageEncoding="UTF-8" %>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <!-- Title and other stuffs -->
   <title>出国申报审批</title>
-  <link href="img/icons/title.png" rel="SHORTCUT ICON" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="">
   <link href="img/icons/title.png" rel="SHORTCUT ICON" />
@@ -131,6 +129,7 @@
           </li>
 
         </ul>
+      </ul>
     </nav>
 
   </div>

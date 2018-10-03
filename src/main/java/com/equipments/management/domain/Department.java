@@ -1,39 +1,27 @@
 package com.equipments.management.domain;
 
-import org.springframework.stereotype.Component;
-
 /**
  * Created by Administrator on 2017/5/8.
  */
 
 public class Department {
     /**
-     * DEPT_NO
-     DEPT_CODE
-     DEPT_NAME
-     DEPT_ALIAS
-     DEPT_GRADE
+     *
      * */
-    private Integer no;
-    private String code;
+    private Integer id;
     private String name;
-    private String alias;
-    private Integer grade;
+    private String cate;
 
-    public Integer getNo() {
-        return no;
+
+    public Department() {
     }
 
-    public void setNo(Integer no) {
-        this.no = no;
+    public Integer getId() {
+        return id;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -44,30 +32,20 @@ public class Department {
         this.name = name;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getCate() {
+        return cate;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
+    public void setCate(String cate) {
+        this.cate = cate;
     }
 
     @Override
     public String toString() {
         return "Department{" +
-                "no=" + no +
-                ", code='" + code + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", alias='" + alias + '\'' +
-                ", grade=" + grade +
+                ", cate='" + cate + '\'' +
                 '}';
     }
 }

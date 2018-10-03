@@ -38,34 +38,9 @@
     </environments>
 
     <mappers>
+        <!---->
         <mapper resource="com/equipments/management/mapper/StaffMapper.xml"/>
         <mapper resource="com/equipments/management/mapper/DepartmentMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/PatientinfoMapper.xml"/>
-
-        <mapper resource="com/equipments/management/mapper/PathologyacceptMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/AcceptsampleMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/PathologydrawMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/PathologydiagnosisMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/PathologyreviewMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/ReviewdetailMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/ProductMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/ConsultationMapper.xml"/>
-
-        <mapper resource="com/equipments/management/mapper/DicinspmethodMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/InspmethodMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/DiccollectanatomyMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/CollectanatomyMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/PatientappliMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/ReportphotoMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/SamplephotodescMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/DrawphotodescMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/DoctoradviceMapper.xml"/>
-
-
-        <mapper resource="com/equipments/management/mapper/MedMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/zhongyaoMedMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/shengyaoMedMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/DocsProductMapper.xml"/>
-        <mapper resource="com/equipments/management/mapper/SystemMapper.xml"/>
+        <mapper resource="com/equipments/management/mapper/StaffextendMapper.xml"/>
     </mappers>
 </configuration>

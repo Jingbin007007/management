@@ -185,29 +185,6 @@ $('.wclose').click(function(e){
 
     $(function() {
         // Horizontal slider
-        $( "#master1, #master2" ).slider({
-            value: 60,
-            orientation: "horizontal",
-            range: "min",
-            animate: true
-        });
-
-        $( "#master4, #master3" ).slider({
-            value: 80,
-            orientation: "horizontal",
-            range: "min",
-            animate: true
-        });        
-
-        $("#master5, #master6").slider({
-            range: true,
-            min: 0,
-            max: 400,
-            values: [ 75, 200 ],
-            slide: function( event, ui ) {
-                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-            }
-        });
 
 
         // Vertical slider 
@@ -322,7 +299,11 @@ $(function() {
         pickTime: false
     });
 });
-
+$(function() {
+    $('#birthyday').datetimepicker({
+        pickTime: false
+    });
+});
 
 
 

@@ -9,20 +9,17 @@
         根据id查询得到一个user对象
      -->
     <resultMap id="departmentResultMap" type="com.equipments.management.domain.Department">
-        <id property="no" column="DEPT_NO"/>
-        <result property="code" column="DEPT_CODE"/>
-        <result property="name" column="DEPT_NAME"/>
-        <result property="alias" column="DEPT_ALIAS"/>
-        <result property="grade" column="DEPT_GRADE"/>
+        <id property="id" column="DEPARTMENT_ID"/>
+        <result property="name" column="DEPARTMENT_NAME"/>
+        <result property="cate" column="DEPARTMENT_CATE"/>
     </resultMap>
 
+    <!--
+        根据id值查询得到Department
+    -->
     <select id="getDepartmentById" parameterType="Integer"
             resultMap="departmentResultMap">
-        select * from eq_department where DEPT_NO=#{no}
-    </select>
-    <select id="getDepartmentByCode" parameterType="String"
-            resultMap="departmentResultMap">
-        select * from  eq_department where DEPT_CODE=#{code}
+        select * from eq_department where DEPARTMENT_ID=#{id}
     </select>
     <select id="getAllDepartments" resultMap="departmentResultMap">
         select * from eq_department
@@ -31,33 +28,35 @@
 
     <insert id="addDepartment" parameterType="com.equipments.management.domain.Department"
             useGeneratedKeys="true" keyProperty="no">
-        insert into eq_department(DEPT_CODE,DEPT_NAME,DEPT_ALIAS,DEPT_GRADE)
-        values(#{code},#{name},#{alias},#{grade})
+        insert into eq_department(DEPARTMENT_ID,DEPARTMENT_NAME,DEPARTMENT_CATE)
+        values(#{id},#{name},#{cate})
     </insert>
     <delete id="removeDepartmentById" parameterType="Integer">
-        delete from eq_department where DEPT_NO = #{id}
+        delete from eq_department where DEPARTMENT_ID = #{id}
     </delete>
 
-    <!--获得指定条件的List<Country>-->
+    <!--获得指定条件的List<Department>-->
     <select id="getDepartmentByAll" resultMap="departmentResultMap">
         select * from eq_department
         <where>
-            <if test="no !=null">DEPT_NO=#{no}</if>
-            <if test="code !=null">and DEPT_CODE=#{code}</if>
-            <if test="name !=null">and DEPT_NAME=#{name}</if>
-            <if test="grade !=null">and DEPT_GRADE=#{grade}</if>
+            <if test="id !=null">DEPARTMENT_ID=#{id}</if>
+            <if test="name !=null">and DEPARTMENT_NAME=#{name}</if>
+            <if test="cate !=null">and DEPARTMENT_CATE=#{cate}</if>
         </where>
     </select>
 
+
+    <!--
+    waiting
+    -->
     <!--获得指定条件的Department-->
     <update id="updateDepartment">
-        update country_dict
+        update eq_department
         <set>
-            <if test="code !=null">DEPT_CODE=#{code}</if>
-            <if test="name !=null">DEPT_NAME=#{name}</if>
-            <if test="alias !=null">DEPT_ALIAS=#{alias}</if>
-            <if test="grade !=null">DEPT_GRADE=#{grade}</if>
+            <if test="name !=null">DEPARTMENT_NAME=#{name}</if>
+            <if test="cate !=null">DEPARTMENT_CATE=#{cate}</if>
         </set>
-        where DEPT_NO=#{no}
+        where DEPARTMENT_ID=#{id}
     </update>
+
 </mapper>
