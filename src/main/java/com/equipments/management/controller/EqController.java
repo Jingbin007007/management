@@ -356,6 +356,11 @@ public class EqController {
         }
     }
 
+    /**
+     * 测试mapper
+     *
+     *
+     * */
     @RequestMapping("/testMapper")
     @ResponseBody
     public void testMapper(HttpServletResponse response,HttpServletRequest request){
