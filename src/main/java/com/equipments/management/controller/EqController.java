@@ -4,10 +4,7 @@ package com.equipments.management.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.equipments.management.domain.Baomi;
-import com.equipments.management.domain.Department;
-import com.equipments.management.domain.Staff;
-import com.equipments.management.domain.Staffextend;
+import com.equipments.management.domain.*;
 import com.equipments.management.dto.ExportDoc;
 import freemarker.template.Configuration;
 import org.apache.ibatis.io.Resources;
@@ -364,19 +361,32 @@ public class EqController {
     public void testMapper(HttpServletResponse response,HttpServletRequest request){
         sqlSession = factory.openSession(true);
 
-        Baomi baomi = new Baomi();
-        baomi.setId(2);
-        baomi.setBuzhibie("密");
-        baomi.setXddzsblx1("呵呵");
+        Hbtask2 hbtask2 = new Hbtask2();
+        hbtask2.setName("第二次测试Hbtask2");
+        hbtask2.setTarcountry("南极洲第一国");
+        hbtask2.setTarcity("北极熊一号城");
 
-        sqlSession.update("com.equipments.management.mapper.BaomiMapper.updateBaomi",baomi);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = null;
+        try {
+            today = sdf.parse("2018-10-16");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        hbtask2.setCjsj(today);
+        hbtask2.setXgsj(today);
+        hbtask2.setLijingbeg(today);
+        hbtask2.setTaskhbid2(2);
+
+        sqlSession.delete("com.equipments.management.mapper.Hbtask2Mapper.removeHbtask2ById",hbtask2);
         sqlSession.close();
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = null;
         try{
             out = response.getWriter();
-            //out.println(JSON.toJSONString(baomiList,SerializerFeature.DisableCircularReferenceDetect));
+            //out.println(JSON.toJSONString(hbtask2List,SerializerFeature.DisableCircularReferenceDetect));
         }catch (Exception e){
             e.printStackTrace();
         }finally {

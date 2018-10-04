@@ -99,47 +99,45 @@
         </select>
 
 
-        <update id="updateTask" parameterType="com.equipments.management.domain.Task">
-            update EQ_TASK
-            <trim prefix="set" suffixOverrides=",">
-                <if test="taskhbid1 !=null and taskhbid1.taskhbid1 !=null">AND taskhb_id1=#{taskhbid1.taskhbid1}</if>
-                <if test="name !=null">AND task_name=#{name}</if>
-                <if test="tarcountry !=null">AND task_tarcountry=#{tarcountry}</if>
-                <if test="tarcity !=null">AND task_tarcity=#{tarcity}</if>
-                <if test="type !=null">AND task_type=#{type}</if>
-                <if test="purposemap !=null">AND task_purposemap=#{purposemap}</if>
-                <if test="jiaoliutimu !=null">AND task_jiaoliutimu=#{jiaoliutimu}</if>
-                <if test="significance !=null">AND task_significance=#{significance}</if>
-                <if test="cgryqkbaddr !=null">AND task_cgryqkbaddr=#{cgryqkbaddr}</if>
-                <if test="bmzrsaddr !=null">AND task_bmzrsaddr=#{bmzrsaddr}</if>
-                <if test="yqhaddrzw !=null">AND task_yqhaddrzw=#{yqhaddrzw}</if>
-                <if test="yqhaddryw !=null">AND task_yqhaddryw=#{yqhaddryw}</if>
-                <if test="xcapzw !=null">AND task_xcapzw=#{xcapzw}</if>
-                <if test="xcapyw !=null">AND task_xcapyw=#{xcapyw}</if>
+    <update id="updateTask" parameterType="com.equipments.management.domain.Task">
+        update EQ_TASK
+        <trim prefix="set" suffixOverrides=",">
+            <if test="taskhbid1 !=null and taskhbid1.taskhbid1 !=null">taskhb_id1=#{taskhbid1.taskhbid1},</if>
+            <if test="name !=null">task_name=#{name},</if>
+            <if test="tarcountry !=null">task_tarcountry=#{tarcountry},</if>
+            <if test="tarcity !=null">task_tarcity=#{tarcity},</if>
+            <if test="type !=null">task_type=#{type},</if>
+            <if test="purposemap !=null">task_purposemap=#{purposemap},</if>
+            <if test="jiaoliutimu !=null">task_jiaoliutimu=#{jiaoliutimu},</if>
+            <if test="significance !=null">task_significance=#{significance},</if>
+            <if test="cgryqkbaddr !=null">task_cgryqkbaddr=#{cgryqkbaddr},</if>
+            <if test="bmzrsaddr !=null">task_bmzrsaddr=#{bmzrsaddr},</if>
+            <if test="yqhaddrzw !=null">task_yqhaddrzw=#{yqhaddrzw},</if>
+            <if test="yqhaddryw !=null">task_yqhaddryw=#{yqhaddryw},</if>
+            <if test="xcapzw !=null">task_xcapzw=#{xcapzw},</if>
+            <if test="xcapyw !=null">task_xcapyw=#{xcapyw},</if>
 
-                <if test="zhuangtai !=null">AND task_zhuangtai=#{zhuangtai}</if>
-                <if test="beizhu !=null">AND task_beizhu=#{beizhu}</if>
-
-
-                <if test="cjcfbeg != null">
-                    <![CDATA[ and date(task_cjcfbeg) = date(#{cjcfbeg,jdbcType=DATE})]]>
-                </if>
-                <if test="cjggend != null">
-                    <![CDATA[ and date(task_cjggend) = date(#{cjggend,jdbcType=DATE})]]>
-                </if>
-                <if test="lijingshijian != null">
-                    <![CDATA[ and date(task_lijingshijian) = date(#{lijingshijian,jdbcType=DATE})]]>
-                </if>
-                <if test="rujingshijian != null">
-                    <![CDATA[ and date(task_rujingshijian) = date(#{rujingshijian,jdbcType=DATE})]]>
-                </if>
-                <if test="cjsj != null">
-                    <![CDATA[ and date(task_cjsj) = date(#{cjsj,jdbcType=DATE})]]>
-                </if>
-                <if test="xgsj != null">
-                    <![CDATA[ and date(task_xgsj) = date(#{xgsj,jdbcType=DATE})]]>
-                </if>
-            </trim>
-            where task_id=#{id}
-        </update>
+            <if test="zhuangtai !=null">task_zhuangtai=#{zhuangtai},</if>
+            <if test="beizhu !=null">task_beizhu=#{beizhu},</if>
+            <if test="cjcfbeg != null">
+                <![CDATA[ task_cjcfbeg = date(#{cjcfbeg,jdbcType=DATE})]]>,
+            </if>
+            <if test="cjggend != null">
+                <![CDATA[ task_cjggend = date(#{cjggend,jdbcType=DATE})]]>,
+            </if>
+            <if test="lijingshijian != null">
+                <![CDATA[ task_lijingshijian = date(#{lijingshijian,jdbcType=DATE})]]>,
+            </if>
+            <if test="rujingshijian != null">
+                <![CDATA[ task_rujingshijian = date(#{rujingshijian,jdbcType=DATE})]]>,
+            </if>
+            <if test="cjsj != null">
+                <![CDATA[ task_cjsj = date(#{cjsj,jdbcType=DATE})]]>,
+            </if>
+            <if test="xgsj != null">
+                <![CDATA[ task_xgsj = date(#{xgsj,jdbcType=DATE})]]>,
+            </if>
+        </trim>
+        where task_id=#{id}
+    </update>
 </mapper>

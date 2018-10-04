@@ -24,7 +24,7 @@
         <result column="taskhb_xgsj" jdbcType="DATE" property="xgsj" javaType="java.util.Date" />
 
         <association property="taskhbid2" column="taskhb_id2"
-                     select="com.equipments.management.mapper.DepartmentMapper.getHbtask2ById"
+                     select="com.equipments.management.mapper.Hbtask2Mapper.getHbtask2ById"
                      javaType="com.equipments.management.domain.Hbtask2"/>
     </resultMap>
 
@@ -83,38 +83,38 @@
         </select>
 
 
-        <update id="updateHbtask1" parameterType="com.equipments.management.domain.Hbtask1">
-            update hb_task1
-            <trim prefix="set" suffixOverrides=",">
-                <if test="taskhbid2 !=null and taskhbid2.taskhbid2 !=null">AND taskhb_id1=#{taskhbid2.taskhbid2}</if>
-                <if test="name !=null">AND taskhb_name=#{name}</if>
-                <if test="tarcountry !=null">AND taskhb_tarcountry=#{tarcountry}</if>
-                <if test="tarcity !=null">AND taskhb_tarcity=#{tarcity}</if>
-                <if test="type !=null">AND taskhb_type=#{type}</if>
-                <if test="zhuangtai !=null">AND taskhb_zhuangtai=#{zhuangtai}</if>
-                <if test="beizhu !=null">AND taskhb_beizhu=#{beizhu}</if>
-                <if test="qsjdz !=null">AND taskhb_qsjdz=#{qsjdz}</if>
-                <if test="significance !=null">AND taskhb_significance=#{significance}</if>
+    <update id="updateHbtask1" parameterType="com.equipments.management.domain.Hbtask1">
+        update hb_task1
+        <trim prefix="set" suffixOverrides=",">
+            <if test="taskhbid2 !=null and taskhbid2.taskhbid2 !=null">taskhb_id1=#{taskhbid2.taskhbid2},</if>
+            <if test="name !=null">taskhb_name=#{name},</if>
+            <if test="tarcountry !=null">taskhb_tarcountry=#{tarcountry},</if>
+            <if test="tarcity !=null">taskhb_tarcity=#{tarcity},</if>
+            <if test="type !=null">taskhb_type=#{type},</if>
+            <if test="zhuangtai !=null">taskhb_zhuangtai=#{zhuangtai},</if>
+            <if test="beizhu !=null">taskhb_beizhu=#{beizhu},</if>
+            <if test="qsjdz !=null">taskhb_qsjdz=#{qsjdz},</if>
+            <if test="significance !=null">taskhb_significance=#{significance},</if>
 
-                <if test="cjcfbeg != null">
-                    <![CDATA[ and date(taskhb_cjcfbeg) = date(#{cjcfbeg,jdbcType=DATE})]]>
-                </if>
-                <if test="cjggend != null">
-                    <![CDATA[ and date(taskhb_cjggend) = date(#{cjggend,jdbcType=DATE})]]>
-                </if>
-                <if test="lijingbeg != null">
-                    <![CDATA[ and date(taskhb_lijingbeg) = date(#{lijingbeg,jdbcType=DATE})]]>
-                </if>
-                <if test="rujingend != null">
-                    <![CDATA[ and date(taskhb_rujingend) = date(#{rujingend,jdbcType=DATE})]]>
-                </if>
-                <if test="cjsj != null">
-                    <![CDATA[ and date(taskhb_cjsj) = date(#{cjsj,jdbcType=DATE})]]>
-                </if>
-                <if test="xgsj != null">
-                    <![CDATA[ and date(taskhb_xgsj) = date(#{xgsj,jdbcType=DATE})]]>
-                </if>
-            </trim>
-            where taskhb_id1=#{taskhbid1}
-        </update>
+            <if test="cjcfbeg != null">
+                <![CDATA[ taskhb_cjcfbeg = date(#{cjcfbeg,jdbcType=DATE})]]>,
+            </if>
+            <if test="cjggend != null">
+                <![CDATA[ taskhb_cjggend = date(#{cjggend,jdbcType=DATE})]]>,
+            </if>
+            <if test="lijingbeg != null">
+                <![CDATA[ taskhb_lijingbeg = date(#{lijingbeg,jdbcType=DATE})]]>,
+            </if>
+            <if test="rujingend != null">
+                <![CDATA[ taskhb_rujingend = date(#{rujingend,jdbcType=DATE})]]>,
+            </if>
+            <if test="cjsj != null">
+                <![CDATA[ taskhb_cjsj = date(#{cjsj,jdbcType=DATE})]]>,
+            </if>
+            <if test="xgsj != null">
+                <![CDATA[ taskhb_xgsj = date(#{xgsj,jdbcType=DATE})]]>,
+            </if>
+        </trim>
+        where taskhb_id1=#{taskhbid1}
+    </update>
 </mapper>

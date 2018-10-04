@@ -32,7 +32,7 @@
         values(#{chuxingcontent},#{chuxingshijian,jdbcType=DATE},#{chuxingid.chuxingid})
     </insert>
     <delete id="removeChuxingdetailById" parameterType="Integer">
-        delete from chuxingdetail where chuxing_id = #{chuxingid}
+        delete from chuxingdetail where chuxingdetail_id = #{chuxingdetailid}
     </delete>
 
         <select id="getChuxingdetailByAll" resultMap="chuxingdetailResultMap">
@@ -43,20 +43,19 @@
                 <if test="chuxingcontent !=null">AND chuxing_content=#{chuxingcontent}</if>
 
                 <if test="chuxingshijian != null">
-                    <![CDATA[ and date(chuxing_shijian) = date(#{chuxingshijian,jdbcType=DATE})]]>
+                    <![CDATA[ chuxing_shijian = date(#{chuxingshijian,jdbcType=DATE})]]>
                 </if>
             </where>
         </select>
 
 
-        <update id="updateTask" parameterType="com.equipments.management.domain.Task">
-            update EQ_TASK
+        <update id="updateChuxingdetail" parameterType="com.equipments.management.domain.Chuxingdetail">
+            update chuxingdetail
             <trim prefix="set" suffixOverrides=",">
-                <if test="chuxingid !=null and chuxingid.chuxingid !=null">AND chuxing_id=#{chuxingid.chuxingid}</if>
-                <if test="chuxingcontent !=null">AND chuxing_content=#{chuxingcontent}</if>
-
+                <if test="chuxingid !=null and chuxingid.chuxingid !=null">chuxing_id=#{chuxingid.chuxingid},</if>
+                <if test="chuxingcontent !=null">chuxing_content=#{chuxingcontent},</if>
                 <if test="chuxingshijian != null">
-                    <![CDATA[ and date(chuxing_shijian) = date(#{chuxingshijian,jdbcType=DATE})]]>
+                    <![CDATA[ chuxing_shijian = date(#{chuxingshijian,jdbcType=DATE})]]>,
                 </if>
             </trim>
             where chuxingdetail_id=#{chuxingdetailid}

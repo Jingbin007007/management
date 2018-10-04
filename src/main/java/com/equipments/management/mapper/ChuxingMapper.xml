@@ -28,7 +28,7 @@
 
     <insert id="addChuxing" parameterType="com.equipments.management.domain.Chuxing"
             useGeneratedKeys="true" keyProperty="chuxingid">
-        insert into EQ_TASK(task_id,staff_id)
+        insert into chuxing(task_id,staff_id)
         values(#{taskid.id},#{staffid.id})
     </insert>
     <delete id="removeChuxingById" parameterType="Integer">
@@ -48,8 +48,8 @@
         <update id="updateChuxing" parameterType="com.equipments.management.domain.Chuxing">
             update chuxing
             <trim prefix="set" suffixOverrides=",">
-                <if test="taskid !=null and taskid.id !=null">AND task_id=#{taskid.id}</if>
-                <if test="staffid !=null and staffid.id !=null">AND staff_id=#{staffid.id}</if>
+                <if test="taskid !=null and taskid.id !=null">task_id=#{taskid.id},</if>
+                <if test="staffid !=null and staffid.id !=null">staff_id=#{staffid.id},</if>
             </trim>
             where chuxing_id=#{chuxingid}
         </update>
