@@ -616,13 +616,13 @@
 
 <!-- Footer ends -->
 
-<!--弹出对话框-->
+<!--弹出对话框1-->
 <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">申请单</h4>
+        <h4 class="modal-title">出国、赴港澳人员情况表</h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
@@ -631,526 +631,325 @@
             <div class="container">
               <div class="row">
                 <!-- post sidebar -->
-                <ul id="myTab" class="nav nav-tabs">
-                  <li class="active"><a href="#home" data-toggle="tab">患者信息</a></li>
-                  <li><a href="#nav1" data-toggle="tab">临床信息</a></li>
-                  <li><a href="#nav2" data-toggle="tab">送检标本信息</a></li>
-                  <li><a href="#nav3" data-toggle="tab">肿瘤患者填写</a></li>
-                  <li><a href="#nav4" data-toggle="tab">妇科患者填写</a></li>
-                  <li><a href="#nav5" data-toggle="tab">甲状腺标本填写</a></li>
-                  <li><a href="#nav6" data-toggle="tab">手术标本送检</a></li>
-                  <li><a href="#nav7" data-toggle="tab">采集标本解剖</a></li>
-                </ul>
-
-                <div id="myTabContent" class="tab-content">
-                  <!--------------------------home-------------------------------->
-                  <div class="tab-pane fade in active" id="home">
-                    <div class="form-group" style="margin-top:15px">
-                      <!--避孕youfoubiyun-->
-                      <label class="control-label col-sm-1" for="txt_search_shenqingleixing">申请类型</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_shenqingleixing" data-first-option="false"
-                                data-live-search="true"
-                                class="selectpicker form-control show-tick" title='申请类型'></select>
-                      </div>
-                      <label class="control-label col-sm-1" for="txt_search_binglihao1">病&nbsp&nbsp理&nbsp&nbsp号</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_binglihao1" readonly>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--姓名name-->
-                      <label class="control-label col-sm-1" for="txt_search_xingming">姓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_xingming">
-                      </div>
-                      <!--性别gender-->
-                      <label class="control-label col-sm-1" for="txt_search_gender">性&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp别</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_gender" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='请选择性别'></select>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--年龄age-->
-                      <label class="control-label col-sm-1"
-                             for="txt_search_age">年&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp龄</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_age">
-                      </div>
-                      <!--年龄单位unit-->
-                      <label class="control-label col-sm-1" for="txt_search_department"></label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_department" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='请选择单位'></select>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--婚否marrage-->
-                      <label class="control-label col-sm-1" for="txt_search_marrage">婚&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp否</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_marrage" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='请选择婚否'></select>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--民族minzu-->
-                      <label class="control-label col-sm-1"
-                             for="txt_search_minzu">民&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp族</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_minzu" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='请选择民族'></select>
-                      </div>
-                      <!--职业zhiye-->
-                      <label class="control-label col-sm-1"
-                             for="txt_search_zhiye">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_zhiye">
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--电话tel-->
-                      <label class="control-label col-sm-1"
-                             for="txt_search_tel">电&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp话</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_tel">
-                      </div>
-                      <!--身份证号shenfenzheng-->
-                      <label class="control-label col-sm-1" for="txt_search_shenfenzheng">身份证号</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_shenfenzheng">
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--住址address-->
-                      <label class="control-label col-sm-1" for="txt_search_address">住&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp址</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_address" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='请输入省'></select>
-                      </div>
-                      <label class="control-label col-sm-1" for="txt_search_address"></label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_addresscity" data-first-option="false"
-                                data-live-search="true" class="selectpicker form-control show-tick"
-                                title='请输入市'></select>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="txt_search_address"></label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_addressdistinct" data-first-option="false"
-                                data-live-search="true" class="selectpicker form-control show-tick"
-                                title='请输入区'></select>
-                      </div>
-                      <label class="control-label col-sm-1" for="txt_search_address"></label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_addressother">
-                      </div>
-                    </div>
-
-                    <div class="form-group" style="margin-top:15px">
-                      <!--就医来源source-->
-                      <label class="control-label col-sm-1" for="txt_search_source">就医来源</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_source" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='请选择就医来源'></select>
-                      </div>
-                      <!--病区bingqu-->
-                      <label class="control-label col-sm-1" for="txt_search_bingqu">病&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp区</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_bingqu" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='请选择病区'></select>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--床号bedcode-->
-                      <label class="control-label col-sm-1" for="txt_search_bedcode">床&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_bedcode">
-                      </div>
-                    </div>
-                    <!-- Matter ends -->
-                  </div>
-                  <!--------------------------nav1---------------------------->
-                  <div class="tab-pane fade" id="nav1">
-                    <div class="form-group" style="margin-top:15px">
-                      <!--症状zhengzhuang-->
-                      <label class="control-label col-sm-1" for="txt_search_zhengzhuang">症&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp状</label>
-                    </div>
-                    <div class="form-group" style="margin-top:15px;margin-left:3px">
-                      <div class="col-sm-11">
-                    <textarea class="form-control" rows="3" placeholder="Textarea"
-                              id="txt_search_zhengzhuang"></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px;margin-left:3px">
-                      <!--体征tizheng-->
-                      <label class="control-label col-sm-1"
-                             for="txt_search_tizheng">体&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp征</label>
-                    </div>
-                    <div class="form-group" style="margin-top:15px;margin-left:3px">
-                      <div class="col-sm-11">
-                        <textarea class="form-control" rows="3" placeholder="Textarea"
-                                  id="txt_search_tizheng"></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px;margin-left:3px">
-                      <!--临床诊断linchuangzhenduan-->
-                      <label class="control-label col-sm-1" for="txt_search_linchuangzhenduan">临床诊断</label>
-                    </div>
-                    <div class="form-group" style="margin-top:15px;margin-left:3px">
-                      <div class="col-sm-11">
-                    <textarea class="form-control" rows="3" placeholder="Textarea"
-                              id="txt_search_linchuangzhenduan"></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px;margin-left:3px">
-                      <!--其它诊断qitazhenduan-->
-                      <label class="control-label col-sm-1" for="txt_search_qitazhenduan"> 其它诊断</label>
-                    </div>
-                    <div class="form-group" style="margin-top:15px;margin-left:3px">
-                      <div class="col-sm-11">
-                    <textarea class="form-control" rows="3" placeholder="Textarea"
-                              id="txt_search_qitazhenduan"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <!------------------------------nav2-------------------------------->
-                  <div class="tab-pane fade" id="nav2">
-                    <div class="form-group" style="margin-top:15px">
-                      <label class="col-sm-4">注意事项</label>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--是否曾在本院做过病理检查sfczby-->
-                      <label class="col-sm-4" for="txt_search_sfczby">是否曾在本院做过病理检查</label>
-                      <div class="col-sm-5">
-                        <select id="txt_search_sfczby" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='是否曾在本院做过病理检查'></select>
-                      </div>
-                    </div>
-                  </div>
-                  <!------------------------------nav3--------------------------------->
-                  <div class="tab-pane fade" id="nav3">
-                    <div class="form-group" style="margin-top:15px">
-                      <!--肿瘤发现时间zlfxsj-->
-                      <label class="control-label col-sm-1" for="txt_search_zlfxsj">发现时间</label>
-                      <div id="txt_search_zlfxsj1" class="input-append col-sm-3">
-                        <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="txt_search_zlfxsj">
-                        <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                        </span>
-                      </div>
-                      <label class="control-label col-sm-1" for="txt_search_year">年</label>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_name">姓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名</label>
                       <div class="col-sm-3">
-                        <input type="text" class="form-control" id="txt_search_year">
+                          <input type="text" class="form-control" id="qkb_name">
                       </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--肿瘤部位zlbw-->
-                      <label class="control-label col-sm-1" for="txt_search_zlbw">肿瘤部位</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_zlbw">
-                      </div>
-                      <!--肿瘤大小zldx-->
-                      <label class="control-label col-sm-1" for="txt_search_zldx">肿瘤大小</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_zldx">
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--转移zhuanyi-->
-                      <label class="control-label col-sm-1" for="txt_search_zhuanyi">有无转移</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_zhuanyi" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='有无转移'></select>
-                      </div>
-                      <!--转移位置zhuanyiweizhi-->
-                      <label class="control-label col-sm-1" for="txt_search_zhuanyiweizhi">转移位置</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_zhuanyiweizhi">
-                      </div>
-                    </div>
-
-                    <div class="form-group" style="margin-top:15px">
-                      <!--放化疗fanghualiao-->
-                      <label class="control-label col-sm-1" for="txt_search_fanghualiao">放化疗？</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_fanghualiao" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='有无放化疗'></select>
-                      </div>
-                      <!--肿瘤大小zhongliudaxiao-->
-                      <label class="control-label col-sm-1" for="txt_search_zhongliudaxiao">肿瘤大小</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_zhongliudaxiao">
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--肿瘤大小对应时间-->
-                      <div id="datetimepicker12" class="input-append col-sm-5">
-                        <input data-format="yyyy-MM-dd'" type="text" class="form-control dtpicker"
-                               id="txt_search_zldxdysj">
-                        <span class="add-on">
-                              <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                                 class="btn btn-info btn-lg"></i>
-                            </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="tab-pane fade" id="nav4">
-                    <div class="form-group" style="margin-top:15px">
-                      <!--月经周期yjzq-->
-                      <label class="control-label col-sm-1" for="txt_search_yjzq">月经周期</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_yjzq">
-                      </div>
-                      <!--月经持续时间yjcxsj-->
-                      <label class="control-label col-sm-1" for="txt_search_yjcxsj">持续时间</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_yjcxsj">
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--上次月经scyj-->
-                      <label class="control-label col-sm-1" for="txt_search_scyj">上次月经</label>
-                      <div id="datetimepicker42" class="input-append col-sm-4">
-                        <input data-format="yyyy-MM-dd'" type="text" class="form-control dtpicker"
-                               id="txt_search_scyj">
-                        <span class="add-on">
-                              <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                                 class="btn btn-info btn-lg"></i>
-                            </span>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--周期治疗？zqzl-->
-                      <label class="control-label col-sm-1" for="txt_search_zqzl">周期治疗</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_zqzl" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick" title='是否施行周期治疗'></select>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--周期治疗时间zqzlsj-->
-                      <label class="control-label col-sm-1" for="txt_search_zqzlsj">时&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp间</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_zqzlsj">
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--剂量zqzljl-->
-                      <label class="control-label col-sm-1" for="txt_search_zqzljl">剂&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp量</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_zqzljl">
-                      </div>
-                    </div>
-
-
-                    <div class="form-group" style="margin-top:15px">
-                      <!--生产史shengchanshi-->
-                      <label class="control-label col-sm-1" for="txt_search_shengchanshi">生&nbsp&nbsp产&nbsp&nbsp史</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_shengchanshi">
-                      </div>
-                      <!--剂量zqzljl-->
-                      <label class="control-label col-sm-1" for="txt_search_shengchanshi">胎</label>
+                      <label class="control-label col-sm-1" for="qkb_gender">性&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp别</label>
                       <div class="col-sm-3">
-                        <input type="text" class="form-control" id="txt_search_shengchanshichan">
+                          <select id="qkb_gender" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
                       </div>
-                      <label class="control-label col-sm-1" for="txt_search_shengchanshi">产</label>
-                    </div>
-
-                    <div class="form-group" style="margin-top:15px">
-                      <!--避孕youfoubiyun-->
-                      <label class="control-label col-sm-1" for="txt_search_youfoubiyun">有否避孕</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_youfoubiyun" data-first-option="false"
-                                data-live-search="true"
-                                class="selectpicker form-control show-tick" title='有否避孕'></select>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--避孕方式biyunfangshi-->
-                      <label class="control-label col-sm-1" for="txt_search_biyunfangshi">避孕方式</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_biyunfangshi" data-first-option="false"
-                                data-live-search="true"
-                                class="selectpicker form-control show-tick" title='避孕方式'></select>
-                      </div>
-                    </div>
-                  </div>
-                  <!---->
-                  <div class="tab-pane fade" id="nav5">
-                    <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-2"
-                             for="txt_search_dianjizhiliao">如为甲状腺标本请填写</label>
-                    </div>
-
-                    <div class="form-group" style="margin-top:15px">
-                      <!--碘剂治疗dianjizhiliao-->
-                      <div class="col-sm-11">
-                        <select id="txt_search_dianjizhiliao" data-first-option="false"
-                                data-live-search="true"
-                                class="selectpicker form-control show-tick" title='是否接受过碘剂治疗'></select>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--硫尿嘧啶类治疗lnmdzl-->
-                      <div class="col-sm-11">
-                        <select id="txt_search_lnmdzl" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick"
-                                title='是否接受过硫尿嘧啶类治疗'></select>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="txt_search_shoushusuojian">手术标本</label>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <!--手术所见shoushusuojian-->
-                      <label class="control-label col-sm-1" for="txt_search_shoushusuojian">手术所见</label>
-                      <div class="col-sm-10">
-                  <textarea class="form-control" rows="3" placeholder="Textarea"
-                            id="txt_search_shoushusuojian"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <!---->
-                  <!-----------------------------nav6------------------------------------->
-                  <div class="tab-pane fade" id="nav6">
-                    <div class="form-group" style="margin-top:15px">
-                      <!--碘剂治疗dianjizhiliao-->
-                      <label class="control-label col-sm-3"
-                             for="txt_search_dianjizhiliao">标本位置</label>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_cjbbzlbw">
-                      </div>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="txt_search_zlfj1">
-                      </div>
-                      <div class="col-sm-2">
-                        <button id="btn_addjpbw" type="button" class="btn btn-default">+</button>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <div class="col-sm-4">
-                        <label class="control-label col-sm-3"
-                               for="txt_search_huayanjieguo">化验结果</label>
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                      <div class="col-sm-10">
-                  <textarea class="form-control" rows="3" placeholder="Textarea"
-                            id="txt_search_huayanjieguo"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <!---->
-                  <div class="tab-pane fade" id="nav7">
-                    <div class="form-group" style="margin-top:15px">
-                      <!--碘剂治疗dianjizhiliao-->
-                      <label class="control-label col-sm-4"
-                             for="txt_search_dianjizhiliao">检查方法</label>
-                    </div>
-                    <div class="form-group" style="margin-top:5px;margin-left:10px">
-                      <button type="button" id="btn-1" class="btn btn-warning" style="width:130px">活检</button>
-                      <button type="button" id="btn-2" class="btn btn-warning" style="width:130px">快速冰冻</button>
-                      <button type="button" id="btn-3" class="btn btn-warning" style="width:130px">细胞学</button>
-                      <button type="button" id="btn-4" class="btn btn-warning" style="width:130px">TCT</button>
-                    </div>
-                    <div class="form-group" style="margin-top:5px;margin-left:10px">
-                      <button type="button" id="btn-5" class="btn btn-warning" style="width:130px">免疫组化</button>
-                      <button type="button" id="btn-6" class="btn btn-warning" style="width:130px">细胞DNA倍体</button>
-                      <button type="button" id="btn-7" class="btn btn-warning" style="width:130px">FISH</button>
-                      <button type="button" id="btn-8" class="btn btn-warning" style="width:130px">基因检测</button>
-                    </div>
-                    <div class="form-group" style="margin-top:5px;margin-left:10px">
-                      <label class="control-label col-sm-3"
-                             for="txt_search_qitafangfa">其它方法</label>
-                    </div>
-                    <div class="form-group" style="margin-top:5px;margin-left:10px">
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txt_search_qitafangfa">
-                      </div>
-                    </div>
-                    <div class="form-group" style="margin-top:5px;margin-left:10px">
-                      <label class="control-label col-sm-1"
-                             for="txt_search_teshuyaoqiu">特殊要求</label>
-                    </div>
-                    <div class="form-group" style="margin-top:5px;margin-left:10px">
-                      <div class="col-sm-10">
-                  <textarea class="form-control" rows="3" placeholder="Textarea"
-                            id="txt_search_teshuyaoqiu"></textarea>
-                      </div>
-                    </div>
-                    <hr/>
-                    <div class="form-group" style="margin-top:5px;margin-left:10px">
-                      <label class="control-label col-sm-1"
-                             for="txt_search_dianjizhiliao">申请医师</label>
-                      <div class="col-sm-4">
-                        <select id="txt_search_shenqingyishi" data-first-option="false" data-live-search="true"
-                                class="selectpicker form-control show-tick"
-                                title='请选择申请医师'>
-                        </select>
-                      </div>
-                      <label class="control-label col-sm-1"
-                             for="txt_search_sheniqngriqi">申请日期</label>
-                        <div id="datetimepickerer42" class="input-append col-sm-4">
-                        <input data-format="yyyy-MM-dd'" type="text" class="form-control dtpicker"
-                               id="txt_search_sheniqngriqi">
-                        <span class="add-on">
-                              <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                                 class="btn btn-info btn-lg"></i>
-                        </span>
-                      </div>
-                    </div>
-
-                      <div class="form-group" style="margin-top:5px;margin-left:10px">
-                        <label class="control-label col-sm-1"
-                               for="txt_search_songjianyishi">送检医师</label>
-                        <div class="col-sm-4">
-                          <select id="txt_search_songjianyishi" data-first-option="false" data-live-search="true"
-                                  class="selectpicker form-control show-tick"
-                                  title='选择送检医师'>
-                          </select>
-                        </div>
-                        <label class="control-label col-sm-1"
-                               for="txt_search_songjianriqi">送检日期</label>
-                        <div id="datetimepickerera42" class="input-append col-sm-4">
-                          <input data-format="yyyy-MM-dd'" type="text" class="form-control dtpicker"
-                                 id="txt_search_songjianriqi">
+                      <label class="control-label col-sm-1" for="qkb_birthyday">出生日期</label>
+                      <div id="qkb_birthyday" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_birthyday002">
                           <span class="add-on">
-                              <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                                 class="btn btn-info btn-lg"></i>
-                        </span>
-                        </div>
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
                       </div>
-                      <div class="form-group" style="margin-top:5px;margin-left:10px">
-                        <label class="control-label col-sm-1"
-                               for="txt_search_dianjizhiliao">送检科室</label>
-                        <div class="col-sm-4">
-                          <select id="txt_search_lnmfghdzl" data-first-option="false" data-live-search="true"
-                                  class="selectpicker form-control show-tick"
-                                  title='选择送检科室'>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group" style="margin-top:5px;margin-left:10px">
-                        <label class="control-label col-sm-1" for="txt_search_dianjizhiliao"></label>
-                        <div class="col-sm-3">
-                          <button type="button" id="btn-save" class="btn btn-primary" style="width:130px">保存</button>
-                        </div>
-                        <div class="col-sm-3">
-                          <button type="button" id="btn-submit" class="btn btn-info" style="width:130px">提交</button>
-                        </div>
-                      </div>
-                    </div>
-
                   </div>
-                </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_birthyplace">出生地点</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_birthyplace">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_nation">民&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp族</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_nation">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_educationle">文化程度</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_educationle">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_zwhzc">职务职称</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_zwhzc">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_jxhjb">军衔级别</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_jxhjb">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_zzmianmao">政治面貌</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_zzmianmao">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_wgysp">外语水平</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_wgysp">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_bysjbyyx">毕业状况</label>
+                      <div class="col-sm-11">
+            <textarea class="form-control" rows="3" placeholder="Textarea" id="qkb_bysjbyyx">
+			</textarea>
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_wgysp">联系电话</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_wgysp">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_jgzid">证件号码</label>
+                      <div class="col-sm-11">
+            <textarea class="form-control" rows="3" placeholder="Textarea" id="qkb_jgzid">
+			</textarea>
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_ywhuzhaoc">有无护照</label>
+                      <div class="col-sm-3">
+                          <select id="qkb_ywhuzhaoc" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_huzhaohao">护照号码</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_huzhaohao">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb__huzhaoyouxiaoqi">有效期至</label>
+                      <div id="qkb__huzhaoyouxiaoqi" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb__huzhaoyouxiaoqi002">
+                          <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="task_name">工作简历</label>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="task_name">起止年月</label>
+                      <label class="control-label col-sm-3" for="task_name"></label>
+                      <label class="control-label col-sm-3" for="task_name">工作职务</label>
+                      <label class="control-label col-sm-3" for="task_name"></label>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_qzsj001">起止年月1</label>
+                      <div id="qkb_qzsj001" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj001001">
+                          <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gzdwzw1">工作职务1</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_gzdwzw1">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_qzsj002">起止年月2</label>
+                      <div id="qkb_qzsj002" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj002001">
+                          <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gzdwzw2">工作职务2</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_gzdwzw2">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_qzsj003">起止年月3</label>
+                      <div id="qkb_qzsj003" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj003001">
+                          <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gzdwzw3">工作职务3</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_gzdwzw3">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_qzsj004">起止年月4</label>
+                      <div id="qkb_qzsj004" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj004001">
+                          <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gzdwzw4">工作职务4</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_gzdwzw4">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_qzsj005">起止年月5</label>
+                      <div id="qkb_qzsj005" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj005001">
+                          <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gzdwzw5">工作职务5</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_gzdwzw5">
+                      </div>
+                  </div>
+
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="task_name">出国情况</label>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="task_name">时间</label>
+                      <label class="control-label col-sm-2" for="task_name"></label>
+                      <label class="control-label col-sm-1" for="task_name">执行任务</label>
+                      <label class="control-label col-sm-2" for="task_name"></label>
+                      <label class="control-label col-sm-1" for="task_name">对外身份</label>
+                      <label class="control-label col-sm-2" for="task_name"></label>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_cgqksj001">时间1</label>
+                      <div id="qkb_cgqksj001" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj001001">
+                          <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gjjrw001">国家任务1</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_gjjrw001">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_dwsf001">身份1</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_dwsf001">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_cgqksj002">时间2</label>
+                      <div id="qkb_cgqksj002" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj002001">
+                          <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gjjrw002">国家任务2</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_gjjrw002">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_dwsf002">身份2</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_dwsf002">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_cgqksj003">时间3</label>
+                      <div id="qkb_cgqksj003" class="input-append col-sm-2">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj003001">
+                          <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+            </span>
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gjjrw003">国家任务3</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_gjjrw003">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_qzsj003">身份3</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_dwsf003">
+                      </div>
+                  </div>
+
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="task_name">家庭成员</label>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="task_name">姓名</label>
+                      <label class="control-label col-sm-2" for="task_name"></label>
+                      <label class="control-label col-sm-1" for="task_name">关系</label>
+                      <label class="control-label col-sm-2" for="task_name"></label>
+                      <label class="control-label col-sm-1" for="task_name">工作单位</label>
+                      <label class="control-label col-sm-2" for="task_name"></label>
+                      <label class="control-label col-sm-1" for="task_name">是否国外</label>
+                      <label class="control-label col-sm-2" for="task_name"></label>
+                  </div>
+
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_cyxm001">姓名1</label>
+                      <div class="col-sm-1">
+                          <input type="text" class="form-control" id="qkb_cyxm001">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gx001">关系1</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_gx001">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_dwzw001">单位职务1</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_dwzw001">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gw1">国外否1</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_gw1">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_cyxm002">姓名2</label>
+                      <div class="col-sm-1">
+                          <input type="text" class="form-control" id="qkb_cyxm002">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gx002">关系2</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_gx002">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_dwzw002">单位职务2</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_dwzw002">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gw2">国外否2</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_gw2">
+                      </div>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_cyxm003">姓名3</label>
+                      <div class="col-sm-1">
+                          <input type="text" class="form-control" id="qkb_cyxm003">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gx003">关系3</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_gx003">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_dwzw003">单位职务3</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_dwzw003">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_gw3">国外否3</label>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="qkb_gw3">
+                      </div>
+                  </div>
+
+                  <div class="form-group" style="margin-top:15px">
+                      <label class="control-label col-sm-1" for="qkb_department">承办单位</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_department">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_scmxm">联&nbsp&nbsp系&nbsp&nbsp人</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_scmxm">
+                      </div>
+                      <label class="control-label col-sm-1" for="qkb_scmdh">电&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp话</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="qkb_scmdh">
+                      </div>
+                  </div>
+
+                  <div class="form-group" style="margin-top:15px">
+                      <div class="btn-group">
+                          <!--button-->
+                          <div id="toolbar005" class="btn-group">
+                              <button type="button" id="btn_baocun005" class="btn btn-warning">保存</button>
+                              <button type="button" id="btn_wancheng005" class="btn btn-success">完成</button>
+                          </div>
+                      </div>
+                  </div>
+
               </div>
             </div>
+          </div>
         </form>
       </div>
     </div>
