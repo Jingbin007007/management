@@ -292,10 +292,9 @@
 
                             <div class="form-group" style="margin-top:15px">
                               <div class="btn-group">
-                                <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
-                                <button type="button" id="btn_output" class="btn btn-success">导出</button>
-                                <button type="button" id="btn_print" class="btn btn-danger">打印</button>
-                                <button type="button" id="btn_change" class="btn btn-warning">编辑</button>
+                                <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">创建</button>
+                                <button type="button" id="btn_output" class="btn btn-success">修改</button>
+                                <button type="button" id="btn_print" class="btn btn-danger">删除</button>
                               </div>
                             </div>
 
@@ -318,6 +317,276 @@
                   </div>
                 </div>
               </div>
+
+              <!---->
+              <div class="col-md-12">
+                <div class="widget">
+                  <div class="widget-head">
+                    <div class="pull-left">基本信息填写</div>
+                    <div class="widget-icons pull-right">
+                      <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                      <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="widget-content">
+                    <div class="panel-body" style="padding-bottom:0px;">
+                      <div class="widget">
+                        <div class="widget-content">
+                          <!--1-->
+                          <form id="formSearch002" class="form-horizontal">
+                            <div class="form-group" style="margin-top:15px">
+                              <label class="control-label col-sm-1" for="extend_nation">民&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp族</label>
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control" id="extend_nation" value="请输入民族" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                              </div>
+                              <label class="control-label col-sm-1" for="extend_educationle">文化程度</label>
+                              <div class="col-sm-2">
+                                <select id="extend_educationle" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的国'></select>
+                              </div>
+                              <label class="control-label col-sm-1" for="extend_zzmianmao">政治面貌</label>
+                              <div class="col-sm-2">
+                                <select id="extend_zzmianmao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的城市'></select>
+                              </div>
+                              <label class="control-label col-sm-1" for="extend_wgysp">外语水平</label>
+                              <div class="col-sm-2">
+                                <select id="extend_wgysp" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的城市'></select>
+                              </div>
+                            </div>
+                            <!--2-->
+                            <div class="form-group" style="margin-top:15px">
+                              <label class="control-label col-sm-1" for="passport_ywhuzhao">有无护照</label>
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control" id="passport_ywhuzhao">
+                              </div>
+                              <label class="control-label col-sm-1" for="passport_huzhaozhonglei">护照种类</label>
+                              <div class="col-sm-2">
+                                <select id="passport_huzhaozhonglei" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入出国期限'></select>
+                              </div>
+                              <label class="control-label col-sm-1" for="passport_huzhaohao">护&nbsp&nbsp照&nbsp&nbsp号</label>
+                              <div class="col-sm-2">
+                                <select id="passport_huzhaohao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入出国期限'></select>
+                              </div>
+
+                            </div>
+                            <div class="form-group" style="margin-top:15px">
+                              <label class="control-label col-sm-1" for="passport_fazhaoriqi">发照时间</label>
+                              <div id="passport_fazhaoriqi" class="input-append col-sm-2">
+                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="passport_fazhaoriqi001">
+                                <span class="add-on">
+                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                                </span>
+                              </div>
+                              <label class="control-label col-sm-1" for="passport_huzhaoyouxiaoqi">护照效期</label>
+                              <div id="passport_huzhaoyouxiaoqi" class="input-append col-sm-2">
+                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="passport_huzhaoyouxiaoqi001">
+                                <span class="add-on">
+                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                                </span>
+                              </div>
+                              <label class="control-label col-sm-1" for="passport_yanqi">护照延期</label>
+                              <div id="passport_yanqi" class="input-append col-sm-2">
+                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="passport_yanqi001">
+                                <span class="add-on">
+                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top:15px">
+                              <label class="control-label col-sm-1" for="extend_bysjbyyx">毕业情况</label>
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control" id="extend_bysjbyyx" value="请输入毕业时间及院校" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                              </div>
+                              <label class="control-label col-sm-1" for="task_swscmxm">参谋姓名</label>
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control" id="task_swscmxm" value="请输入单位外事参谋姓名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                              </div>
+                              <label class="control-label col-sm-1" for="task_swscmdh">参谋电话</label>
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control" id="task_swscmdh" value="请输入外事参谋电话" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                              </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top:15px">
+                              <label class="control-label col-sm-1" for="passport_beizhu">护照备注</label>
+                              <div class="col-sm-11">
+                                  <textarea class="form-control" rows="3" placeholder="填写护照备注信息" id="passport_beizhu">
+			                      </textarea>
+                              </div>
+                            </div>
+                            <div class="form-group" style="margin-top:15px">
+                              <label class="control-label col-sm-1" for="staffdetail_yjfxcjgx">个人简介</label>
+                              <div class="col-sm-11">
+                                  <textarea class="form-control" rows="3" placeholder="填写个人研究方向、重点研究领域、突出成就业绩" id="staffdetail_yjfxcjgx">
+			                      </textarea>
+                              </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top:15px">
+                              <div class="btn-group">
+                                <button type="button" style="margin-left:50px" id="btn_zancun" class="btn btn-primary">暂存</button>
+                                <button type="button" id="btn_gengxin" class="btn btn-success">更新</button>
+                              </div>
+                            </div>
+
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="widget">
+                      <div class="widget-head">
+                        <div class="pull-left">出国申请记录</div>
+                        <div class="widget-icons pull-right">
+                          <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                          <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="widget">
+                          <div class="widget-head">
+                            <div class="pull-left">附件填写及上传</div>
+                            <div class="widget-icons pull-right">
+                              <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                              <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <div class="widget-content">
+                            <div class="panel-body" style="padding-bottom:0px;">
+                              <div class="widget">
+                                <div class="widget-content">
+                                  <!--1-->
+                                  <form id="formSearch004" class="form-horizontal">
+                                    <div class="form-group" style="margin-top:15px">
+                                      <label class="control-label col-sm-1" for="task_name_query">情&nbsp&nbsp况&nbsp&nbsp表</label>
+                                      <div class="btn-group">
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiugai0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_yulan0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiazai0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_shanchu0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
+                                      </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top:15px">
+                                      <label class="control-label col-sm-1" for="task_name_query">责&nbsp&nbsp任&nbsp&nbsp书</label>
+                                      <div class="btn-group">
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiugai0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_yulan0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiazai0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_shanchu0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
+                                      </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top:15px">
+                                      <label class="control-label col-sm-1" for="task_name_query">邀&nbsp&nbsp请&nbsp&nbsp函</label>
+                                      <div class="btn-group">
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiugai0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_yulan0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiazai0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_shanchu0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
+                                      </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top:15px">
+                                      <label class="control-label col-sm-1" for="task_name_query">行程安排</label>
+                                      <div class="btn-group">
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiugai0004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_yulan0004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiazai0004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_shanchu0004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+
+                              <div id="toolbar003" class="btn-group">
+                                <button id="btn_query002" type="button" class="btn btn-primary"  style="margin-left:50px">合并附件</button>
+                                <button id="btn_yulan002" type="button" class="btn btn-success">提交审核</button>
+                                <button id="btn_output002" type="button" class="btn btn-danger">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
+                                <button id="btn_input002" type="button" class="btn btn-info">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
+                              </div>
+
+                              <br/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="widget-content">
+                        <div class="panel-body" style="padding-bottom:0px;">
+                          <div class="widget">
+                            <div class="widget-content">
+                              <!--1-->
+                              <form id="formSearch003" class="form-horizontal">
+                                <div class="form-group" style="margin-top:15px">
+                                  <label class="control-label col-sm-1" for="task_name_query">任&nbsp&nbsp务&nbsp&nbsp名</label>
+                                  <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="task_name_query" value="请输入任务名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                                  </div>
+                                  <label class="control-label col-sm-1" for="task_tarcountry_query">目&nbsp&nbsp的&nbsp&nbsp国</label>
+                                  <div class="col-sm-2">
+                                    <select id="task_tarcountry_query" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的国'></select>
+                                  </div>
+                                  <label class="control-label col-sm-1" for="task_tarcity_query">目的城市</label>
+                                  <div class="col-sm-2">
+                                    <select id="task_tarcity_query" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的城市'></select>
+                                  </div>
+
+                                </div>
+                                <!--2-->
+                                <div class="form-group" style="margin-top:15px">
+                                  <label class="control-label col-sm-1" for="task_cjcfbeg_query">开始时间</label>
+                                  <div id="task_cjcfbeg_query" class="input-append col-sm-2">
+                                    <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_cjcfbeg_query001">
+                                    <span class="add-on">
+                                      <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                                    </span>
+                                  </div>
+                                  <label class="control-label col-sm-1" for="task_cjggend_query">结束时间</label>
+                                  <div id="task_cjggend_query" class="input-append col-sm-2">
+                                    <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_cjggend_query001">
+                                    <span class="add-on">
+                                      <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                                    </span>
+                                  </div>
+
+                                </div>
+
+                              </form>
+                            </div>
+                          </div>
+
+                          <div id="toolbar001" class="btn-group">
+                            <button id="btn_query001" type="button" class="btn btn-default">
+                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>查询
+                            </button>
+                            <button id="btn_yulan001" type="button" class="btn btn-default">
+                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>预览
+                            </button>
+                            <button id="btn_output001" type="button" class="btn btn-default">
+                              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>导出
+                            </button>
+                          </div>
+                          <table id="tb_tasks001"></table>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
         </div>
 		  </div>
