@@ -86,7 +86,7 @@
 
   <script src="js/tableExport.js"></script>
   <script src="js/patientappli.js"></script>
-  <script src="js/address.js"></script>
+  <!--<script src="js/address.js"></script>-->
 
   <script>
       var tempObj = new Array();
@@ -150,7 +150,6 @@
         <!-- Logo. -->
         <div class="logo">
           <h3>军事医学研究院出国(境)人员申请系统<span class="bold"></span></h3>
-          <%--<p class="meta">业务流管理系统</p>--%>
         </div>
         <!-- Logo ends -->
       </div>
@@ -617,6 +616,7 @@
 <!-- Footer ends -->
 
 <!--弹出对话框1-->
+<!--出国、赴港澳人员情况表-->
 <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -644,8 +644,8 @@
                       <div id="qkb_birthyday" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_birthyday002">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
@@ -683,19 +683,19 @@
                       </div>
                       <label class="control-label col-sm-1" for="qkb_bysjbyyx">毕业状况</label>
                       <div class="col-sm-11">
-            <textarea class="form-control" rows="3" placeholder="Textarea" id="qkb_bysjbyyx">
-			</textarea>
+                        <textarea class="form-control" rows="3" placeholder="Textarea" id="qkb_bysjbyyx">
+                        </textarea>
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_wgysp">联系电话</label>
+                      <label class="control-label col-sm-1" for="qkb_lxdh">联系电话</label>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control" id="qkb_wgysp">
+                          <input type="text" class="form-control" id="qkb_lxdh">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_jgzid">证件号码</label>
                       <div class="col-sm-11">
-            <textarea class="form-control" rows="3" placeholder="Textarea" id="qkb_jgzid">
-			</textarea>
+                        <textarea class="form-control" rows="3" placeholder="Textarea" id="qkb_jgzid">
+                        </textarea>
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
@@ -711,8 +711,8 @@
                       <div id="qkb__huzhaoyouxiaoqi" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb__huzhaoyouxiaoqi002">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
@@ -729,8 +729,8 @@
                       <div id="qkb_qzsj001" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj001001">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw1">工作职务1</label>
                       <div class="col-sm-3">
@@ -742,8 +742,8 @@
                       <div id="qkb_qzsj002" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj002001">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw2">工作职务2</label>
                       <div class="col-sm-3">
@@ -755,8 +755,8 @@
                       <div id="qkb_qzsj003" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj003001">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                              <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw3">工作职务3</label>
                       <div class="col-sm-3">
@@ -768,8 +768,8 @@
                       <div id="qkb_qzsj004" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj004001">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw4">工作职务4</label>
                       <div class="col-sm-3">
@@ -781,8 +781,8 @@
                       <div id="qkb_qzsj005" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj005001">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                              <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw5">工作职务5</label>
                       <div class="col-sm-3">
@@ -806,8 +806,8 @@
                       <div id="qkb_cgqksj001" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj001001">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gjjrw001">国家任务1</label>
                       <div class="col-sm-2">
@@ -823,8 +823,8 @@
                       <div id="qkb_cgqksj002" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj002001">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gjjrw002">国家任务2</label>
                       <div class="col-sm-2">
@@ -840,14 +840,14 @@
                       <div id="qkb_cgqksj003" class="input-append col-sm-2">
                           <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj003001">
                           <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-            </span>
+                              <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                          </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gjjrw003">国家任务3</label>
                       <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_gjjrw003">
                       </div>
-                      <label class="control-label col-sm-1" for="qkb_qzsj003">身份3</label>
+                      <label class="control-label col-sm-1" for="qkb_dwsf003">身份3</label>
                       <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_dwsf003">
                       </div>
@@ -947,6 +947,172 @@
                       </div>
                   </div>
 
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">军事医学研究院因公出国人员保密责任书</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <!-- Matter -->
+          <div class="matter">
+            <div class="container">
+              <div class="row">
+                <!-- post sidebar -->
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="bmzrs_name">姓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="bmzrs_name">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_zhiji">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级</label>
+                  <div class="col-sm-3">
+                    <select id="baomi_zhiji" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_buzhibie">部&nbsp&nbsp职&nbsp&nbsp别</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_buzhibie">
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="qkb_zwzc">职务职称</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="qkb_zwzc">
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="qkb_dfgj">到访国家</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="qkb_dfgj">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_jwtlbeg">离境时间</label>
+                  <div id="baomi_jwtlbeg" class="input-append col-sm-2">
+                    <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="baomi_jwtlbeg001">
+                    <span class="add-on">
+							<i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+						  </span>
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_jwtlend">入境时间</label>
+                  <div id="baomi_jwtlend" class="input-append col-sm-2">
+                    <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="baomi_jwtlend001">
+                    <span class="add-on">
+							<i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+						  </span>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_jwtlend">携带设备</label>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="task_name">设备类型</label>
+                  <label class="control-label col-sm-3" for="task_name"></label>
+                  <label class="control-label col-sm-3" for="task_name">品牌型号</label>
+                  <label class="control-label col-sm-3" for="task_name"></label>
+                  <label class="control-label col-sm-3" for="task_name">涉密等级</label>
+                  <label class="control-label col-sm-3" for="task_name"></label>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_xddzsblx1">类型1</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xddzsblx1">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_xddzsbxh1">型号1</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xddzsbxh1">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_xddzsbsmdj1">涉密等级1</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xddzsbsmdj1">
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_xddzsblx2">类型2</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xddzsblx2">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_xddzsbxh2">型号2</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xddzsbxh2">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_xddzsbsmdj2">涉密等级2</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xddzsbsmdj2">
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_xddzsbyf">携带电脑</label>
+                  <div class="col-sm-3">
+                    <select id="baomi_xddzsbyf" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_xddzsbyf">涉密材料</label>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_xddzsbyf">资料名称</label>
+                  <label class="control-label col-sm-3" for="baomi_xddzsbyf"></label>
+                  <label class="control-label col-sm-3" for="baomi_xddzsbyf">份数</label>
+                  <label class="control-label col-sm-3" for="baomi_xddzsbyf"></label>
+                  <label class="control-label col-sm-3" for="baomi_xddzsbyf">涉密等级</label>
+                  <label class="control-label col-sm-3" for="baomi_xddzsbyf"></label>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_xdsmzlmc1">资料1</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xdsmzlmc1">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_xdsmzlfs1">份数1</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xdsmzlfs1">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_xdsmzlsmdj1">涉密等级1</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xdsmzlsmdj1">
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_xdsmzlmc2">资料2</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xdsmzlmc2">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_xdsmzlfs2">份数2</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xdsmzlfs2">
+                  </div>
+                  <label class="control-label col-sm-1" for="baomi_xdsmzlsmdj2">涉密等级2</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="baomi_xdsmzlsmdj2">
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="baomi_xdsmzlyf">涉密材料</label>
+                  <div class="col-sm-3">
+                    <select id="baomi_xdsmzlyf" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top:15px">
+                  <div class="btn-group">
+                    <!--button-->
+                    <div id="toolbar006" class="btn-group">
+                      <button type="button" id="btn_baocun006" class="btn btn-warning">保存</button>
+                      <button type="button" id="btn_wancheng006" class="btn btn-success">完成</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

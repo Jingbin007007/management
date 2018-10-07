@@ -61,7 +61,7 @@ var addressInit = function(_cmbProvince, _cmbCity, _cmbArea, _cmbStreet, default
     cmbSelect(cmbProvince, defaultProvince);
     changeProvince();
     cmbProvince.onchange = changeProvince;
-}
+};
 
 var provinceList = [
     {name:'请选择省份', cityList:[

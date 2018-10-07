@@ -398,4 +398,24 @@ public class EqController {
             out.close();
         }
     }
+
+    @RequestMapping("/selectAllTask")
+    @ResponseBody
+    public void selectAllTask(HttpServletResponse response,HttpServletRequest request){
+        sqlSession = factory.openSession(true);
+
+        List<Task> taskList = sqlSession.selectList("com.equipments.management.mapper.TaskMapper.getAllTask");
+        sqlSession.close();
+
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = null;
+        try{
+            out = response.getWriter();
+            out.println(JSON.toJSONString(taskList,SerializerFeature.DisableCircularReferenceDetect));
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            out.close();
+        }
+    }
 }
