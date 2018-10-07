@@ -114,7 +114,10 @@
     <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 
       <ul class="nav navbar-nav navbar-left">
-
+        <div class="logo">
+          <!--居中-->
+          <h3>军事医学研究院出国(境)人员申请系统<span class="bold"></span></h3>
+        </div>
       </ul>
 
 
@@ -142,23 +145,7 @@
 
 <!-- Header starts -->
 <header>
-  <div class="container">
-    <div class="row">
 
-      <!-- Logo section -->
-      <div class="col-md-4">
-        <!-- Logo. -->
-        <div class="logo">
-          <h3>军事医学研究院出国(境)人员申请系统<span class="bold"></span></h3>
-        </div>
-        <!-- Logo ends -->
-      </div>
-
-      <!-- Button section -->
-      <div class="col-md-4">
-      </div>
-    </div>
-  </div>
 </header>
 
 <!-- Header ends -->
