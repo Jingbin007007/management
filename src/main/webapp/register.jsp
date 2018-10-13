@@ -30,7 +30,7 @@
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/jquery.validate.js"></script>
+    <script src="js/geshihuazihu.js"></script>
     <script src="js/bootstrap-editable.js"></script>
     <script src="js/messages_zh.js"></script>
     <script src="js/bootstrap-datetimepicker.min.js"></script>
@@ -59,7 +59,7 @@
                     },
                     jgzid:{
                         required:true,
-                        jgzbh:true
+                        jgzid:true
                     },
                     birthyday:{
                         dateISO:true,
@@ -130,7 +130,7 @@
                     },
                     jgzid:{
                         required:'军官证或文职证编号，必填',
-                        jgzbh:"请按提示输入正确格式的军官证或文职证编号"
+                        jgzid:"请按提示输入正确格式的军官证或文职证编号"
                     },
                     birthplace:{
                         required:"出生地，必填",

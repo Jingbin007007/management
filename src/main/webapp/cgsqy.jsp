@@ -16,7 +16,6 @@
   <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">-->
   <link href="style/fileinput.css" rel="stylesheet" type="text/css"/>
   <link href="style/font-awesome.css" media="all" rel="stylesheet" type="text/css"/>
-  <link href="img/icons/title.png" rel="SHORTCUT ICON" />
 
   <link rel="stylesheet" href="style/bootstrap-select.css">
   <!-- Stylesheets -->
@@ -96,25 +95,16 @@
   </script>
 </head>
 
-
 <div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
-  <div class="conjtainer">
-    <!-- Menu button for smallar screens -->
-    <div class="navbar-header">
-      <button class="navbar-toggle btn-navbar" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-        <span>菜单</span>
-      </button>
-      <!-- Site name for smallar screens -->
-      <a href="index.jsp" class="navbar-brand hidden-lg">军事医学研究院出国人员审批系统</a>
-    </div>
-
+    <div class="conjtainer">
+      <!-- Menu button for smallar screens -->
 
 
     <!-- Navigation starts -->
     <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 
       <ul class="nav navbar-nav navbar-left">
-        <div class="logo">
+        <div class="logo" style="vertical-align:middle;margin-top:12px;margin-left:25px">
           <!--居中-->
           <h3>军事医学研究院出国(境)人员申请系统<span class="bold"></span></h3>
         </div>
@@ -162,12 +152,12 @@
     <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
     <ul id="nav">
       <!-- Main menu with font awesome icon -->
-      <li><a href="#" class="has_sub"><i class="icon-list-alt"></i> 公告 </a></li>
+      <li><a href="#" class="has_sub"><i class="icon-list-alt"></i> 指&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp南 </a></li>
       <%--<li><a href="index.jsp" class="open"><i class="icon-home"></i> 首页 </a></li>--%>
 
       <li class="has_sub"><a href="#"><i class="icon-list-alt"></i> 出国(境)申请 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
       <ul>
-        <li><a href="patientappli.jsp"><i class="icon-list-alt"></i> 出国(境)申请登记表 </a></li>
+        <li><a href="cgsqy.jsp"><i class="icon-list-alt"></i> 出国(境)申请登记表 </a></li>
       <%--<li><a href="widgets2.html"><i class="icon-list-alt"></i> 病历详情 </a></li>--%>
       </ul>
       </li>
@@ -198,7 +188,6 @@
                     </div>
                     <div class="clearfix"></div>
                   </div>
-
                   <div class="widget-content">
                     <div class="panel-body" style="padding-bottom:0px;">
                       <div class="widget">
@@ -208,15 +197,15 @@
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="task_name">任&nbsp&nbsp务&nbsp&nbsp名</label>
                               <div class="col-sm-3">
-                                <input type="text" class="form-control" id="task_name" value="请输入任务名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                                <input type="text" class="form-control" id="task_name" value="请输入任务名" onFocus="if(value==defaultValue){value='';this.style.color='#4b4b4b'}" onBlur="if(!value){value=defaultValue;this.style.color='#4b4b4b'}">
                               </div>
                               <label class="control-label col-sm-1" for="task_tarcountry">目&nbsp&nbsp的&nbsp&nbsp国</label>
                               <div class="col-sm-3">
-                                <select id="task_tarcountry" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的国'></select>
+                                <input type="text" class="form-control" id="task_tarcountry" value="请输入目的国" onFocus="if(value==defaultValue){value='';this.style.color='#999999'}" onBlur="if(!value){value=defaultValue;this.style.color='#999999'}">
                               </div>
                               <label class="control-label col-sm-1" for="task_tarcity">目的城市</label>
                               <div class="col-sm-3">
-                                <select id="task_tarcity" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的城市'></select>
+                                <input type="text" class="form-control" id="task_tarcity" value="请输入目的城市" onFocus="if(value==defaultValue){value='';this.style.color='#999999'}" onBlur="if(!value){value=defaultValue;this.style.color='#999999'}">
                               </div>
                             </div>
                             <!--2-->
@@ -227,7 +216,13 @@
                               </div>
                               <label class="control-label col-sm-1" for="task_type">任务类别</label>
                               <div class="col-sm-3">
-                                <select id="task_type" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入出国期限'></select>
+                                <select id="task_type" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择任务类别'>
+                                  <option  selected="selected"></option>
+                                  <option >会议</option>
+                                  <option >交流</option>
+                                  <option >培训</option>
+                                  <option >执行任务</option>
+                                </select>
                               </div>
                             </div>
                             <div class="form-group" style="margin-top:15px">
@@ -247,7 +242,7 @@
                               </div>
                               <label class="control-label col-sm-1" for="task_lijingshijian">离境时间</label>
                               <div id="task_lijingshijian" class="input-append col-sm-2">
-                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_lijingshijian001">
+                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_lijingshijian001" />
                                 <span class="add-on">
                                   <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
                                 </span>
@@ -260,22 +255,18 @@
                                 </span>
                               </div>
                             </div>
-
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="task_significance">参会意义</label>
                               <div class="col-sm-11">
-                                  <textarea class="form-control" rows="3" placeholder="Textarea" id="task_significance">
-			                      </textarea>
+                                  <textarea class="form-control" rows="3" placeholder="请填写该会议/交流/培训/任务在业界的影响及地位，以及参加该会议/交流/培训/任务的重要性及意义。" id="task_significance"></textarea>
                               </div>
                             </div>
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="task_temp">个人简介</label>
                               <div class="col-sm-11">
-                                  <textarea class="form-control" rows="3" placeholder="Textarea" id="task_temp">
-			                      </textarea>
+                                  <textarea class="form-control" rows="3" placeholder="请补充修改括号内容  该同志曾（）次出国参加（会议和演习），在出国（与会）期间，均能自觉遵守外事纪律，按期回国，英语基础好，能完成专业英语会话交流。" id="task_temp"></textarea>
                               </div>
                             </div>
-
                             <div class="form-group" style="margin-top:15px">
                               <div class="btn-group">
                                 <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">创建</button>
@@ -283,22 +274,9 @@
                                 <button type="button" id="btn_print" class="btn btn-danger">删除</button>
                               </div>
                             </div>
-
                           </form>
                         </div>
                       </div>
-                      <div id="toolbar" class="btn-group">
-                        <button id="btn_add" type="button" class="btn btn-default">
-                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
-                        </button>
-                        <button id="btn_save" type="button" class="btn btn-default">
-                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>保存
-                        </button>
-                        <button id="btn_delete" type="button" class="btn btn-default">
-                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-                        </button>
-                      </div>
-                      <table id="tb_tasks"></table>
                     </div>
                   </div>
                 </div>
@@ -329,30 +307,58 @@
                               </div>
                               <label class="control-label col-sm-1" for="extend_educationle">文化程度</label>
                               <div class="col-sm-2">
-                                <select id="extend_educationle" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的国'></select>
+                                <select id="extend_educationle" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择文化程度'>
+                                  <option  selected="selected"></option>
+                                  <option >大专</option>
+                                  <option >本科</option>
+                                  <option >硕士</option>
+                                  <option >博士</option>
+                                  <option >博士后</option>
+                                </select>
                               </div>
                               <label class="control-label col-sm-1" for="extend_zzmianmao">政治面貌</label>
                               <div class="col-sm-2">
-                                <select id="extend_zzmianmao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的城市'></select>
+                                <select id="extend_zzmianmao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择政治面貌'>
+                                  <option  selected="selected"></option>
+                                  <option >党员</option>
+                                  <option >团员</option>
+                                  <option >群众</option>
+                                  <option >其它党派</option>
+                                </select>
                               </div>
                               <label class="control-label col-sm-1" for="extend_wgysp">外语水平</label>
                               <div class="col-sm-2">
-                                <select id="extend_wgysp" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的城市'></select>
+                                <select id="extend_wgysp" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择外国语水平'>
+                                  <option  selected="selected"></option>
+                                  <option >四会</option>
+                                </select>
                               </div>
                             </div>
                             <!--2-->
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="passport_ywhuzhao">有无护照</label>
                               <div class="col-sm-2">
-                                <input type="text" class="form-control" id="passport_ywhuzhao">
+                                <select id="passport_ywhuzhao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择护照有无'>
+                                  <option  selected="selected"></option>
+                                  <option value="0">有</option>
+                                  <option value="1">无</option>
+                                </select>
                               </div>
                               <label class="control-label col-sm-1" for="passport_huzhaozhonglei">护照种类</label>
                               <div class="col-sm-2">
-                                <select id="passport_huzhaozhonglei" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入出国期限'></select>
+                                <select id="passport_huzhaozhonglei" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择护照种类'>
+                                  <option  selected="selected"></option>
+                                  <option >外交护照</option>
+                                  <option >公务护照</option>
+                                  <option >公务普通护照</option>
+                                  <option >普通护照</option>
+                                  <option >香港特别行政区护照</option>
+                                  <option >澳门特别行政区护照</option>
+                                </select>
                               </div>
                               <label class="control-label col-sm-1" for="passport_huzhaohao">护&nbsp&nbsp照&nbsp&nbsp号</label>
                               <div class="col-sm-2">
-                                <select id="passport_huzhaohao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入出国期限'></select>
+                                <input type="text" class="form-control" id="passport_huzhaohao"  title='请输入护照号' onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}" />
                               </div>
 
                             </div>
@@ -398,15 +404,13 @@
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="passport_beizhu">护照备注</label>
                               <div class="col-sm-11">
-                                  <textarea class="form-control" rows="3" placeholder="填写护照备注信息" id="passport_beizhu">
-			                      </textarea>
+                                  <textarea class="form-control" rows="3" placeholder="填写护照备注信息" id="passport_beizhu"></textarea>
                               </div>
                             </div>
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="staffdetail_yjfxcjgx">个人简介</label>
                               <div class="col-sm-11">
-                                  <textarea class="form-control" rows="3" placeholder="填写个人研究方向、重点研究领域、突出成就业绩" id="staffdetail_yjfxcjgx">
-			                      </textarea>
+                                  <textarea class="form-control" rows="3" placeholder="填写个人研究方向、重点研究领域、突出成就业绩" id="staffdetail_yjfxcjgx"></textarea>
                               </div>
                             </div>
 
@@ -454,7 +458,7 @@
                                     <div class="form-group" style="margin-top:15px">
                                       <label class="control-label col-sm-1" for="task_name_query">情&nbsp&nbsp况&nbsp&nbsp表</label>
                                       <div class="btn-group">
-                                        <button type="button" style="margin-left:50px" id="btn_tianxie001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie001" class="btn btn-default" data-toggle="modal" data-target="#myModal1">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_xiugai0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_yulan0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_xiazai0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
@@ -464,7 +468,7 @@
                                     <div class="form-group" style="margin-top:15px">
                                       <label class="control-label col-sm-1" for="task_name_query">责&nbsp&nbsp任&nbsp&nbsp书</label>
                                       <div class="btn-group">
-                                        <button type="button" style="margin-left:50px" id="btn_tianxie002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie002" class="btn btn-default" data-toggle="modal" data-target="#myModal2">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_xiugai0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_yulan0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_xiazai0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
@@ -474,8 +478,8 @@
                                     <div class="form-group" style="margin-top:15px">
                                       <label class="control-label col-sm-1" for="task_name_query">邀&nbsp&nbsp请&nbsp&nbsp函</label>
                                       <div class="btn-group">
-                                        <button type="button" style="margin-left:50px" id="btn_tianxie003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_xiugai0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp上传&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiugai0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp脱密&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_yulan0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_xiazai0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_shanchu0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
@@ -494,20 +498,11 @@
                                   </form>
                                 </div>
                               </div>
-
-                              <div id="toolbar003" class="btn-group">
-                                <button id="btn_query002" type="button" class="btn btn-primary"  style="margin-left:50px">合并附件</button>
-                                <button id="btn_yulan002" type="button" class="btn btn-success">提交审核</button>
-                                <button id="btn_output002" type="button" class="btn btn-danger">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
-                                <button id="btn_input002" type="button" class="btn btn-info">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
-                              </div>
-
                               <br/>
                             </div>
                           </div>
                         </div>
                       </div>
-
                       <div class="widget-content">
                         <div class="panel-body" style="padding-bottom:0px;">
                           <div class="widget">
@@ -545,26 +540,26 @@
                                       <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
                                     </span>
                                   </div>
-
                                 </div>
-
                               </form>
                             </div>
                           </div>
 
-                          <div id="toolbar001" class="btn-group">
-                            <button id="btn_query001" type="button" class="btn btn-default">
-                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>查询
+
+
+                          <div id="toolbar" class="btn-group">
+                            <button id="btn_add" type="button" class="btn btn-default">
+                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
                             </button>
-                            <button id="btn_yulan001" type="button" class="btn btn-default">
-                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>预览
+                            <button id="btn_save" type="button" class="btn btn-default">
+                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>保存
                             </button>
-                            <button id="btn_output001" type="button" class="btn btn-default">
-                              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>导出
+                            <button id="btn_delete" type="button" class="btn btn-default">
+                              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
                             </button>
                           </div>
-                          <table id="tb_tasks001"></table>
 
+                          <table id="tb_tasks"></table>
                         </div>
                       </div>
                     </div>
@@ -605,7 +600,7 @@
 <!--弹出对话框1-->
 <!--出国、赴港澳人员情况表-->
 <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="width:1200px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -625,7 +620,7 @@
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gender">性&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp别</label>
                       <div class="col-sm-3">
-                          <select id="qkb_gender" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
+                        <input type="text" class="form-control" id="qkb_gender">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_birthyday">出生日期</label>
                       <div id="qkb_birthyday" class="input-append col-sm-2">
@@ -669,9 +664,8 @@
                           <input type="text" class="form-control" id="qkb_wgysp">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_bysjbyyx">毕业状况</label>
-                      <div class="col-sm-11">
-                        <textarea class="form-control" rows="3" placeholder="Textarea" id="qkb_bysjbyyx">
-                        </textarea>
+                      <div class="col-sm-7">
+                        <textarea class="form-control" rows="1" placeholder="何年何月毕业于何院校，如（2010年6月，军事医学科学院公共卫生专业）" id="qkb_bysjbyyx"></textarea>
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
@@ -680,15 +674,14 @@
                           <input type="text" class="form-control" id="qkb_lxdh">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_jgzid">证件号码</label>
-                      <div class="col-sm-11">
-                        <textarea class="form-control" rows="3" placeholder="Textarea" id="qkb_jgzid">
-                        </textarea>
+                      <div class="col-sm-7">
+                        <textarea class="form-control" rows="1" placeholder="军(文)字第XXX号" id="qkb_jgzid"></textarea>
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="qkb_ywhuzhaoc">有无护照</label>
                       <div class="col-sm-3">
-                          <select id="qkb_ywhuzhaoc" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
+                          <input type="text" class="form-control" id="qkb_ywhuzhaoc">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_huzhaohao">护照号码</label>
                       <div class="col-sm-3">
@@ -703,25 +696,30 @@
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="task_name">工作简历</label>
+                      <label class="control-label col-sm-1" for="qkb_name">工作简历</label>
                   </div>
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="task_name">起止年月</label>
-                      <label class="control-label col-sm-3" for="task_name"></label>
-                      <label class="control-label col-sm-3" for="task_name">工作职务</label>
+                      <div class="col-sm-1" style="margin-left:5px">
+                      </div>
+                      <label class="control-label col-sm-5" for="task_name"></label>
+                      <div class="col-sm-3" style="margin-left:15px">
+                        <p><strong>在何单位做何工作,任何职务</strong></p>
+                      </div>
+
                       <label class="control-label col-sm-3" for="task_name"></label>
                   </div>
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="qkb_qzsj001">起止年月1</label>
                       <div id="qkb_qzsj001" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj001001">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj001001" value="如：2001.07-2009.08" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
                           <span class="add-on">
                             <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
                           </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw1">工作职务1</label>
-                      <div class="col-sm-3">
-                          <input type="text" class="form-control" id="qkb_gzdwzw1">
+                      <div class="col-sm-5">
+                          <input type="text" class="form-control" id="qkb_gzdwzw1" value="如：军事医学研究院一所 助理研究院" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
@@ -733,7 +731,7 @@
                           </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw2">工作职务2</label>
-                      <div class="col-sm-3">
+                      <div class="col-sm-5">
                           <input type="text" class="form-control" id="qkb_gzdwzw2">
                       </div>
                   </div>
@@ -746,7 +744,7 @@
                           </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw3">工作职务3</label>
-                      <div class="col-sm-3">
+                      <div class="col-sm-5">
                           <input type="text" class="form-control" id="qkb_gzdwzw3">
                       </div>
                   </div>
@@ -759,7 +757,7 @@
                           </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw4">工作职务4</label>
-                      <div class="col-sm-3">
+                      <div class="col-sm-5">
                           <input type="text" class="form-control" id="qkb_gzdwzw4">
                       </div>
                   </div>
@@ -772,7 +770,7 @@
                           </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gzdwzw5">工作职务5</label>
-                      <div class="col-sm-3">
+                      <div class="col-sm-5">
                           <input type="text" class="form-control" id="qkb_gzdwzw5">
                       </div>
                   </div>
@@ -783,26 +781,31 @@
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="task_name">时间</label>
                       <label class="control-label col-sm-2" for="task_name"></label>
-                      <label class="control-label col-sm-1" for="task_name">执行任务</label>
+
                       <label class="control-label col-sm-2" for="task_name"></label>
-                      <label class="control-label col-sm-1" for="task_name">对外身份</label>
+                      <div class="col-sm-2" style="margin-left:25px">
+                        <p><strong>赴何国(地区)执行何任务</strong></p>
+                      </div>
+                      <div class="col-sm-3">
+                      </div>
+                      <label class="control-label col-sm-1" for="task_name" style="margin-left:3px">对外身份</label>
                       <label class="control-label col-sm-2" for="task_name"></label>
                   </div>
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="qkb_cgqksj001">时间1</label>
                       <div id="qkb_cgqksj001" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj001001">
+                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj001001" value="如：2016年" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
                           <span class="add-on">
                             <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
                           </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gjjrw001">国家任务1</label>
-                      <div class="col-sm-2">
-                          <input type="text" class="form-control" id="qkb_gjjrw001">
+                      <div class="col-sm-4">
+                          <input type="text" class="form-control" id="qkb_gjjrw001" value="如：赴澳大利亚参加XX年会" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_dwsf001">身份1</label>
                       <div class="col-sm-2">
-                          <input type="text" class="form-control" id="qkb_dwsf001">
+                          <input type="text" class="form-control" id="qkb_dwsf001" value="如：军人或掩护" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
@@ -814,7 +817,7 @@
                           </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gjjrw002">国家任务2</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-4">
                           <input type="text" class="form-control" id="qkb_gjjrw002">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_dwsf002">身份2</label>
@@ -831,7 +834,7 @@
                           </span>
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gjjrw003">国家任务3</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-4">
                           <input type="text" class="form-control" id="qkb_gjjrw003">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_dwsf003">身份3</label>
@@ -846,29 +849,32 @@
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="task_name">姓名</label>
                       <label class="control-label col-sm-2" for="task_name"></label>
-                      <label class="control-label col-sm-1" for="task_name">关系</label>
+                      <label class="control-label col-sm-1" for="task_name" style="margin-left:5px">关系</label>
                       <label class="control-label col-sm-2" for="task_name"></label>
+                      <div class="col-sm-1" style="margin-left:10px">
+                      </div>
                       <label class="control-label col-sm-1" for="task_name">工作单位</label>
                       <label class="control-label col-sm-2" for="task_name"></label>
+                      <div class="col-sm-2" style="margin-left:18px">
+                      </div>
                       <label class="control-label col-sm-1" for="task_name">是否国外</label>
                       <label class="control-label col-sm-2" for="task_name"></label>
                   </div>
-
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="qkb_cyxm001">姓名1</label>
                       <div class="col-sm-1">
                           <input type="text" class="form-control" id="qkb_cyxm001">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gx001">关系1</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-1">
                           <input type="text" class="form-control" id="qkb_gx001">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_dwzw001">单位职务1</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-4">
                           <input type="text" class="form-control" id="qkb_dwzw001">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gw1">国外否1</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-1">
                           <input type="text" class="form-control" id="qkb_gw1">
                       </div>
                   </div>
@@ -878,15 +884,15 @@
                           <input type="text" class="form-control" id="qkb_cyxm002">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gx002">关系2</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-1">
                           <input type="text" class="form-control" id="qkb_gx002">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_dwzw002">单位职务2</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-4">
                           <input type="text" class="form-control" id="qkb_dwzw002">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gw2">国外否2</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-1">
                           <input type="text" class="form-control" id="qkb_gw2">
                       </div>
                   </div>
@@ -896,19 +902,18 @@
                           <input type="text" class="form-control" id="qkb_cyxm003">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gx003">关系3</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-1">
                           <input type="text" class="form-control" id="qkb_gx003">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_dwzw003">单位职务3</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-4">
                           <input type="text" class="form-control" id="qkb_dwzw003">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gw3">国外否3</label>
-                      <div class="col-sm-2">
+                      <div class="col-sm-1">
                           <input type="text" class="form-control" id="qkb_gw3">
                       </div>
                   </div>
-
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="qkb_department">承办单位</label>
                       <div class="col-sm-3">
@@ -923,8 +928,7 @@
                           <input type="text" class="form-control" id="qkb_scmdh">
                       </div>
                   </div>
-
-                  <div class="form-group" style="margin-top:15px">
+                  <div class="form-group" style="margin-top:15px; margin-left:15px">
                       <div class="btn-group">
                           <!--button-->
                           <div id="toolbar005" class="btn-group">
@@ -933,7 +937,6 @@
                           </div>
                       </div>
                   </div>
-
               </div>
             </div>
           </div>
@@ -944,7 +947,7 @@
 </div>
 
 <div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="width:1200px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -964,7 +967,7 @@
                   </div>
                   <label class="control-label col-sm-1" for="baomi_zhiji">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级</label>
                   <div class="col-sm-3">
-                    <select id="baomi_zhiji" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
+                    <input type="text" class="form-control" id="baomi_zhiji" value="专业技术级大校，技术6级" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
                   </div>
                 </div>
                 <div class="form-group" style="margin-top:15px">
@@ -1041,7 +1044,11 @@
                 <div class="form-group" style="margin-top:15px">
                   <label class="control-label col-sm-1" for="baomi_xddzsbyf">携带电脑</label>
                   <div class="col-sm-3">
-                    <select id="baomi_xddzsbyf" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
+                    <select id="baomi_xddzsbyf" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否携带涉密电子设备'>
+                      <option  selected="selected"></option>
+                      <option >是</option>
+                      <option >否</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group" style="margin-top:15px">
@@ -1087,16 +1094,20 @@
                 <div class="form-group" style="margin-top:15px">
                   <label class="control-label col-sm-1" for="baomi_xdsmzlyf">涉密材料</label>
                   <div class="col-sm-3">
-                    <select id="baomi_xdsmzlyf" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否存在特殊要求'></select>
+                    <select id="baomi_xdsmzlyf" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否携带涉密资料、书籍'>
+                      <option  selected="selected"></option>
+                      <option >是</option>
+                      <option >否</option>
+                    </select>
                   </div>
                 </div>
 
                 <div class="form-group" style="margin-top:15px">
-                  <div class="btn-group">
+                  <div class="btn-group" style="margin-left:25px">
                     <!--button-->
                     <div id="toolbar006" class="btn-group">
                       <button type="button" id="btn_baocun006" class="btn btn-warning">保存</button>
-                      <button type="button" id="btn_wancheng006" class="btn btn-success">完成</button>
+                      <button type="button" id="btn_wancheng006" class="btn btn-success" data-dismiss="modal" aria-hidden="true">完成</button>
                     </div>
                   </div>
                 </div>
@@ -1157,6 +1168,7 @@
         };
         $('#tb_tasks').bootstrapTable('refresh',opt);
     });
+
 </script>
 </body>
 </html>
