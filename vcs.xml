@@ -14,6 +14,10 @@
           <option name="url" value="http://github.com" />
           <option name="userName" value="Jingbin007007" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/Jingbin007007/management.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="F:\" />
