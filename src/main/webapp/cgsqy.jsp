@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="com.equipments.management.domain.Staff" %>
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -115,7 +116,7 @@
       <ul class="nav navbar-nav pull-right">
         <li class="dropdown pull-right">
           <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="dropdown_user_name">
-            <i class="icon-user"></i><span></span><b class="caret"></b>
+            <i class="icon-user"></i><span>&nbsp&nbsp<% Staff login_user = (Staff)request.getSession().getAttribute("staff");if(login_user !=null)out.print(login_user.getName()); else out.print("临时用户"); %>&nbsp&nbsp</span><b class="caret"></b>
           </a>
 
           <!-- Dropdown menu -->
@@ -516,11 +517,11 @@
                                   </div>
                                   <label class="control-label col-sm-1" for="task_tarcountry_query">目&nbsp&nbsp的&nbsp&nbsp国</label>
                                   <div class="col-sm-2">
-                                    <select id="task_tarcountry_query" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的国'></select>
+                                    <input type="text" class="form-control" id="task_tarcountry_query" value="请输入任务名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
                                   </div>
                                   <label class="control-label col-sm-1" for="task_tarcity_query">目的城市</label>
                                   <div class="col-sm-2">
-                                    <select id="task_tarcity_query" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请输入目的城市'></select>
+                                    <input type="text" class="form-control" id="task_tarcity_query" value="请输入任务名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
                                   </div>
 
                                 </div>

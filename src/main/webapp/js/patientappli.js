@@ -36,19 +36,44 @@ $(function () {
     //2.初始化Button的点击事件
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
-    var tempChange = $('#btn_change');
-    var tempButton = $('#btn_add');
-    var tempButtondel = $('#btn_delete');
-    var tempButtonsave = $('#btn_save');
-    var tempQuery = $('#btn_query');
-    var tempExport = $('#btn_output');
-
 
     /*
-    * 初始化代码
+    * 任务创建
     *
     * */
+    var btn_query = $('#btn_query');  //创建
+    var btn_output = $('#btn_output');//修改
+    var btn_print = $('#btn_print');  //删除
+    //var staff_name = "<% Staff login_user = (Staff)request.getSession().getAttribute("staff");out.print(login_user.getName());%>";
 
+    //元素
+    var task_name = $('#task_name').val();
+    var task_tarcountry = $('#task_tarcountry').val();
+    var task_tarcity = $('#task_tarcity').val();
+    var task_jiaoliutimu = $('#task_jiaoliutimu').val();
+    var task_type = $('#task_type').val();
+    var task_cjcfbeg001 = $('#task_cjcfbeg001').val();
+    var task_cjggend001 = $('#task_cjggend001').val();
+    var task_lijingshijian001 = $('#task_lijingshijian001').val();
+    var task_rujingshijian001 = $('#task_rujingshijian001').val();
+    var task_significance = $('#task_significance').val();
+    var task_temp = $('#task_temp').val();
+
+    //新建数据记录
+    btn_query.click(function(){
+        $.ajax({
+            type: "get",
+            url: "/selectPatientinfo",
+            async: false,
+            dataType:"json",
+            success: function (data1) {
+
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    });
 });
 
 
@@ -62,10 +87,8 @@ function getJsonLength(jsonData){
 
 var TableInit = function () {
     var oTableInit = new Object();
-    debugger;
     //初始化Table
     oTableInit.Init = function () {
-        debugger;
         $('#tb_tasks').bootstrapTable({
             url: '/selectAllTask', //请求后台的URL（*）
             //contextMenu: '#example1-context-menu',

@@ -266,22 +266,20 @@
                         <button type="button" style="margin-left:50px" id="btn_search_query" class="btn btn-primary">查&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp询</button>
                         <button type="button" id="btn_search_view" class="btn btn-success">预&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp览</button>
                         <button type="button" id="btn_search_edit" class="btn btn-danger"  data-toggle="modal" data-target="#fanhuixiugaiModal1">返回修改</button>
-                        <button type="button" id="btn_search_delete" class="btn btn-warning">删&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp除</button>
+                        <button type="button" id="btn_search_delete" class="btn btn-warning" >删&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp除</button>
                       </div>
                     </div>
                   </form>
-
-
                   <table class="table table-striped table-bordered table-hover" id="table004"></table>
                   <div class="form-group" style="margin-top:15px">
                     <div class="btn-group">
                       <button type="button" style="margin-left:35px" id="btn_hb_task" class="btn btn-primary" data-toggle="modal" data-target="#hbrwModal1">合并任务</button>
+                      <button type="button" id="btn_qxhb_qingshi" class="btn btn-info">取消合并</button>
                       <button type="button" id="btn_hb_qingshi" class="btn btn-success">生成请示</button>
                       <button type="button" id="btn_hb_updownload" class="btn btn-danger"  data-toggle="modal" data-target="#updownloadModal1">附件上传/下载</button>
                       <button type="button" id="btn_hb_zhongshen" class="btn btn-warning">提交终审</button>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>

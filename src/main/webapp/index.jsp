@@ -88,13 +88,7 @@
   <script src="js/table004.js"></script>
   <script src="js/table005.js"></script>
   <script src="js/table006.js"></script>
-  <!--
-  <script src="js/table002.js"></script>
-  <script src="js/table003.js"></script>
-  <script src="js/table004.js"></script>
-  <script src="js/table005.js"></script>
-  <script src="js/table006.js"></script>
-  -->
+
 </head>
 
 <div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
@@ -131,6 +125,7 @@
           </li>
 
         </ul>
+      </ul>
     </nav>
 
   </div>
@@ -185,36 +180,6 @@
           <li><a href="patientappli.jsp"><i class="icon-list-alt"></i> 出国(境)申请登记表 </a></li>
         </ul>
       </li>
-      <%--<li class="has_sub"><a href="#"><i class="icon-file-alt"></i> 列表信息 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>--%>
-      <%--<ul>--%>
-      <%--<li><a href="eqpatientinfo.jsp"><i class="icon-list-alt"></i> 患者列表 </a></li>--%>
-      <%--<li><a href="patientappli.jsp"><i class="icon-list-alt"></i> 申请列表 </a></li>--%>
-      <%--<li><a href="acceptsample.jsp"><i class="icon-list-alt"></i> 样本列表 </a></li>--%>
-      <%--<li><a href="product.jsp"><i class="icon-list-alt"></i> 切片列表 </a></li>--%>
-      <%--</ul>--%>
-      <%--</li>--%>
-      <%--<li class="has_sub"><a href="#"><i class="icon-file-alt"></i> 取材制片<span class="pull-right"><i class="icon-chevron-right"></i></span></a>--%>
-      <%--<ul>--%>
-      <%--<li><a href="patientsample.jsp"><i class="icon-list-alt"></i> 取材及组织处理 </a></li>--%>
-      <%--<li><a href="product.jsp"><i class="icon-list-alt"></i> 切片管理 </a></li>--%>
-      <%--</ul>--%>
-      <%--</li>--%>
-      <%--<li class="has_sub"><a href="#"><i class="icon-bar-chart"></i> 扫描管理 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>--%>
-      <%--<ul>--%>
-      <%--<li><a href="scan.jsp"><i class="icon-list-alt"></i> 扫描管理 </a></li>--%>
-      <%--</ul>--%>
-      <%--</li>--%>
-      <%--<li class="has_sub"><a href="#"><i class="icon-table"></i> 诊断管理 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>--%>
-      <%--<ul>--%>
-      <%--<li><a href="diagnosis.jsp"><i class="icon-list-alt"></i> 阅片诊断 </a></li>--%>
-      <%--<li><a href="#"><i class="icon-list-alt"></i> 诊断详情 </a></li>--%>
-      <%--</ul>--%>
-      <%--</li>--%>
-      <%--<li class="has_sub"><a href="#"><i class="icon-tasks"></i> 报告管理 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>--%>
-      <%--<ul>--%>
-      <%--<li><a href="report.jsp"><i class="icon-list-alt"></i> 报告管理 </a></li>--%>
-      <%--</ul>--%>
-      <%--</li>--%>
     </ul>
   </div>
 
@@ -223,68 +188,12 @@
   <!-- Main bar -->
   <div class="mainbar">
 
-    <%--<!-- Page heading -->--%>
-    <%--<div class="page-head">--%>
-    <%--<h2 class="pull-left"><i class="icon-home"></i> 首页</h2>--%>
-
-    <%--<!-- Breadcrumb -->--%>
-    <%--&lt;%&ndash;<div class="bread-crumb pull-right">&ndash;%&gt;--%>
-    <%--&lt;%&ndash;<a href="index.jsp"><i class="icon-home"></i> 首页</a>&ndash;%&gt;--%>
-    <%--&lt;%&ndash;<!-- Divider -->&ndash;%&gt;--%>
-    <%--&lt;%&ndash;<span class="divider">/</span> &ndash;%&gt;--%>
-    <%--&lt;%&ndash;<a href="#" class="bread-current">控制台</a>&ndash;%&gt;--%>
-    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-
-    <%--<div class="clearfix"></div>--%>
-    <%--</div>--%>
-    <!-- Page heading ends -->
-
-
-
-    <!-- Matter -->
 
     <div class="matter">
       <div class="container">
 
         <!-- Today status. jQuery Sparkline plugin used. -->
 
-
-        <%--<div class="row">--%>
-        <%--<div class="col-md-12">--%>
-        <%--<ul class="today-datas">--%>
-        <%--<li class="dropdown dropdown-big">--%>
-        <%--<a class="dropdown-toggle" href="#" data-toggle="dropdown">--%>
-        <%--<h3><i class="icon-file"></i> 申请待处理 <span class="label label-danger" id="shenqingdaichuli">16</span></h3>--%>
-        <%--</a>--%>
-        <%--</li>--%>
-        <%--<li class="dropdown dropdown-big">--%>
-        <%--<a class="dropdown-toggle" href="#" data-toggle="dropdown">--%>
-        <%--<h3><i class="icon-instagram"></i> 冰冻待处理 <span class="label label-success" id="bingdongdaichuli">16</span></h3>--%>
-        <%--</a>--%>
-        <%--</li>--%>
-        <%--<li class="dropdown dropdown-big">--%>
-        <%--<a class="dropdown-toggle" href="#" data-toggle="dropdown">--%>
-        <%--<h3><i class="icon-dropbox"></i> 会诊申请 <span class="label label-warning" id="huiyishenqing">16</span></h3>--%>
-        <%--</a>--%>
-        <%--</li>--%>
-        <%--<li class="dropdown dropdown-big">--%>
-        <%--<a class="dropdown-toggle" href="#" data-toggle="dropdown">--%>
-        <%--<h3><i class="icon-keyboard"></i> 未完成报告 <span class="label label-info" id="weiwanchengbaogao">6</span></h3>--%>
-        <%--</a>--%>
-        <%--</li>--%>
-        <%--<li class="dropdown dropdown-big">--%>
-        <%--<a class="dropdown-toggle" href="#" data-toggle="dropdown">--%>
-        <%--<h3><i class="icon-eye-open"></i> 未审核报告 <span class="label label-danger" id="weishenhebaogao">6</span></h3>--%>
-        <%--</a>--%>
-        <%--</li>--%>
-        <%--<li class="dropdown dropdown-big">--%>
-        <%--<a class="dropdown-toggle" href="#" data-toggle="dropdown">--%>
-        <%--<h3><i class="icon-file-text"></i> 未打印报告 <span class="label label-primary" id="weidayinbaogao">8</span></h3>--%>
-        <%--</a>--%>
-        <%--</li>--%>
-        <%--</ul>--%>
-        <%--</div>--%>
-        <%--</div>--%>
 
         <!-- Today status ends -->
 
@@ -310,14 +219,6 @@
               <div class="widget-content">
                 <div class="panel-body" style="padding-bottom:0px;">
                   <div class="widget">
-                    <!--<div class="widget-head">
-                      <div class="pull-left">检索条件</div>
-                      <div class="widget-icons pull-right">
-                        <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-                        <a href="#" class="wclose"><i class="icon-remove"></i></a>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>-->
                     <div class="widget-content">
                       <form id="formSearch001" class="form-horizontal">
                         <div class="form-group" style="margin-top:15px">
@@ -364,19 +265,6 @@
                                 </span>
                           </div>
 
-                          <%--<label class="control-label col-sm-1" for="datetimepicker3">签收日期</label>--%>
-                          <%--<div id="datetimepicker2" class="input-append col-sm-2">--%>
-                          <%--<input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="txt_search_acceptdate001">--%>
-                          <%--<span class="add-on">--%>
-                          <%--<i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>--%>
-                          <%--</span>--%>
-                          <%--</div>--%>
-                          <%--<div id="datetimepicker4" class="input-append col-sm-2">--%>
-                          <%--<input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="txt_search_acceptdate002">--%>
-                          <%--<span class="add-on">--%>
-                          <%--<i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>--%>
-                          <%--</span>--%>
-                          <%--</div>--%>
                         </div>
 
 
@@ -452,95 +340,7 @@
               </div>
             </div>
           </div>
-
         </div>
-
-
-        <%--<div class="row">--%>
-        <%--<div class="col-md-6">--%>
-        <%--<div class="widget">--%>
-
-        <%--<div class="widget-head">--%>
-        <%--<div class="pull-left">多人任务</div>--%>
-        <%--<div class="widget-icons pull-right">--%>
-        <%--<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>--%>
-        <%--<a href="#" class="wclose"><i class="icon-remove"></i></a>--%>
-        <%--</div>--%>
-        <%--<div class="clearfix"></div>--%>
-        <%--</div>--%>
-
-        <%--<div class="widget-content">--%>
-
-        <%--<table class="table table-striped table-bordered table-hover" id="table003"></table>--%>
-
-        <%--<div class="widget-foot">--%>
-        <%--<div class="clearfix"></div>--%>
-        <%--</div>--%>
-        <%--</div>--%>
-        <%--</div>--%>
-        <%--</div>--%>
-        <%--&lt;%&ndash;<div class="col-md-6">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="widget">&ndash;%&gt;--%>
-
-        <%--&lt;%&ndash;<div class="widget-head">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="pull-left">未通过报告</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="widget-icons pull-right">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<a href="#" class="wclose"><i class="icon-remove"></i></a>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="clearfix"></div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-
-        <%--&lt;%&ndash;<div class="widget-content">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<table class="table table-striped table-bordered table-hover" id="table004"></table>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="widget-foot">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="clearfix"></div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="col-md-6">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="widget">&ndash;%&gt;--%>
-
-        <%--&lt;%&ndash;<div class="widget-head">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="pull-left">未审核报告</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="widget-icons pull-right">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<a href="#" class="wclose"><i class="icon-remove"></i></a>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="clearfix"></div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-
-        <%--&lt;%&ndash;<div class="widget-content">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<table class="table table-striped table-bordered table-hover" id="table005"></table>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="widget-foot">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="clearfix"></div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="col-md-6">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="widget">&ndash;%&gt;--%>
-
-        <%--&lt;%&ndash;<div class="widget-head">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="pull-left">未打印报告</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="widget-icons pull-right">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<a href="#" class="wclose"><i class="icon-remove"></i></a>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="clearfix"></div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-
-        <%--&lt;%&ndash;<div class="widget-content">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<table class="table table-striped table-bordered table-hover" id="table006"></table>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="widget-foot">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="clearfix"></div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--</div>--%>
-
 
       </div>
     </div>

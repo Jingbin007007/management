@@ -77,8 +77,8 @@ var TableInit004 = function () {
             pageList: [10, 25, 50, 100,500], //可供选择的每页的行数（*）
             search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
             strictSearch: true,
-            showColumns: false, //是否显示所有的列
-            showRefresh: false, //是否显示刷新按钮
+            showColumns: true, //是否显示所有的列
+            showRefresh: true, //是否显示刷新按钮
             minimumCountColumns: 2, //最少允许的列数
             clickToSelect: true, //是否启用点击选中行
             height: 'auto', //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
@@ -90,21 +90,25 @@ var TableInit004 = function () {
             exportDataType: "selected",              //'basic', 'all', 'selected'.
             columns: [
                 {checkbox: true},
-                {field:'pdfpath',title:'操作',width:100,align:'left',editable:false,sortable:true,formatter:function(value,row,index){
+                {field:'taskhbid',title:'hbid',width:100,align:'center',sortable : true},
+                {field:'tasktkid',title:'tkid',width:100,align:'center',sortable : true},
+                {field:'taskzhuangtai',title:'审核状态',width:150,align:'center',sortable : true},
+                {field:'taskname',title:'任务名',width:400,align:'left',editable:false,sortable:true,formatter:function(value,row,index){
                     var tempApplino = row.applino;
                     var temp_html004;
                     temp_html004 = '<button type="button" class="btn btn-xs btn-danger" onclick="transValueBook004('+ tempApplino +')">&nbsp&nbsp&nbsp&nbsp去填写&nbsp&nbsp&nbsp&nbsp</button>';
                     return temp_html004;
                 }},
-                {field:'productdate',title:'制片完成时间',width:120,align:'left',sortable:true,formatter:function(value,row,index){
-                    var temp_html = "";
-                    var temp_date = value;
-                    if(temp_date != null){
-                        temp_html = new Date(temp_date).Format("yyyy-MM-dd");
-                        return temp_html;
-                    }}},
-                {field:'applino',title:'病理号',width:80,align:'center',sortable : true},
-                {field:'patientname',title:'客户姓名',width:100,align:'left',sortable : true}
+                {field:'taskxingming',title:'姓名',width:150,align:'center',sortable : true},
+                {field:'taskphone',title:'电话',width:200,align:'center',sortable : true},
+                {field:'tasktarcountry',title:'目的国',width:200,align:'center',sortable : true},
+                {field:'tasktarcity',title:'目的城市',width:200,align:'center',sortable : true},
+                {field:'taskjiaoliutimu',title:'交流题目',width:400,align:'left',sortable : true},
+                {field:'taskrwkssj',title:'任务开始时间',width:150,align:'center',sortable : true},
+                {field:'taskrwjssj',title:'任务结束时间',width:150,align:'center',sortable : true},
+                {field:'taskrwcjsj',title:'创建时间',width:150,align:'center',sortable : true},
+                {field:'taskrwshsj',title:'审核时间',width:150,align:'center',sortable : true},
+                {field:'taskbeizhu',title:'备注',width:1000,align:'center',sortable : true}
             ],
 
             onEditableSave: function (field, row, oldValue, $el) {

@@ -77,8 +77,8 @@ var TableInit006 = function () {
             pageList: [10, 25, 50, 100,500], //可供选择的每页的行数（*）
             search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
             strictSearch: true,
-            showColumns: false, //是否显示所有的列
-            showRefresh: false, //是否显示刷新按钮
+            showColumns: true, //是否显示所有的列
+            showRefresh: true, //是否显示刷新按钮
             minimumCountColumns: 2, //最少允许的列数
             clickToSelect: true, //是否启用点击选中行
             height: 'auto', //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
@@ -86,25 +86,43 @@ var TableInit006 = function () {
             showToggle:false, //是否显示详细视图和列表视图的切换按钮
             cardView: false, //是否显示详细视图
             detailView: false, //是否显示父子表
-            showExport: false,
+            showExport: true,
             exportDataType: "selected",              //'basic', 'all', 'selected'.
             columns: [
                 {checkbox: true},
-                {field:'pdfpath',title:'操作',width:100,align:'left',editable:false,sortable:true,formatter:function(value,row,index){
-                var tempApplino = row.applino;
-                    var temp_html006;
-                    temp_html006 = '<button type="button" class="btn btn-xs btn-danger" onclick="transValueBook006('+ tempApplino +')">&nbsp&nbsp&nbsp&nbsp打印&nbsp&nbsp&nbsp&nbsp</button>';
-                    return temp_html006;
-                }},
-                {field:'productdate',title:'制片完成时间',width:120,align:'left',sortable:true,formatter:function(value,row,index){
-                    var temp_html = "";
-                    var temp_date = value;
-                    if(temp_date != null){
-                        temp_html = new Date(temp_date).Format("yyyy-MM-dd");
-                        return temp_html;
-                    }}},
-                {field:'applino',title:'病理号',width:80,align:'center',sortable : true},
-                {field:'patientname',title:'客户姓名',width:100,align:'left',sortable : true}
+                {field:'taskhb2id',title:'hbid2',width:100,align:'center',sortable : true},
+                {field:'taskhb1id',title:'hbid1',width:100,align:'center',sortable : true},
+                {field:'tasktkid',title:'tkid',width:100,align:'center',sortable : true},
+                {field:'taskzhuangtai',title:'审核状态',width:150,align:'center',sortable : true},
+                {field:'taskname',title:'任务名',width:400,align:'left',editable:false,sortable:true,formatter:function(value,row,index){
+                        var tempApplino = row.applino;
+                        var temp_html006;
+                        temp_html006 = '<button type="button" class="btn btn-xs btn-danger" onclick="transValueBook004('+ tempApplino +')">&nbsp&nbsp&nbsp&nbsp去填写&nbsp&nbsp&nbsp&nbsp</button>';
+                        return temp_html006;
+                    }},
+                {field:'taskjiaoliutimu',title:'交流题目',width:400,align:'left',sortable : true},
+                {field:'taskdepartment',title:'单位',width:300,align:'center',sortable : true},
+                {field:'taskxingming',title:'姓名',width:150,align:'center',sortable : true},
+                {field:'taskgender',title:'性别',width:100,align:'center',sortable : true},
+                {field:'taskphone',title:'电话',width:200,align:'center',sortable : true},
+                {field:'taskzhicheng',title:'职称',width:150,align:'center',sortable : true},
+                {field:'taskzhiwudengji',title:'职务等级',width:150,align:'center',sortable : true},
+                {field:'taskjishudengji',title:'技术等级',width:150,align:'center',sortable : true},
+                {field:'taskjunxian',title:'军衔',width:150,align:'center',sortable : true},
+                {field:'tasktarcountry',title:'目的国',width:200,align:'center',sortable : true},
+                {field:'tasktarcity',title:'目的城市',width:200,align:'center',sortable : true},
+                {field:'tasklijingshijian',title:'离境时间',width:150,align:'center',sortable : true},
+                {field:'taskrujingshijian',title:'入境时间',width:150,align:'center',sortable : true},
+                {field:'taskrwcjsj',title:'创建时间',width:150,align:'center',sortable : true},
+                {field:'taskrwshsj',title:'审核时间',width:150,align:'center',sortable : true},
+                {field:'taskhuzhaozhonglei',title:'护照种类',width:250,align:'center',sortable : true},
+                {field:'taskhuzhaohaoma',title:'护照号码',width:150,align:'center',sortable : true},
+                {field:'taskbirthyplace',title:'出生地',width:150,align:'center',sortable : true},
+                {field:'taskfazhaoriqi',title:'发照日期',width:150,align:'center',sortable : true},
+                {field:'taskfazhaoriqi',title:'有效期',width:150,align:'center',sortable : true},
+                {field:'taskyanqi',title:'延期',width:150,align:'center',sortable : true},
+                {field:'taskhzbeizhu',title:'护照备注',width:300,align:'center',sortable : true},
+                {field:'taskrwbeizhu',title:'任务备注',width:1000,align:'center',sortable : true}
             ],
 
             onEditableSave: function (field, row, oldValue, $el) {
