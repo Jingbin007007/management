@@ -38,12 +38,11 @@ $(function () {
     oButtonInit.Init();
 
     /*
-    * 任务创建
+    * 1.任务创建
     *
     * */
     var btn_query = $('#btn_query');  //创建
-    var btn_output = $('#btn_output');//修改
-    var btn_print = $('#btn_print');  //删除
+
     //var staff_name = "<% Staff login_user = (Staff)request.getSession().getAttribute("staff");out.print(login_user.getName());%>";
 
     //元素
@@ -63,8 +62,44 @@ $(function () {
     btn_query.click(function(){
         $.ajax({
             type: "get",
-            url: "/selectPatientinfo",
+            url: "/insertTask",
             async: false,
+            data: {'rowLists': JSON.stringify(rowLists),'lengthRecords':rowLists.length},
+            dataType:"json",
+            success: function (data1) {
+
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    });
+
+
+    /*
+    * 2.更新staffextend
+    *
+    * */
+    var extend_nation = $('#extend_nation').val();
+    var extend_educationle = $('#extend_educationle').val();
+    var extend_zzmianmao = $('#extend_zzmianmao').val();
+    var extend_wgysp = $('#extend_wgysp').val();
+    var passport_ywhuzhao = $('#passport_ywhuzhao').val();
+    var passport_huzhaozhonglei = $('#passport_huzhaozhonglei').val();
+    var passport_huzhaohao = $('#passport_huzhaohao').val();
+    var extend_bysjbyyx = $('#extend_bysjbyyx').val();
+    var task_swscmxm = $('#task_swscmxm').val();
+    var task_swscmdh = $('#task_swscmdh').val();
+    var passport_beizhu = $('#passport_beizhu').val();
+    var staffdetail_yjfxcjgx = $('#staffdetail_yjfxcjgx').val();
+
+    var btn_gengxin = $('#btn_gengxin');
+    btn_gengxin.click(function(){
+        $.ajax({
+            type: "get",
+            url: "/updateStaffextend",
+            async: false,
+            data: {'rowLists': JSON.stringify(rowLists),'lengthRecords':rowLists.length},
             dataType:"json",
             success: function (data1) {
 
