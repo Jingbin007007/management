@@ -528,7 +528,7 @@ public class EqstaffextendController {
                           HttpServletRequest request,
                           @RequestParam("staff_id") String staffid
                           ){
-        sqlSession = factory.openSession(false);
+        sqlSession = factory.openSession(true);
         Staffextend tempStaffextend = null;
         List<Staffextend> staffextendList = null;
 
@@ -601,20 +601,27 @@ public class EqstaffextendController {
 
                 try {
 
-                    String url = request.getSession().getServletContext().getRealPath("/pdf/");
+                    String url = request.getSession().getServletContext().getRealPath("/outputfiles/") + tempStaffextend.getTaskid().getId().toString()+ "/";
                     //String url = "F:/output/";
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-                    String tempFileName = "sqrycgqkb-" + df.format(new Date()) +".doc";
+
+                    SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String tempFileName = "sqrycgqkb-" + staffid + "-" + df.format(new Date()) +".doc";
                     String fileAddress = url + tempFileName;
                     logger.info("----------------------------fileAddress------------------------------");
                     logger.info(fileAddress);
                     maker.exportDoc(fileAddress,"sqrycgqkb.ftl",tempMap);
 
+                    //保存文件名称到数据记录表
+                    //tempStaffextend
+                    Task tempTask = tempStaffextend.getTaskid();
+                    tempTask.setCgryqkbaddr(tempFileName);
+                    sqlSession.update("com.equipments.management.mapper.TaskMapper.updateTask",tempTask);
+
                     response.setContentType("text/html;charset=UTF-8");
                     PrintWriter out = null;
                     try{
                         out = response.getWriter();
-                        out.println(JSON.toJSONString(fileAddress));
+                        out.println(JSON.toJSONString(tempFileName));
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally {

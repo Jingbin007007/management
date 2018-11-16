@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -157,6 +158,7 @@ public class EqtaskController {
     @ResponseBody
     public void insertTask(
             HttpServletResponse response,
+            HttpServletRequest request,
             @RequestParam(name="task_name",required=false) String taskname,
             @RequestParam(name="task_tarcountry",required=false) String tasktarcountry,
             @RequestParam(name="task_tarcity",required=false) String tasktarcity,
@@ -238,6 +240,14 @@ public class EqtaskController {
                 tempBaomi.setStaffid(new Staff());
                 tempBaomi.getStaffid().setId(Integer.valueOf(staffid));
                 sqlSession.insert("com.equipments.management.mapper.BaomiMapper.addBaomi",tempBaomi);
+
+                //创建文件夹
+                String url = request.getSession().getServletContext().getRealPath("/outputfiles/");
+                String dirFullName = url + taskList.get(0).getId().toString();
+                File file = new File(dirFullName);
+                if(!file.exists()){
+                    file.mkdir();
+                }
             }
         }
 

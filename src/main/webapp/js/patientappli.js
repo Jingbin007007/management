@@ -790,7 +790,7 @@ $(function () {
             dataType:"json",
             success: function (data1) {
                 //传递参数，显示变化
-                debugger;
+                //alert("/outputfiles/word/" + data1);
             },
             error: function () {
                 alert("Error");
@@ -805,7 +805,7 @@ $(function () {
 * */
 
     btn_xiazai0001.click(function(){
-        window.open("F:/output/sqrycgqkb-2018-11-12-16-08-45.doc");
+        window.open("/outputfiles/word/sqrycgqkb-21-20181116161236.doc");
     });
 
     /*
