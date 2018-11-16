@@ -17,7 +17,7 @@ public class ExportDoc {
         //configuration.setClassForTemplateLoading(this.getClass(), "");
 
         try {
-            configuration.setDirectoryForTemplateLoading(new File("c:/templates"));
+            configuration.setDirectoryForTemplateLoading(new File("F:/templates"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -85,6 +85,9 @@
   <script src="js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
 
   <script src="js/tableExport.js"></script>
+
+
+  <!--主要功能js-->
   <script src="js/patientappli.js"></script>
   <!--<script src="js/address.js"></script>-->
 
@@ -93,6 +96,10 @@
       var tempObj001 = new Array();
       var temp_change = true;
       var tempJianchafangfa = "";
+
+      var task_id = "";
+      var staffextend_id = "";
+      var staff_id = "";
   </script>
 </head>
 
@@ -116,7 +123,7 @@
       <ul class="nav navbar-nav pull-right">
         <li class="dropdown pull-right">
           <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="dropdown_user_name">
-            <i class="icon-user"></i><span>&nbsp&nbsp<% Staff login_user = (Staff)request.getSession().getAttribute("staff");if(login_user !=null)out.print(login_user.getName()); else out.print("临时用户"); %>&nbsp&nbsp</span><b class="caret"></b>
+            <i class="icon-user"></i><span id="span_temp">&nbsp&nbsp<%Staff login_user = (Staff)request.getSession().getAttribute("staff");if(login_user !=null){out.print(login_user.getName());} else out.print("临时用户"); %>&nbsp&nbsp</span><span id="span_temp001" style="display: none"><%out.print(login_user.getId());%></span><b class="caret"></b>
           </a>
 
           <!-- Dropdown menu -->
@@ -198,15 +205,15 @@
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="task_name">任&nbsp&nbsp务&nbsp&nbsp名</label>
                               <div class="col-sm-3">
-                                <input type="text" class="form-control" id="task_name" value="请输入任务名" onFocus="if(value==defaultValue){value='';this.style.color='#4b4b4b'}" onBlur="if(!value){value=defaultValue;this.style.color='#4b4b4b'}">
+                                <input type="text" class="form-control" id="task_name">
                               </div>
                               <label class="control-label col-sm-1" for="task_tarcountry">目&nbsp&nbsp的&nbsp&nbsp国</label>
                               <div class="col-sm-3">
-                                <input type="text" class="form-control" id="task_tarcountry" value="请输入目的国" onFocus="if(value==defaultValue){value='';this.style.color='#999999'}" onBlur="if(!value){value=defaultValue;this.style.color='#999999'}">
+                                <input type="text" class="form-control" id="task_tarcountry">
                               </div>
                               <label class="control-label col-sm-1" for="task_tarcity">目的城市</label>
                               <div class="col-sm-3">
-                                <input type="text" class="form-control" id="task_tarcity" value="请输入目的城市" onFocus="if(value==defaultValue){value='';this.style.color='#999999'}" onBlur="if(!value){value=defaultValue;this.style.color='#999999'}">
+                                <input type="text" class="form-control" id="task_tarcity">
                               </div>
                             </div>
                             <!--2-->
@@ -217,7 +224,7 @@
                               </div>
                               <label class="control-label col-sm-1" for="task_type">任务类别</label>
                               <div class="col-sm-3">
-                                <select id="task_type" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择任务类别'>
+                                <select id="task_type" data-first-option="false" data-live-search="true" class="form-control show-tick">
                                   <option  selected="selected"></option>
                                   <option >会议</option>
                                   <option >交流</option>
@@ -227,45 +234,68 @@
                               </div>
                             </div>
                             <div class="form-group" style="margin-top:15px">
-                              <label class="control-label col-sm-1" for="task_cjcfbeg">起始时间</label>
-                              <div id="task_cjcfbeg" class="input-append col-sm-2">
-                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_cjcfbeg001">
-                                <span class="add-on">
-                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                                </span>
+                              <!--task_cjcfbeg 起始时间-->
+                              <label for="dtp_input1" class="col-md-1 control-label">起始时间</label>
+                              <div id="testdatetimepicker001" class="input-group date form_datetime col-md-3" data-link-field="dtp_input1">
+                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
                               </div>
-                              <label class="control-label col-sm-1" for="task_cjggend">结束时间</label>
-                              <div id="task_cjggend" class="input-append col-sm-2">
-                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_cjggend001">
-                                <span class="add-on">
-                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                                </span>
+                              <input type="hidden" id="dtp_input1" value="" />
+
+                              <!--task_cjggend 结束时间-->
+                              <label for="dtp_input2" class="col-md-1 control-label">结束时间</label>
+                              <div id="testdatetimepicker002" class="input-group date form_datetime col-md-3" data-link-field="dtp_input2">
+                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
                               </div>
-                              <label class="control-label col-sm-1" for="task_lijingshijian">离境时间</label>
-                              <div id="task_lijingshijian" class="input-append col-sm-2">
-                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_lijingshijian001" />
-                                <span class="add-on">
-                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                                </span>
+                              <input type="hidden" id="dtp_input2" value="" />
+                            </div>
+                            <div class="form-group" style="margin-top:15px">
+                              <!--task_lijingshijian 离境时间-->
+                              <label for="dtp_input3" class="col-md-1 control-label">离境时间</label>
+                              <div id="testdatetimepicker003" class="input-group date form_datetime col-md-3" data-link-field="dtp_input3">
+                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
                               </div>
-                              <label class="control-label col-sm-1" for="task_rujingshijian">入境时间</label>
-                              <div id="task_rujingshijian" class="input-append col-sm-2">
-                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_rujingshijian001">
-                                <span class="add-on">
-                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                                </span>
+                              <input type="hidden" id="dtp_input3" value="" />
+                              <!--task_rujingshijian 入境时间-->
+                              <label for="dtp_input4" class="col-md-1 control-label">入境时间</label>
+                              <div id="testdatetimepicker004" class="input-group date form_datetime col-md-3" data-link-field="dtp_input4">
+                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
                               </div>
+                              <input type="hidden" id="dtp_input4" value="" />
                             </div>
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="task_significance">参会意义</label>
                               <div class="col-sm-11">
-                                  <textarea class="form-control" rows="3" placeholder="请填写该会议/交流/培训/任务在业界的影响及地位，以及参加该会议/交流/培训/任务的重要性及意义。" id="task_significance"></textarea>
+                                  <textarea class="form-control" rows="3" id="task_significance"></textarea>
                               </div>
                             </div>
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="task_temp">个人简介</label>
                               <div class="col-sm-11">
-                                  <textarea class="form-control" rows="3" placeholder="请补充修改括号内容  该同志曾（）次出国参加（会议和演习），在出国（与会）期间，均能自觉遵守外事纪律，按期回国，英语基础好，能完成专业英语会话交流。" id="task_temp"></textarea>
+                                  <textarea class="form-control" rows="3" id="task_temp"></textarea>
                               </div>
                             </div>
                             <div class="form-group" style="margin-top:15px">
@@ -275,6 +305,9 @@
                                 <button type="button" id="btn_print" class="btn btn-danger">删除</button>
                               </div>
                             </div>
+                            <!--测试-->
+
+
                           </form>
                         </div>
                       </div>
@@ -303,12 +336,24 @@
                           <form id="formSearch002" class="form-horizontal">
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="extend_nation">民&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp族</label>
-                              <div class="col-sm-2">
-                                <input type="text" class="form-control" id="extend_nation" value="请输入民族" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                              <div class="col-sm-3">
+                                <input type="text" class="form-control" id="extend_nation">
                               </div>
                               <label class="control-label col-sm-1" for="extend_educationle">文化程度</label>
+                              <!--
                               <div class="col-sm-2">
-                                <select id="extend_educationle" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择文化程度'>
+                                <select id="extend_educationle" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick">
+                                  <option  selected="selected"></option>
+                                  <option >大专</option>
+                                  <option >本科</option>
+                                  <option >硕士</option>
+                                  <option >博士</option>
+                                  <option >博士后</option>
+                                </select>
+                              </div>
+                              -->
+                              <div class="col-sm-3">
+                                <select id="extend_educationle" data-first-option="false" data-live-search="true" class="form-control show-tick">
                                   <option  selected="selected"></option>
                                   <option >大专</option>
                                   <option >本科</option>
@@ -318,8 +363,8 @@
                                 </select>
                               </div>
                               <label class="control-label col-sm-1" for="extend_zzmianmao">政治面貌</label>
-                              <div class="col-sm-2">
-                                <select id="extend_zzmianmao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择政治面貌'>
+                              <div class="col-sm-3">
+                                <select id="extend_zzmianmao" data-first-option="false" data-live-search="true" class="form-control show-tick">
                                   <option  selected="selected"></option>
                                   <option >党员</option>
                                   <option >团员</option>
@@ -327,27 +372,27 @@
                                   <option >其它党派</option>
                                 </select>
                               </div>
+                            </div>
+                            <!--2-->
+                            <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="extend_wgysp">外语水平</label>
-                              <div class="col-sm-2">
-                                <select id="extend_wgysp" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择外国语水平'>
+                              <div class="col-sm-3">
+                                <select id="extend_wgysp" data-first-option="false" data-live-search="true" class="form-control show-tick">
                                   <option  selected="selected"></option>
                                   <option >四会</option>
                                 </select>
                               </div>
-                            </div>
-                            <!--2-->
-                            <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="passport_ywhuzhao">有无护照</label>
-                              <div class="col-sm-2">
-                                <select id="passport_ywhuzhao" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择护照有无'>
+                              <div class="col-sm-3">
+                                <select id="passport_ywhuzhao" data-first-option="false" data-live-search="true" class="form-control show-tick">
                                   <option  selected="selected"></option>
-                                  <option value="0">有</option>
-                                  <option value="1">无</option>
+                                  <option >有</option>
+                                  <option >无</option>
                                 </select>
                               </div>
                               <label class="control-label col-sm-1" for="passport_huzhaozhonglei">护照种类</label>
-                              <div class="col-sm-2">
-                                <select id="passport_huzhaozhonglei" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='请选择护照种类'>
+                              <div class="col-sm-3">
+                                <select id="passport_huzhaozhonglei" data-first-option="false" data-live-search="true" class="form-control show-tick">
                                   <option  selected="selected"></option>
                                   <option >外交护照</option>
                                   <option >公务护照</option>
@@ -357,61 +402,78 @@
                                   <option >澳门特别行政区护照</option>
                                 </select>
                               </div>
-                              <label class="control-label col-sm-1" for="passport_huzhaohao">护&nbsp&nbsp照&nbsp&nbsp号</label>
-                              <div class="col-sm-2">
-                                <input type="text" class="form-control" id="passport_huzhaohao"  title='请输入护照号' onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}" />
-                              </div>
-
                             </div>
                             <div class="form-group" style="margin-top:15px">
-                              <label class="control-label col-sm-1" for="passport_fazhaoriqi">发照时间</label>
-                              <div id="passport_fazhaoriqi" class="input-append col-sm-2">
-                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="passport_fazhaoriqi001">
-                                <span class="add-on">
-                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                                </span>
+                              <label class="control-label col-sm-1" for="passport_huzhaohao">护&nbsp&nbsp照&nbsp&nbsp号</label>
+                              <div class="col-sm-3">
+                                <input type="text" class="form-control" id="passport_huzhaohao"/>
                               </div>
-                              <label class="control-label col-sm-1" for="passport_huzhaoyouxiaoqi">护照效期</label>
-                              <div id="passport_huzhaoyouxiaoqi" class="input-append col-sm-2">
-                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="passport_huzhaoyouxiaoqi001">
-                                <span class="add-on">
-                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                                </span>
+                            </div>
+
+                            <div class="form-group" style="margin-top:15px">
+                              <!--passport_fazhaoriqi 发照时间-->
+                              <label for="dtp_input5" class="col-md-3 control-label">发照时间</label>
+                              <div id="testdatetimepicker005" class="input-group date form_datetime col-md-3" data-link-field="dtp_input5">
+                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
                               </div>
-                              <label class="control-label col-sm-1" for="passport_yanqi">护照延期</label>
-                              <div id="passport_yanqi" class="input-append col-sm-2">
-                                <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="passport_yanqi001">
-                                <span class="add-on">
-                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                                </span>
+                              <input type="hidden" id="dtp_input5" value="" />
+                              <!--passport_huzhaoyouxiaoqi 护照效期-->
+                              <label for="dtp_input6" class="col-md-3 control-label">护照效期</label>
+                              <div id="testdatetimepicker006" class="input-group date form_datetime col-md-3" data-link-field="dtp_input6">
+                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
                               </div>
+                              <input type="hidden" id="dtp_input6" value="" />
+                              <!--passport_yanqi 护照延期-->
+                              <label for="dtp_input6" class="col-md-3 control-label">护照延期</label>
+                              <div id="testdatetimepicker007" class="input-group date form_datetime col-md-3" data-link-field="dtp_input7">
+                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                                <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
+                              </div>
+                              <input type="hidden" id="dtp_input7" value="" />
                             </div>
 
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="extend_bysjbyyx">毕业情况</label>
-                              <div class="col-sm-2">
-                                <input type="text" class="form-control" id="extend_bysjbyyx" value="请输入毕业时间及院校" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                              <div class="col-sm-3">
+                                <input type="text" class="form-control" id="extend_bysjbyyx">
                               </div>
                               <label class="control-label col-sm-1" for="task_swscmxm">参谋姓名</label>
-                              <div class="col-sm-2">
-                                <input type="text" class="form-control" id="task_swscmxm" value="请输入单位外事参谋姓名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                              <div class="col-sm-3">
+                                <input type="text" class="form-control" id="task_swscmxm">
                               </div>
                               <label class="control-label col-sm-1" for="task_swscmdh">参谋电话</label>
-                              <div class="col-sm-2">
-                                <input type="text" class="form-control" id="task_swscmdh" value="请输入外事参谋电话" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                              <div class="col-sm-3">
+                                <input type="text" class="form-control" id="task_swscmdh">
                               </div>
                             </div>
 
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="passport_beizhu">护照备注</label>
                               <div class="col-sm-11">
-                                  <textarea class="form-control" rows="3" placeholder="填写护照备注信息" id="passport_beizhu"></textarea>
+                                  <textarea class="form-control" rows="3" id="passport_beizhu"></textarea>
                               </div>
                             </div>
                             <div class="form-group" style="margin-top:15px">
                               <label class="control-label col-sm-1" for="staffdetail_yjfxcjgx">个人简介</label>
                               <div class="col-sm-11">
-                                  <textarea class="form-control" rows="3" placeholder="填写个人研究方向、重点研究领域、突出成就业绩" id="staffdetail_yjfxcjgx"></textarea>
+                                  <textarea class="form-control" rows="3" id="staffdetail_yjfxcjgx"></textarea>
                               </div>
                             </div>
 
@@ -459,41 +521,41 @@
                                     <div class="form-group" style="margin-top:15px">
                                       <label class="control-label col-sm-1" for="task_name_query">情&nbsp&nbsp况&nbsp&nbsp表</label>
                                       <div class="btn-group">
-                                        <button type="button" style="margin-left:50px" id="btn_tianxie001" class="btn btn-default" data-toggle="modal" data-target="#myModal1">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_xiugai0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_yulan0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_xiazai0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_shanchu0001" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie001" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiugai0001" class="btn btn-success">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_yulan0001" class="btn btn-info">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiazai0001" class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_shanchu0001" class="btn btn-danger">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
                                       </div>
                                     </div>
                                     <div class="form-group" style="margin-top:15px">
                                       <label class="control-label col-sm-1" for="task_name_query">责&nbsp&nbsp任&nbsp&nbsp书</label>
                                       <div class="btn-group">
-                                        <button type="button" style="margin-left:50px" id="btn_tianxie002" class="btn btn-default" data-toggle="modal" data-target="#myModal2">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_xiugai0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_yulan0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_xiazai0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_shanchu0002" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie002" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiugai0002" class="btn btn-success">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_yulan0002" class="btn btn-info">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiazai0002" class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_shanchu0002" class="btn btn-danger">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
                                       </div>
                                     </div>
                                     <div class="form-group" style="margin-top:15px">
                                       <label class="control-label col-sm-1" for="task_name_query">邀&nbsp&nbsp请&nbsp&nbsp函</label>
                                       <div class="btn-group">
-                                        <button type="button" style="margin-left:50px" id="btn_tianxie003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp上传&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_xiugai0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp脱密&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_yulan0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_xiazai0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_shanchu0003" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie003" class="btn btn-primary">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp上传&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiugai0003" class="btn btn-success">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp脱密&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_yulan0003" class="btn btn-info">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiazai0003" class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_shanchu0003" class="btn btn-danger">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
                                       </div>
                                     </div>
                                     <div class="form-group" style="margin-top:15px">
                                       <label class="control-label col-sm-1" for="task_name_query">行程安排</label>
                                       <div class="btn-group">
-                                        <button type="button" style="margin-left:50px" id="btn_tianxie004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_xiugai0004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_yulan0004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_xiazai0004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp</button>
-                                        <button type="button" id="btn_shanchu0004" class="btn btn-default">&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie004" class="btn btn-primary">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp填写&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiugai0004" class="btn btn-success">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp修改&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_yulan0004" class="btn btn-info">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_xiazai0004" class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" id="btn_shanchu0004" class="btn btn-danger">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp删除&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
                                       </div>
                                     </div>
                                   </form>
@@ -512,35 +574,47 @@
                               <form id="formSearch003" class="form-horizontal">
                                 <div class="form-group" style="margin-top:15px">
                                   <label class="control-label col-sm-1" for="task_name_query">任&nbsp&nbsp务&nbsp&nbsp名</label>
-                                  <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="task_name_query" value="请输入任务名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                                  <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="task_name_query">
                                   </div>
                                   <label class="control-label col-sm-1" for="task_tarcountry_query">目&nbsp&nbsp的&nbsp&nbsp国</label>
-                                  <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="task_tarcountry_query" value="请输入任务名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                                  <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="task_tarcountry_query">
                                   </div>
                                   <label class="control-label col-sm-1" for="task_tarcity_query">目的城市</label>
-                                  <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="task_tarcity_query" value="请输入任务名" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                                  <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="task_tarcity_query">
                                   </div>
 
                                 </div>
                                 <!--2-->
                                 <div class="form-group" style="margin-top:15px">
-                                  <label class="control-label col-sm-1" for="task_cjcfbeg_query">开始时间</label>
-                                  <div id="task_cjcfbeg_query" class="input-append col-sm-2">
-                                    <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_cjcfbeg_query001">
-                                    <span class="add-on">
-                                      <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                                  <!--task_cjcfbeg_query 开始时间-->
+                                  <label for="dtp_input8" class="col-md-3 control-label">开始时间</label>
+                                  <div id="testdatetimepicker008" class="input-group date form_datetime col-md-3" data-link-field="dtp_input8">
+                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                    <span class="input-group-addon">
+		                              <span class="glyphicon glyphicon-remove"></span>
+	                                </span>
+                                    <span class="input-group-addon">
+                                      <span class="glyphicon glyphicon-th"></span>
                                     </span>
                                   </div>
-                                  <label class="control-label col-sm-1" for="task_cjggend_query">结束时间</label>
-                                  <div id="task_cjggend_query" class="input-append col-sm-2">
-                                    <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="task_cjggend_query001">
-                                    <span class="add-on">
-                                      <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
+                                  <input type="hidden" id="dtp_input8" value="" />
+
+                                  <!--task_cjggend_query 结束时间-->
+                                  <label for="dtp_input9" class="col-md-3 control-label">结束时间</label>
+                                  <div id="testdatetimepicker009" class="input-group date form_datetime col-md-3" data-link-field="dtp_input9">
+                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                    <span class="input-group-addon">
+		                              <span class="glyphicon glyphicon-remove"></span>
+	                                </span>
+                                    <span class="input-group-addon">
+                                      <span class="glyphicon glyphicon-th"></span>
                                     </span>
                                   </div>
+                                  <input type="hidden" id="dtp_input9" value="" />
+
                                 </div>
                               </form>
                             </div>
@@ -601,7 +675,7 @@
 <!--弹出对话框1-->
 <!--出国、赴港澳人员情况表-->
 <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="width:1200px;">
+  <div class="modal-dialog" style="width:1250px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -623,13 +697,18 @@
                       <div class="col-sm-3">
                         <input type="text" class="form-control" id="qkb_gender">
                       </div>
-                      <label class="control-label col-sm-1" for="qkb_birthyday">出生日期</label>
-                      <div id="qkb_birthyday" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_birthyday002">
-                          <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
+                    <!--出生日期qkb_birthyday-->
+                      <label for="dtp_input10" class="col-md-2 control-label">出生日期</label>
+                      <div id="testdatetimepicker0010" class="input-group date form_datetime col-md-3" data-link-field="dtp_input10">
+                        <input class="form-control" size="16" type="text" value="" readonly>
+                        <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                  </span>
+                        <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                  </span>
                       </div>
+                      <input type="hidden" id="dtp_input10" value="" /><br/>
                   </div>
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="qkb_birthyplace">出生地点</label>
@@ -666,7 +745,7 @@
                       </div>
                       <label class="control-label col-sm-1" for="qkb_bysjbyyx">毕业状况</label>
                       <div class="col-sm-7">
-                        <textarea class="form-control" rows="1" placeholder="何年何月毕业于何院校，如（2010年6月，军事医学科学院公共卫生专业）" id="qkb_bysjbyyx"></textarea>
+                        <textarea class="form-control" rows="1" id="qkb_bysjbyyx"></textarea>
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
@@ -676,7 +755,7 @@
                       </div>
                       <label class="control-label col-sm-1" for="qkb_jgzid">证件号码</label>
                       <div class="col-sm-7">
-                        <textarea class="form-control" rows="1" placeholder="军(文)字第XXX号" id="qkb_jgzid"></textarea>
+                        <textarea class="form-control" rows="1" id="qkb_jgzid"></textarea>
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
@@ -688,160 +767,214 @@
                       <div class="col-sm-3">
                           <input type="text" class="form-control" id="qkb_huzhaohao">
                       </div>
-                      <label class="control-label col-sm-1" for="qkb__huzhaoyouxiaoqi">有效期至</label>
-                      <div id="qkb__huzhaoyouxiaoqi" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb__huzhaoyouxiaoqi002">
-                          <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
+                      <!--有效期至qkb__huzhaoyouxiaoqi-->
+                      <label for="dtp_input11" class="col-md-2 control-label">有效期至</label>
+                      <div id="testdatetimepicker0011" class="input-group date form_datetime col-md-3" data-link-field="dtp_input11">
+                        <input class="form-control" size="16" type="text" value="" readonly>
+                        <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                  </span>
+                        <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                  </span>
                       </div>
+                    <input type="hidden" id="dtp_input11" value="" /><br/>
                   </div>
                   <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_name">工作简历</label>
+                      <label class="control-label col-sm-2" for="qkb_name">工作简历</label>
                   </div>
+
                   <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="task_name">起止年月</label>
-                      <div class="col-sm-1" style="margin-left:5px">
-                      </div>
-                      <label class="control-label col-sm-5" for="task_name"></label>
-                      <div class="col-sm-3" style="margin-left:15px">
+                      <label class="control-label col-sm-2" for="task_name">起止年月</label>
+                      <div class="col-sm-3"></div>
+                      <!--<label class="control-label col-sm-2" for="task_name"></label>-->
+                      <div class="col-sm-3">
                         <p><strong>在何单位做何工作,任何职务</strong></p>
                       </div>
 
                       <label class="control-label col-sm-3" for="task_name"></label>
                   </div>
-                  <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_qzsj001">起止年月1</label>
-                      <div id="qkb_qzsj001" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj001001" value="如：2001.07-2009.08" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
-                          <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_gzdwzw1">工作职务1</label>
-                      <div class="col-sm-5">
-                          <input type="text" class="form-control" id="qkb_gzdwzw1" value="如：军事医学研究院一所 助理研究院" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
-                      </div>
-                  </div>
-                  <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_qzsj002">起止年月2</label>
-                      <div id="qkb_qzsj002" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj002001">
-                          <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_gzdwzw2">工作职务2</label>
-                      <div class="col-sm-5">
-                          <input type="text" class="form-control" id="qkb_gzdwzw2">
-                      </div>
-                  </div>
-                  <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_qzsj003">起止年月3</label>
-                      <div id="qkb_qzsj003" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj003001">
-                          <span class="add-on">
-                              <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_gzdwzw3">工作职务3</label>
-                      <div class="col-sm-5">
-                          <input type="text" class="form-control" id="qkb_gzdwzw3">
-                      </div>
-                  </div>
-                  <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_qzsj004">起止年月4</label>
-                      <div id="qkb_qzsj004" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj004001">
-                          <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_gzdwzw4">工作职务4</label>
-                      <div class="col-sm-5">
-                          <input type="text" class="form-control" id="qkb_gzdwzw4">
-                      </div>
-                  </div>
-                  <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_qzsj005">起止年月5</label>
-                      <div id="qkb_qzsj005" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_qzsj005001">
-                          <span class="add-on">
-                              <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_gzdwzw5">工作职务5</label>
-                      <div class="col-sm-5">
-                          <input type="text" class="form-control" id="qkb_gzdwzw5">
-                      </div>
-                  </div>
 
                   <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="qkb_gzdwzw1">工作职务1</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="qkb_gzdwzw1">
+                    </div>
+                    <!--qkb_qzsj001 起止年月1-->
+                    <label for="dtp_input12" class="col-md-1 control-label">起止年月1</label>
+                    <div id="testdatetimepicker0012" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input12">
+                      <input class="form-control" size="16" type="text" value="" readonly>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
+                    </div>
+                    <input type="hidden" id="dtp_input12" value="" /><br/>
+
+
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+
+                    <label class="control-label col-sm-1" for="qkb_gzdwzw2">工作职务2</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="qkb_gzdwzw2">
+                    </div>
+                    <!--qkb_qzsj002 起止年月2-->
+                    <label for="dtp_input13" class="col-md-1 control-label">起止年月2</label>
+                    <div id="testdatetimepicker0013" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input13">
+                      <input class="form-control" size="16" type="text" value="" readonly>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
+                    </div>
+                    <input type="hidden" id="dtp_input13" value="" /><br/>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="qkb_gzdwzw3">工作职务3</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="qkb_gzdwzw3">
+                    </div>
+                    <!--qkb_qzsj003 起止年月3-->
+                    <label for="dtp_input14" class="col-md-1 control-label">起止年月3</label>
+                    <div id="testdatetimepicker0014" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input14">
+                      <input class="form-control" size="16" type="text" value="" readonly>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
+                    </div>
+                    <input type="hidden" id="dtp_input14" value="" /><br/>
+
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="qkb_gzdwzw4">工作职务4</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="qkb_gzdwzw4">
+                    </div>
+                    <!--qkb_qzsj004 起止年月4-->
+                    <label for="dtp_input15" class="col-md-1 control-label">起止年月4</label>
+                    <div id="testdatetimepicker0015" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input15">
+                      <input class="form-control" size="16" type="text" value="" readonly>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
+                    </div>
+                    <input type="hidden" id="dtp_input15" value="" /><br/>
+                  </div>
+                  <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="qkb_gzdwzw5">工作职务5</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="qkb_gzdwzw5">
+                    </div>
+                    <!--qkb_qzsj005 起止年月5-->
+                    <label for="dtp_input16" class="col-md-1 control-label">起止年月5</label>
+                    <div id="testdatetimepicker0016" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input16">
+                      <input class="form-control" size="16" type="text" value="" readonly>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
+                    </div>
+                    <input type="hidden" id="dtp_input16" value="" /><br/>
+                  </div>
+
+                  <div class="form-group" style="margin-top:5px">
                       <label class="control-label col-sm-1" for="task_name">出国情况</label>
                   </div>
                   <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="task_name">时间</label>
-                      <label class="control-label col-sm-2" for="task_name"></label>
+                    <!--<label class="control-label col-sm-2" for="task_name"></label>-->
+                    <div class="col-sm-2" style="margin-left:5px">
+                      <p><strong>赴何国(地区)执行何任务</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                    </div>
+                    <label class="control-label col-sm-1" for="task_name" style="margin-left:3px">对外身份</label>
+                    <label class="control-label col-sm-2" for="task_name"></label>
 
-                      <label class="control-label col-sm-2" for="task_name"></label>
-                      <div class="col-sm-2" style="margin-left:25px">
-                        <p><strong>赴何国(地区)执行何任务</strong></p>
-                      </div>
-                      <div class="col-sm-3">
-                      </div>
-                      <label class="control-label col-sm-1" for="task_name" style="margin-left:3px">对外身份</label>
-                      <label class="control-label col-sm-2" for="task_name"></label>
+                    <label class="control-label col-sm-1" for="task_name">时间</label>
+                    <label class="control-label col-sm-2" for="task_name"></label>
+
                   </div>
                   <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_cgqksj001">时间1</label>
-                      <div id="qkb_cgqksj001" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj001001" value="如：2016年" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
-                          <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_gjjrw001">国家任务1</label>
-                      <div class="col-sm-4">
-                          <input type="text" class="form-control" id="qkb_gjjrw001" value="如：赴澳大利亚参加XX年会" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_dwsf001">身份1</label>
-                      <div class="col-sm-2">
-                          <input type="text" class="form-control" id="qkb_dwsf001" value="如：军人或掩护" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
-                      </div>
+                    <label class="control-label col-sm-1" for="qkb_gjjrw001">国家任务1</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="qkb_gjjrw001">
+                    </div>
+                    <label class="control-label col-sm-1" for="qkb_dwsf001">身份1</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="qkb_dwsf001">
+                    </div>
+                    <!--qkb_cgqksj001 时间1-->
+                    <label for="dtp_input17" class="col-md-1 control-label">时间1</label>
+                    <div id="testdatetimepicker0017" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input17">
+                      <input class="form-control" size="16" type="text" value="" readonly>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
+                    </div>
+                    <input type="hidden" id="dtp_input17" value="" /><br/>
                   </div>
                   <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_cgqksj002">时间2</label>
-                      <div id="qkb_cgqksj002" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj002001">
-                          <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_gjjrw002">国家任务2</label>
-                      <div class="col-sm-4">
-                          <input type="text" class="form-control" id="qkb_gjjrw002">
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_dwsf002">身份2</label>
-                      <div class="col-sm-2">
-                          <input type="text" class="form-control" id="qkb_dwsf002">
-                      </div>
+                    <label class="control-label col-sm-1" for="qkb_gjjrw002">国家任务2</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="qkb_gjjrw002">
+                    </div>
+                    <label class="control-label col-sm-1" for="qkb_dwsf002">身份2</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="qkb_dwsf002">
+                    </div>
+
+                    <!--qkb_cgqksj002 时间2-->
+                    <label for="dtp_input18" class="col-md-1 control-label">时间2</label>
+                    <div id="testdatetimepicker0018" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input18">
+                      <input class="form-control" size="16" type="text" value="" readonly>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-remove"></span>
+	                            </span>
+                      <span class="input-group-addon">
+		                          <span class="glyphicon glyphicon-th"></span>
+	                            </span>
+                    </div>
+                    <input type="hidden" id="dtp_input18" value="" /><br/>
+
                   </div>
                   <div class="form-group" style="margin-top:15px">
-                      <label class="control-label col-sm-1" for="qkb_cgqksj003">时间3</label>
-                      <div id="qkb_cgqksj003" class="input-append col-sm-2">
-                          <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="qkb_cgqksj003001">
-                          <span class="add-on">
-                              <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-                          </span>
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_gjjrw003">国家任务3</label>
-                      <div class="col-sm-4">
-                          <input type="text" class="form-control" id="qkb_gjjrw003">
-                      </div>
-                      <label class="control-label col-sm-1" for="qkb_dwsf003">身份3</label>
-                      <div class="col-sm-2">
-                          <input type="text" class="form-control" id="qkb_dwsf003">
-                      </div>
+                    <label class="control-label col-sm-1" for="qkb_gjjrw003">国家任务3</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="qkb_gjjrw003">
+                    </div>
+                    <label class="control-label col-sm-1" for="qkb_dwsf003">身份3</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="qkb_dwsf003">
+                    </div>
+
+                    <!--qkb_cgqksj003 时间3-->
+                    <label for="dtp_input19" class="col-md-1 control-label">时间3</label>
+                    <div id="testdatetimepicker0019" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input19">
+                      <input class="form-control" size="16" type="text" value="" readonly>
+                      <span class="input-group-addon">
+		                  <span class="glyphicon glyphicon-remove"></span>
+	                  </span>
+                      <span class="input-group-addon">
+		                  <span class="glyphicon glyphicon-th"></span>
+	                  </span>
+                    </div>
+                    <input type="hidden" id="dtp_input19" value="" /><br/>
                   </div>
 
                   <div class="form-group" style="margin-top:15px">
@@ -863,55 +996,55 @@
                   </div>
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="qkb_cyxm001">姓名1</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_cyxm001">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gx001">关系1</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_gx001">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_dwzw001">单位职务1</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_dwzw001">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gw1">国外否1</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_gw1">
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="qkb_cyxm002">姓名2</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_cyxm002">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gx002">关系2</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_gx002">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_dwzw002">单位职务2</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_dwzw002">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gw2">国外否2</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_gw2">
                       </div>
                   </div>
                   <div class="form-group" style="margin-top:15px">
                       <label class="control-label col-sm-1" for="qkb_cyxm003">姓名3</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_cyxm003">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gx003">关系3</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_gx003">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_dwzw003">单位职务3</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_dwzw003">
                       </div>
                       <label class="control-label col-sm-1" for="qkb_gw3">国外否3</label>
-                      <div class="col-sm-1">
+                      <div class="col-sm-2">
                           <input type="text" class="form-control" id="qkb_gw3">
                       </div>
                   </div>
@@ -948,7 +1081,7 @@
 </div>
 
 <div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="width:1200px;">
+  <div class="modal-dialog" style="width:1250px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -968,7 +1101,7 @@
                   </div>
                   <label class="control-label col-sm-1" for="baomi_zhiji">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级</label>
                   <div class="col-sm-3">
-                    <input type="text" class="form-control" id="baomi_zhiji" value="专业技术级大校，技术6级" onFocus="if(value==defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}">
+                    <input type="text" class="form-control" id="baomi_zhiji">
                   </div>
                 </div>
                 <div class="form-group" style="margin-top:15px">
@@ -988,30 +1121,40 @@
                   <div class="col-sm-3">
                     <input type="text" class="form-control" id="qkb_dfgj">
                   </div>
-                  <label class="control-label col-sm-1" for="baomi_jwtlbeg">离境时间</label>
-                  <div id="baomi_jwtlbeg" class="input-append col-sm-2">
-                    <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="baomi_jwtlbeg001">
-                    <span class="add-on">
-							<i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-						  </span>
+                  <!--baomi_jwtlbeg离境时间-->
+                  <label for="dtp_input20" class="col-md-1 control-label">离境时间</label>
+                  <div id="testdatetimepicker0020" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input20">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon">
+		                  <span class="glyphicon glyphicon-remove"></span>
+	                  </span>
+                    <span class="input-group-addon">
+		                  <span class="glyphicon glyphicon-th"></span>
+	                  </span>
                   </div>
-                  <label class="control-label col-sm-1" for="baomi_jwtlend">入境时间</label>
-                  <div id="baomi_jwtlend" class="input-append col-sm-2">
-                    <input data-format="yyyy-MM-dd" type="text" class="form-control dtpicker" id="baomi_jwtlend001">
-                    <span class="add-on">
-							<i data-time-icon="icon-time" data-date-icon="icon-calendar" class="btn btn-info btn-lg"></i>
-						  </span>
+                  <input type="hidden" id="dtp_input20" value="" /><br/>
+                  <!--baomi_jwtlend入境时间-->
+                  <label for="dtp_input21" class="col-md-1 control-label">入境时间</label>
+                  <div id="testdatetimepicker0021" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input21">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon">
+		                  <span class="glyphicon glyphicon-remove"></span>
+	                  </span>
+                    <span class="input-group-addon">
+		                  <span class="glyphicon glyphicon-th"></span>
+	                  </span>
                   </div>
+                  <input type="hidden" id="dtp_input21" value="" /><br/>
                 </div>
                 <div class="form-group" style="margin-top:15px">
-                  <label class="control-label col-sm-1" for="baomi_jwtlend">携带设备</label>
+                  <label class="control-label col-sm-1" for="task_name">携带设备</label>
                 </div>
                 <div class="form-group" style="margin-top:15px">
                   <label class="control-label col-sm-1" for="task_name">设备类型</label>
                   <label class="control-label col-sm-3" for="task_name"></label>
-                  <label class="control-label col-sm-3" for="task_name">品牌型号</label>
+                  <label class="control-label col-sm-4" for="task_name">品牌型号</label>
                   <label class="control-label col-sm-3" for="task_name"></label>
-                  <label class="control-label col-sm-3" for="task_name">涉密等级</label>
+                  <label class="control-label col-sm-7" for="task_name">涉密等级</label>
                   <label class="control-label col-sm-3" for="task_name"></label>
                 </div>
                 <div class="form-group" style="margin-top:15px">
@@ -1045,7 +1188,7 @@
                 <div class="form-group" style="margin-top:15px">
                   <label class="control-label col-sm-1" for="baomi_xddzsbyf">携带电脑</label>
                   <div class="col-sm-3">
-                    <select id="baomi_xddzsbyf" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否携带涉密电子设备'>
+                    <select id="baomi_xddzsbyf" data-first-option="false" data-live-search="true" class="form-control show-tick">
                       <option  selected="selected"></option>
                       <option >是</option>
                       <option >否</option>
@@ -1095,7 +1238,7 @@
                 <div class="form-group" style="margin-top:15px">
                   <label class="control-label col-sm-1" for="baomi_xdsmzlyf">涉密材料</label>
                   <div class="col-sm-3">
-                    <select id="baomi_xdsmzlyf" data-first-option="false" data-live-search="true" class="selectpicker form-control show-tick" title='是否携带涉密资料、书籍'>
+                    <select id="baomi_xdsmzlyf" data-first-option="false" data-live-search="true" class="form-control show-tick">
                       <option  selected="selected"></option>
                       <option >是</option>
                       <option >否</option>
@@ -1122,54 +1265,6 @@
 </div>
 
 <!-- Scroll to top -->
-<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
-
-
-<script>
-    //初始化fileinput
-
-    $("#input-b9").fileinput({
-        language : 'zh',
-        uploadUrl : "/admin/upload/files",
-        autoReplace : true,
-        maxFileCount : 1,
-        allowedFileExtensions : [ "jpg", "png", "gif", "pdf" ],
-        browseClass : "btn btn-primary", //按钮样式
-        previewFileIcon : "<i class='glyphicon glyphicon-king'></i>",
-        uploadExtraData : function(previewId, index) {
-            var obj = {};
-            obj.fileid = $("#idvalue").val();
-            //alert(obj.fileid);
-            return obj;
-        }
-    }).on("fileuploaded", function(e, data) {
-        var res = data.response;
-        debugger;
-        var opt = {
-            url: '/selectPatientinfo',
-            query:{
-                pageSize: 10, //页面大小
-                pageNumber: 1, //页码
-
-                //筛选参数
-                hospitalizetionid: $("#txt_search_hospitalizetionid").val(),
-                applino: $("#txt_search_applino").val(),
-                inspmethod: $("#txt_search_inspmethod").val(),
-                patientdiagkind: $("#txt_search_patientdiagkind").val(),
-                inspdepartid: $("#txt_search_inspdepartid").val(),
-                specialrequire: $("#txt_search_specialrequire").val(),
-                inspdate001: $("#txt_search_inspdate001").val(),
-                inspdate002: $("#txt_search_inspdate002").val(),
-                acceptdate001: $("#txt_search_acceptdate001").val(),
-                acceptdate002: $("#txt_search_acceptdate002").val(),
-                sortName:"applino",
-                sortOrder:"asc"
-            }
-
-        };
-        $('#tb_tasks').bootstrapTable('refresh',opt);
-    });
-
-</script>
+<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
 </body>
 </html>

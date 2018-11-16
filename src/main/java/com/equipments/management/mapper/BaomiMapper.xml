@@ -48,6 +48,13 @@
         select * from eq_staff_baomi where baomi_id=#{id}
     </select>
 
+
+    <!--querystaffid used to query, is an Integer parameter-->
+    <select id="getBaomiByTaskLimit" parameterType="Integer"
+            resultMap="baomiResultMap">
+        select * from eq_staff_baomi where task_id=#{querytaskid} order by baomi_id desc limit 1;
+    </select>
+
     <insert id="addBaomi" parameterType="com.equipments.management.domain.Baomi"
             useGeneratedKeys="true" keyProperty="id">
         insert into eq_staff_baomi(baomi_buzhibie,baomi_zhiji,baomi_xddzsblx1,baomi_xddzsblx2,baomi_xddzsbxh1,baomi_xddzsbxh2,baomi_xddzsbsmdj1,baomi_xddzsbsmdj2,baomi_xddzsbyf,baomi_duihao1,baomi_xdsmzlmc1,baomi_xdsmzlmc2,baomi_xdsmzlfs1,baomi_xdsmzlfs2,baomi_xdsmzlsmdj1,baomi_xdsmzlsmdj2,baomi_xdsmzlyf,baomi_duihao2,baomi_jwtlbeg,baomi_jwtlend,task_id,staff_id)
@@ -122,10 +129,10 @@
             <if test="duihao2 !=null">baomi_duihao2=#{duihao2},</if>
 
             <if test="jwtlbeg != null">
-                <![CDATA[ date(baomi_jwtlbeg) = date(#{jwtlbeg,jdbcType=DATE})]]>,
+                <![CDATA[ baomi_jwtlbeg = date(#{jwtlbeg,jdbcType=DATE})]]>,
             </if>
             <if test="jwtlend != null">
-                <![CDATA[ date(baomi_jwtlend) = date(#{jwtlend,jdbcType=DATE})]]>,
+                <![CDATA[ baomi_jwtlend = date(#{jwtlend,jdbcType=DATE})]]>,
             </if>
         </trim>
         where baomi_id=#{id}

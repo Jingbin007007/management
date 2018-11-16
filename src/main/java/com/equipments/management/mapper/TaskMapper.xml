@@ -40,10 +40,16 @@
         select * from EQ_TASK
     </select>
 
+    <select id="getAllTaskLimit" resultMap="taskResultMap">
+        select * from EQ_TASK order by task_id desc limit 1;
+    </select>
+
     <select id="getTaskById" parameterType="Integer"
             resultMap="taskResultMap">
         select * from EQ_TASK where task_id=#{id}
     </select>
+
+
 
     <insert id="addTask" parameterType="com.equipments.management.domain.Task"
             useGeneratedKeys="true" keyProperty="id">

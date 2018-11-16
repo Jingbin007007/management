@@ -6,6 +6,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.equipments.management.domain.*;
 import com.equipments.management.dto.ExportDoc;
+import com.equipments.management.util.BeanUtil;
+import com.equipments.management.util.PagedResult;
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -109,17 +112,40 @@ public class EqtaskController {
 
     @RequestMapping("/selectAllTask")
     @ResponseBody
-    public void selectAllTask(HttpServletResponse response,HttpServletRequest request){
+    public void selectAllTask(HttpServletResponse response,
+                              HttpServletRequest request,
+                              @RequestParam(value="pageNumber",defaultValue ="1") Integer page,
+                              @RequestParam(value="pageSize",defaultValue = "10") Integer rows){
         sqlSession = factory.openSession(true);
 
+        logger.info("----------------------------------------------------------");
+        logger.info("----------------------------------------------------------");
+        logger.info("----------------------------------------------------------");
+        logger.info("----------------------------------------------------------");
+        logger.info("----------------------------------------------------------");
+        logger.info(request.getServletPath());
+        logger.info(this.getClass().getClassLoader().getResource("/").getPath());
+        logger.info(this.getClass().getResource("").getPath());
+        logger.info(this.getClass().getClassLoader().getResource(".").getPath());
+        logger.info(request.getServletPath());
+        logger.info(request.getRequestURI());
+        logger.info(request.getSession().getServletContext().getRealPath("/pdf/web"));
+        logger.info("----------------------------------------------------------");
+        logger.info("----------------------------------------------------------");
+        logger.info("----------------------------------------------------------");
+        logger.info("----------------------------------------------------------");
+        logger.info("----------------------------------------------------------");
+
+        PageHelper.startPage(page,rows);
         List<Task> taskList = sqlSession.selectList("com.equipments.management.mapper.TaskMapper.getAllTask");
         sqlSession.close();
 
+        PagedResult<Task> pd = BeanUtil.toPagedResult(taskList);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = null;
         try{
             out = response.getWriter();
-            out.println(JSON.toJSONString(taskList,SerializerFeature.DisableCircularReferenceDetect));
+            out.println(JSON.toJSONString(pd,SerializerFeature.DisableCircularReferenceDetect));
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -128,18 +154,22 @@ public class EqtaskController {
     }
 
     @RequestMapping(value="/insertTask")
+    @ResponseBody
     public void insertTask(
-            @RequestParam("task_name") String taskname,
-            @RequestParam("task_tarcountry") String tasktarcountry,
-            @RequestParam("task_tarcity") String tasktarcity,
-            @RequestParam("task_jiaoliutimu") String taskjiaoliutimu,
-            @RequestParam("task_type") String tasktype,
-            @RequestParam("task_cjcfbeg001") String taskcjcfbeg001,
-            @RequestParam("task_cjggend001") String taskcjggend001,
-            @RequestParam("task_lijingshijian001") String tasklijingshijian001,
-            @RequestParam("task_rujingshijian001") String taskrujingshijian001,
-            @RequestParam("task_significance") String tasksignificance,
-            @RequestParam("task_temp") String tasktemp){
+            HttpServletResponse response,
+            @RequestParam(name="task_name",required=false) String taskname,
+            @RequestParam(name="task_tarcountry",required=false) String tasktarcountry,
+            @RequestParam(name="task_tarcity",required=false) String tasktarcity,
+            @RequestParam(name="task_jiaoliutimu",required=false) String taskjiaoliutimu,
+            @RequestParam(name="task_type",required=false) String tasktype,
+            @RequestParam(name="task_cjcfbeg001",required=false) String taskcjcfbeg001,
+            @RequestParam(name="task_cjggend001",required=false) String taskcjggend001,
+            @RequestParam(name="task_lijingshijian001",required=false) String tasklijingshijian001,
+            @RequestParam(name="task_rujingshijian001",required=false) String taskrujingshijian001,
+            @RequestParam(name="task_significance",required=false) String tasksignificance,
+            @RequestParam(name="task_temp",required=false) String tasktemp,
+            @RequestParam("staff_id") String staffid
+            ){
         sqlSession = factory.openSession(true);
 
         Task task = new Task();
@@ -149,10 +179,82 @@ public class EqtaskController {
         task.setType(tasktype);
         task.setJiaoliutimu(taskjiaoliutimu);
         task.setSignificance(tasksignificance);
+        task.setBeizhu(tasktemp);
+        task.setZhuangtai("待初审");//新创建任务初始状态均为
+
+        //设置日期格式
+        SimpleDateFormat datetimeParse=new SimpleDateFormat("yyyy-MM-dd");
+        if(!taskcjcfbeg001.equals("")){
+            try {
+                task.setCjcfbeg(datetimeParse.parse(taskcjcfbeg001));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if(!taskcjggend001.equals("")){
+            try {
+                task.setCjggend(datetimeParse.parse(taskcjggend001));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if(!tasklijingshijian001.equals("")){
+            try {
+                task.setLijingshijian(datetimeParse.parse(tasklijingshijian001));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if(!taskrujingshijian001.equals("")){
+            try {
+                task.setRujingshijian(datetimeParse.parse(taskrujingshijian001));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
         sqlSession.insert("com.equipments.management.mapper.TaskMapper.addTask",task);
+        sqlSession.commit(true);
+        List<Task> taskList = sqlSession.selectList("com.equipments.management.mapper.TaskMapper.getAllTaskLimit");
+
+        List<Staffextend> staffextendList = null;
+
+        sqlSession.insert("com.equipments.management.mapper.StaffextendMapper.addStaffextendCopyFromLastRecord",Integer.valueOf(staffid));
+        sqlSession.commit(true);
+        staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getAllStaffextendLimit",Integer.valueOf(staffid));
+
+        Staffextend tempStaffextend = null;
+        if(staffextendList !=null && taskList !=null){
+            if(staffextendList.get(0) !=null && taskList.get(0) !=null){
+                tempStaffextend = staffextendList.get(0);
+                tempStaffextend.getTaskid().setId(taskList.get(0).getId());
+                sqlSession.update("com.equipments.management.mapper.StaffextendMapper.updateStaffextend",tempStaffextend);
+
+
+                //创建Baomi
+                Baomi tempBaomi = new Baomi();
+                tempBaomi.setTaskid(new Task());
+                tempBaomi.getTaskid().setId(taskList.get(0).getId());
+                tempBaomi.setStaffid(new Staff());
+                tempBaomi.getStaffid().setId(Integer.valueOf(staffid));
+                sqlSession.insert("com.equipments.management.mapper.BaomiMapper.addBaomi",tempBaomi);
+            }
+        }
+
         sqlSession.close();
+
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = null;
+        try{
+            out = response.getWriter();
+            out.println(JSON.toJSONString(tempStaffextend));
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            out.close();
+        }
     }
+
 
     @RequestMapping(value="/updateTask")
     public void updateTask(
@@ -191,6 +293,14 @@ public class EqtaskController {
         }
 
         sqlSession.delete("com.equipments.management.mapper.TaskMapper.removeTaskById",task);
+        sqlSession.close();
+    }
+
+
+    @RequestMapping(value="/test")
+    public void insertTasktest(){
+        sqlSession = factory.openSession(true);
+
         sqlSession.close();
     }
 }

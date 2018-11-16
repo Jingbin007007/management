@@ -225,6 +225,8 @@ public class EqController {
         if(staffList.isEmpty()){
             sqlSession.insert("com.equipments.management.mapper.StaffMapper.addStaff",staff);
             model.addAttribute("staff",staff);
+            model.addAttribute("staffname",staff.getName());
+            model.addAttribute("staffid",staff.getId());
             sqlSession.close();
             if(staff.getGrade() == 3){
                 return "cgsqy";
