@@ -528,9 +528,52 @@ $(function () {
 
     var btn_wancheng006 = $('#btn_wancheng006');
 
+    var btn_add = $('#btn_add');
+    var btn_delete = $('#btn_delete');
 /*
 * 按钮事件
 * */
+
+    /*
+    * 数据列表.查询
+    * */
+    btn_add.click(function(){
+        queryResults();
+    });
+    /*
+    * 数据列表.删除
+    * */
+    btn_delete.click(function () {
+        var ids = $.map($('#tb_tasks').bootstrapTable('getSelections'), function (row) {
+            return row.id;
+        });
+        if (ids.length < 1 ) {
+            alert("请选择一行删除!");
+            return;
+        }
+
+        //删除数据并同步到数据库
+        $.ajax({
+            type: "post",
+            url: "/task/deleteTask",
+            async: false,
+            data: "ids="+ids,
+            success: function (data) {
+                debugger;
+                queryResults();
+                alert("所选记录删除成功！");
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+
+
+        $('#tb_tasks').bootstrapTable('remove', {
+            field: 'id',
+            values: ids
+        });
+    });
 
 /*
 * 责任书.预览
@@ -1050,23 +1093,23 @@ var TableInit = function () {
     //初始化Table
     oTableInit.Init = function () {
         $('#tb_tasks').bootstrapTable({
-            url: '/task/selectAllTask', //请求后台的URL（*）
+            url: '/task/selectTaskByAll', //请求后台的URL（*）
             //contextMenu: '#example1-context-menu',
             method: 'get', //请求方式（*）
             dataType: "json",
             toolbar: '#toolbar', //工具按钮用哪个容器
             striped: true, //是否显示行间隔色
             cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-            pagination: true, //是否显示分页（*）
+            pagination: false, //是否显示分页（*）
             sortable: true, //是否启用排序
             sortOrder: "asc", //排序方式
             queryParams: oTableInit.queryParams,//传递参数（*）
             queryParamsType: "undefined",//undefined
             singleSelect: false,//复选框只能选择一条记录
-            sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
-            pageNumber:1, //初始化加载第一页，默认第一页
-            pageSize: 500, //每页的记录行数（*）
-            pageList: [10, 25, 50, 100,500], //可供选择的每页的行数（*）
+            //sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+            //pageNumber:1, //初始化加载第一页，默认第一页
+            //pageSize: 500, //每页的记录行数（*）
+            //pageList: [10, 25, 50, 100,500], //可供选择的每页的行数（*）
             search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
             strictSearch: true,
             showColumns: true, //是否显示所有的列
@@ -1129,4 +1172,23 @@ var ButtonInit = function () {
 
     return oInit;
 };
+
+function queryResults(){
+    var opt = {
+        url: '/task/selectTaskByAll',
+        query:{
+
+            //筛选参数
+            task_name_query: $("#task_name_query").val(),
+            task_tarcountry_query: $("#task_tarcountry_query").val(),
+            task_tarcity_query: $("#task_tarcity_query").val(),
+            task_cjcfbeg_query: $('#testdatetimepicker008').find("input").val(),
+            task_cjggend_query: $("#testdatetimepicker009").find("input").val(),
+            sortName:"id",
+            sortOrder:"asc"
+        }
+
+    };
+    $('#tb_tasks').bootstrapTable('refresh',opt);
+}
 

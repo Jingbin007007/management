@@ -111,13 +111,73 @@ public class EqtaskController {
     }
 
 
+    @RequestMapping("/selectTaskByAll")
+    @ResponseBody
+    public void selectTaskByAll(HttpServletResponse response,
+                              HttpServletRequest request,
+                              //@RequestParam(value="pageNumber",defaultValue ="1") Integer page,
+                              //@RequestParam(value="pageSize",defaultValue = "500") Integer rows,
+                                @RequestParam(value="task_name_query",required=false) String name,
+                                @RequestParam(value="task_tarcountry_query",required=false) String tarcountry,
+                                @RequestParam(value="task_tarcity_query",required=false) String tarcity,
+                                @RequestParam(value="task_cjcfbeg_query",required=false,defaultValue = "") String cjcfbeg,
+                                @RequestParam(value="task_cjggend_query",required=false,defaultValue = "") String cjggend
+    ){
+        sqlSession = factory.openSession(false);
+
+        Task tempTask = new Task();
+        if(name != "" && name !=null){
+            tempTask.setName(name);
+        }
+        if(tarcity != "" && tarcity != null){
+            tempTask.setTarcity(tarcity);
+        }
+        if(tarcountry != "" && tarcountry != null){
+            tempTask.setTarcountry(tarcountry);
+        }
+
+        //设置日期格式
+        SimpleDateFormat datetimeParse=new SimpleDateFormat("yyyy-MM-dd");
+        if(!cjcfbeg.equals("")){
+            try {
+                tempTask.setCjcfbeg(datetimeParse.parse(cjcfbeg));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if(!cjggend.equals("")){
+            try {
+                tempTask.setCjggend(datetimeParse.parse(cjggend));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //PageHelper.startPage(page,rows);
+        List<Task> taskList = sqlSession.selectList("com.equipments.management.mapper.TaskMapper.getTaskByAll",tempTask);
+        sqlSession.close();
+
+        //PagedResult<Task> pd = BeanUtil.toPagedResult(taskList);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = null;
+        try{
+            out = response.getWriter();
+            out.println(JSON.toJSONString(taskList,SerializerFeature.DisableCircularReferenceDetect));
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            out.close();
+        }
+    }
+
     @RequestMapping("/selectAllTask")
     @ResponseBody
     public void selectAllTask(HttpServletResponse response,
-                              HttpServletRequest request,
-                              @RequestParam(value="pageNumber",defaultValue ="1") Integer page,
-                              @RequestParam(value="pageSize",defaultValue = "500") Integer rows){
-        sqlSession = factory.openSession(true);
+                              HttpServletRequest request
+                              //@RequestParam(value="pageNumber",defaultValue ="1") Integer page,
+                              //@RequestParam(value="pageSize",defaultValue = "500") Integer rows
+    ){
+        sqlSession = factory.openSession(false);
 
         logger.info("----------------------------------------------------------");
         logger.info("----------------------------------------------------------");
@@ -137,16 +197,16 @@ public class EqtaskController {
         logger.info("----------------------------------------------------------");
         logger.info("----------------------------------------------------------");
 
-        PageHelper.startPage(page,rows);
+        //PageHelper.startPage(page,rows);
         List<Task> taskList = sqlSession.selectList("com.equipments.management.mapper.TaskMapper.getAllTask");
         sqlSession.close();
 
-        PagedResult<Task> pd = BeanUtil.toPagedResult(taskList);
+        //PagedResult<Task> pd = BeanUtil.toPagedResult(taskList);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = null;
         try{
             out = response.getWriter();
-            out.println(JSON.toJSONString(pd,SerializerFeature.DisableCircularReferenceDetect));
+            out.println(JSON.toJSONString(taskList,SerializerFeature.DisableCircularReferenceDetect));
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -257,7 +317,7 @@ public class EqtaskController {
         PrintWriter out = null;
         try{
             out = response.getWriter();
-            out.println(JSON.toJSONString(tempStaffextend));
+            out.println(JSON.toJSONString(tempStaffextend,SerializerFeature.DisableCircularReferenceDetect));
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -293,16 +353,27 @@ public class EqtaskController {
         sqlSession.close();
     }
     @RequestMapping(value="/deleteTask")
+    @ResponseBody
     public void deleteTask(
-            @RequestParam("task_id") String taskid){
+            HttpServletResponse response,
+            HttpServletRequest request,
+            @RequestParam(value="ids") Integer[] ids){
         sqlSession = factory.openSession(true);
 
-        Task task = new Task();
-        if(taskid !=null){
-            task.setId(Integer.parseInt(taskid));
+        for(int i = 0;i<ids.length;i++){
+           sqlSession.delete("com.equipments.management.mapper.TaskMapper.removeTaskById",ids[i]);
+        }
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = null;
+        try{
+            out = response.getWriter();
+            out.println(JSON.toJSONString(ids,SerializerFeature.DisableCircularReferenceDetect));
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            out.close();
         }
 
-        sqlSession.delete("com.equipments.management.mapper.TaskMapper.removeTaskById",task);
         sqlSession.close();
     }
 

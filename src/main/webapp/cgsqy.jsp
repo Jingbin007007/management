@@ -624,7 +624,7 @@
 
                           <div id="toolbar" class="btn-group">
                             <button id="btn_add" type="button" class="btn btn-default">
-                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>查询
                             </button>
                             <button id="btn_save" type="button" class="btn btn-default">
                               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>保存

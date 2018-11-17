@@ -87,22 +87,22 @@
 
 
                 <if test="cjcfbeg != null">
-                    <![CDATA[ and date(task_cjcfbeg) = date(#{cjcfbeg,jdbcType=DATE})]]>
+                    <![CDATA[ and task_cjcfbeg >= date(#{cjcfbeg,jdbcType=DATE})]]>
                 </if>
                 <if test="cjggend != null">
-                    <![CDATA[ and date(task_cjggend) = date(#{cjggend,jdbcType=DATE})]]>
+                    <![CDATA[ and task_cjggend <= date(#{cjggend,jdbcType=DATE})]]>
                 </if>
                 <if test="lijingshijian != null">
-                    <![CDATA[ and date(task_lijingshijian) = date(#{lijingshijian,jdbcType=DATE})]]>
+                    <![CDATA[ and task_lijingshijian) = date(#{lijingshijian,jdbcType=DATE})]]>
                 </if>
                 <if test="rujingshijian != null">
-                    <![CDATA[ and date(task_rujingshijian) = date(#{rujingshijian,jdbcType=DATE})]]>
+                    <![CDATA[ and task_rujingshijian) = date(#{rujingshijian,jdbcType=DATE})]]>
                 </if>
                 <if test="cjsj != null">
-                    <![CDATA[ and date(task_cjsj) = date(#{cjsj,jdbcType=DATE})]]>
+                    <![CDATA[ and task_cjsj) = date(#{cjsj,jdbcType=DATE})]]>
                 </if>
                 <if test="xgsj != null">
-                    <![CDATA[ and date(task_xgsj) = date(#{xgsj,jdbcType=DATE})]]>
+                    <![CDATA[ and task_xgsj) = date(#{xgsj,jdbcType=DATE})]]>
                 </if>
             </where>
         </select>
