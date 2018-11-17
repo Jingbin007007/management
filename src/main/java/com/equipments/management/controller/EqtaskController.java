@@ -116,7 +116,7 @@ public class EqtaskController {
     public void selectAllTask(HttpServletResponse response,
                               HttpServletRequest request,
                               @RequestParam(value="pageNumber",defaultValue ="1") Integer page,
-                              @RequestParam(value="pageSize",defaultValue = "10") Integer rows){
+                              @RequestParam(value="pageSize",defaultValue = "500") Integer rows){
         sqlSession = factory.openSession(true);
 
         logger.info("----------------------------------------------------------");

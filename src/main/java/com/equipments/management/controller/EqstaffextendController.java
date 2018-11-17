@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -532,8 +533,6 @@ public class EqstaffextendController {
         Staffextend tempStaffextend = null;
         List<Staffextend> staffextendList = null;
 
-        //组装数据
-        //Staff tempStaff = new Staff();
         if(staffid !=null){
             staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
             if(staffextendList !=null && staffextendList.get(0) !=null){
@@ -622,6 +621,148 @@ public class EqstaffextendController {
                     try{
                         out = response.getWriter();
                         out.println(JSON.toJSONString(tempFileName));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        out.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else{
+            logger.info("-----------------------staffid is null-------------------------");
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = null;
+            try{
+                out = response.getWriter();
+                out.println(JSON.toJSONString("FALSE"));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                out.close();
+            }
+        }
+        sqlSession.close();
+    }
+
+    @RequestMapping("/downQkb")
+    @ResponseBody
+    public void downQkb(HttpServletResponse response,
+                          HttpServletRequest request,
+                          @RequestParam("staff_id") String staffid
+    ){
+        sqlSession = factory.openSession(true);
+        Staffextend tempStaffextend = null;
+        List<Staffextend> staffextendList = null;
+
+        //组装数据
+        //Staff tempStaff = new Staff();
+        if(staffid !=null){
+            staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
+            if(staffextendList !=null && staffextendList.get(0) !=null){
+                tempStaffextend = staffextendList.get(0);
+
+                try {
+
+                    String url = "/outputfiles/" + tempStaffextend.getTaskid().getId().toString()+ "/";
+                    //String url = "F:/output/";
+
+                    String tempFileName = tempStaffextend.getTaskid().getCgryqkbaddr();
+                    String fileAddress = url + tempFileName;
+
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = null;
+                    try{
+                        out = response.getWriter();
+                        out.println(JSON.toJSONString(fileAddress));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        out.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else{
+            logger.info("-----------------------staffid is null-------------------------");
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = null;
+            try{
+                out = response.getWriter();
+                out.println(JSON.toJSONString("FALSE"));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                out.close();
+            }
+        }
+        sqlSession.close();
+    }
+
+
+    @RequestMapping("/deleteQkb")
+    @ResponseBody
+    public void deleteQkb(HttpServletResponse response,
+                        HttpServletRequest request,
+                        @RequestParam("staff_id") String staffid
+    ){
+        sqlSession = factory.openSession(true);
+        Staffextend tempStaffextend = null;
+        List<Staffextend> staffextendList = null;
+
+        //组装数据
+        //Staff tempStaff = new Staff();
+        if(staffid !=null){
+            staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
+            if(staffextendList !=null && staffextendList.get(0) !=null){
+                tempStaffextend = staffextendList.get(0);
+
+                logger.info("---------------------------------");
+                logger.info("---------------------------------");
+                logger.info("---------------------------------");
+                logger.info("---------------------------------");
+                logger.info(tempStaffextend.toString());
+
+                try {
+
+                    String url = request.getSession().getServletContext().getRealPath("/outputfiles/") + tempStaffextend.getTaskid().getId().toString()+ "/";
+                    //String url = "F:/output/";
+
+                    String tempFileName = tempStaffextend.getTaskid().getCgryqkbaddr();
+                    String fileAddress = url + tempFileName;
+
+                    File file = new File(fileAddress);
+
+                    if(file.exists() && file.isFile()){
+                        file.delete();
+                        Task tempTask = tempStaffextend.getTaskid();
+                        tempTask.setCgryqkbaddr("");
+
+                        logger.info("---------------Task--------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info(tempTask.toString());
+                        sqlSession.update("com.equipments.management.mapper.TaskMapper.updateTask",tempTask);
+                    }
+                    else
+                    {
+                        logger.info("---------------Task--------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info("任务文件不存在！");
+                    }
+
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = null;
+                    try{
+                        out = response.getWriter();
+                        out.println(JSON.toJSONString(fileAddress));
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally {

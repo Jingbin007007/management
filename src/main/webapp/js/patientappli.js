@@ -342,6 +342,31 @@ $(function () {
         }
     });
 
+
+            //初始化上传控件的样式
+    $("#input-b9").fileinput({
+                language: 'zh', //设置语言
+                uploadUrl: "/admin/upload/files", //上传的地址
+                allowedFileExtensions: ['pdf', 'doc', 'docx'],//接收的文件后缀
+                showUpload: true, //是否显示上传按钮
+                autoReplace : true,
+                showCaption: false,//是否显示标题
+                browseClass: "btn btn-primary", //按钮样式
+                maxFileCount: 1, //表示允许同时上传的最大文件个数
+                enctype: 'multipart/form-data',
+                validateInitialCount:true,
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+                uploadExtraData : function(previewId, index) {
+                var obj = {};
+                obj.staff_id = staff_id;
+                    return obj;
+                }
+            }).on("fileuploaded", function(e, data) {
+                var res = data.response;
+            });
+
+
     //Task table设置Opt参数
     var opt = {
         url: '/task/selectAllTask',
@@ -501,6 +526,8 @@ $(function () {
     var btn_xiazai0004 = $('#btn_xiazai0004');
     var btn_shanchu0004 = $('#btn_shanchu0004');
 
+    var btn_wancheng006 = $('#btn_wancheng006');
+
 /*
 * 按钮事件
 * */
@@ -510,8 +537,22 @@ $(function () {
 * */
     btn_yulan0002.click(function(){
         //准备测试
-
-
+        $.ajax({
+            type: "get",
+            url: "/baomi/outputBaomi",
+            async: false,
+            data: {
+                'staff_id':staff_id
+            },
+            dataType:"json",
+            success: function (data1) {
+                //传递参数，显示变化
+                //alert("/outputfiles/word/" + data1);
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
     });
 
 /*
@@ -639,6 +680,75 @@ $(function () {
 
 
     /*
+    * 责任书.完成
+    * */
+    btn_wancheng006.click(function(){
+        $.ajax({
+            type: "get",
+            url: "/baomi/updateBaomi",
+            async: false,
+            data: {
+                'task_id':task_id,
+                'staff_id':staff_id,
+                'baomi_zhiji':$('#baomi_zhiji').val(),
+                'baomi_buzhibie':$('#baomi_buzhibie').val(),
+                'baomi_jwtlbeg':$('#testdatetimepicker0020').find("input").val(),
+                'baomi_jwtlend':$('#testdatetimepicker0021').find("input").val(),
+                'baomi_xddzsblx1':$('#baomi_xddzsblx1').val(),
+                'baomi_xddzsbxh1':$('#baomi_xddzsbxh1').val(),
+                'baomi_xddzsbsmdj1':$('#baomi_xddzsbsmdj1').val(),
+                'baomi_xddzsblx2':$('#baomi_xddzsblx2').val(),
+                'baomi_xddzsbxh2':$('#baomi_xddzsbxh2').val(),
+                'baomi_xddzsbsmdj2':$('#baomi_xddzsbsmdj2').val(),
+                'baomi_xddzsbyf':$('#baomi_xddzsbyf').val(),
+                'baomi_xdsmzlmc1':$('#baomi_xdsmzlmc1').val(),
+                'baomi_xdsmzlfs1':$('#baomi_xdsmzlfs1').val(),
+                'baomi_xdsmzlsmdj1':$('#baomi_xdsmzlsmdj1').val(),
+                'baomi_xdsmzlmc2':$('#baomi_xdsmzlmc2').val(),
+                'baomi_xdsmzlfs2':$('#baomi_xdsmzlfs2').val(),
+                'baomi_xdsmzlsmdj2':$('#baomi_xdsmzlsmdj2').val(),
+                'baomi_xdsmzlyf':$('#baomi_xdsmzlyf').val()
+            },
+            dataType:"json",
+            success: function (data1) {
+                debugger;
+                $('#bmzrs_name').val(data1.Staffextend.staffid.name);
+                $('#bmzrs_name').attr("readonly",true);
+                $('#baomi_zhiji').val(data1.Baomi.zhiji);
+                //$('#baomi_zhiji').attr("readonly",true);
+                $('#baomi_buzhibie').val(data1.Baomi.buzhibie);
+                //$('#baomi_buzhibie').attr("readonly",true);
+                $('#qkb_zwzc').val(data1.Staffextend.staffid.zhiwu + data1.Staffextend.staffid.zhicheng);
+                $('#qkb_zwzc').attr("readonly",true);
+                $('#qkb_dfgj').val(data1.Staffextend.taskid.tarcountry);
+                $('#qkb_dfgj').attr("readonly",true);
+                var testdatetimepicker0020 = new Date(data1.Staffextend.taskid.lijingshijian);
+                $('#testdatetimepicker0020').find("input").val(testdatetimepicker0020.toLocaleString());
+                var testdatetimepicker0021 = new Date(data1.Staffextend.taskid.rujingshijian);
+                $('#testdatetimepicker0021').find("input").val(testdatetimepicker0021.toLocaleString());
+
+                $('#baomi_xddzsblx1').val(data1.Baomi.xddzsblx1);
+                $('#baomi_xddzsbxh1').val(data1.Baomi.xddzsbxh1);
+                $('#baomi_xddzsbsmdj1').val(data1.Baomi.xddzsbsmdj1);
+                $('#baomi_xddzsblx2').val(data1.Baomi.xddzsblx2);
+                $('#baomi_xddzsbxh2').val(data1.Baomi.xddzsbxh2);
+                $('#baomi_xddzsbsmdj2').val(data1.Baomi.xddzsbsmdj2);
+
+                $('#baomi_xdsmzlmc1').val(data1.Baomi.xdsmzlmc1);
+                $('#baomi_xdsmzlfs1').val(data1.Baomi.xdsmzlfs1);
+                $('#baomi_xdsmzlsmdj1').val(data1.Baomi.xdsmzlsmdj1);
+                $('#baomi_xdsmzlmc2').val(data1.Baomi.xdsmzlmc2);
+                $('#baomi_xdsmzlfs2').val(data1.Baomi.xdsmzlfs2);
+                $('#baomi_xdsmzlsmdj2').val(data1.Baomi.xdsmzlsmdj2);
+                $('#baomi_xdsmzlyf').val(data1.Baomi.xdsmzlyf);
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    });
+
+/*
 * 责任书.填写
 * */
     btn_tianxie002.click(function(){
@@ -647,59 +757,41 @@ $(function () {
             url: "/baomi/selectBaomiByStaffLimit",
             async: false,
             data: {
-                'task_id':task_id
+                'task_id':task_id,
+                'staff_id':staff_id
             },
             dataType:"json",
             success: function (data1) {
-               //传递参数，显示变化
-               /*
-               * data1[0].staffid.name    姓名
-               * data1[0].huzhaohao   职级
-               * data1[0].huzhaoyouxiaoqi  部职别
-               * 职务职称
-               * 到访国家
-               *
-               * */
-
-                /*
-                * 控件设置只读
-                * */
                 debugger;
-                /*
-                $('#qkb_name').attr("readonly",true);
-                $('#qkb_gender').attr("readonly",true);
-                //$('#testdatetimepicker0010').find("span").attr("readonly",true);
-                $('#qkb_birthyplace').attr("readonly",true);
-                $('#qkb_lxdh').attr("readonly",true);
-                $('#qkb_jgzid').attr("readonly",true);
+                $('#bmzrs_name').val(data1.Staffextend.staffid.name);
+                $('#bmzrs_name').attr("readonly",true);
+                $('#baomi_zhiji').val(data1.Baomi.zhiji);
+                //$('#baomi_zhiji').attr("readonly",true);
+                $('#baomi_buzhibie').val(data1.Baomi.buzhibie);
+                //$('#baomi_buzhibie').attr("readonly",true);
+                $('#qkb_zwzc').val(data1.Staffextend.staffid.zhiwu + data1.Staffextend.staffid.zhicheng);
+                $('#qkb_zwzc').attr("readonly",true);
+                $('#qkb_dfgj').val(data1.Staffextend.taskid.tarcountry);
+                $('#qkb_dfgj').attr("readonly",true);
+                var testdatetimepicker0020 = new Date(data1.Staffextend.taskid.lijingshijian);
+                $('#testdatetimepicker0020').find("input").val(testdatetimepicker0020.toLocaleString());
+                var testdatetimepicker0021 = new Date(data1.Staffextend.taskid.rujingshijian);
+                $('#testdatetimepicker0021').find("input").val(testdatetimepicker0021.toLocaleString());
 
-                var testdatetimepicker0017 = new Date(data1[0].cgqksj001);
-                $('#testdatetimepicker0017').find("input").val(testdatetimepicker0017.toLocaleString());
-                $('#qkb_gjjrw002').val(data1[0].cgqkgjjrw002);
-                $('#qkb_dwsf002').val(data1[0].cgqkdwsf002);
-                var testdatetimepicker0018 = new Date(data1[0].cgqksj002);
-                $('#testdatetimepicker0018').find("input").val(testdatetimepicker0018.toLocaleString());
-                $('#qkb_gjjrw003').val(data1[0].cgqkgjjrw003);
-                $('#qkb_dwsf003').val(data1[0].cgqkdwsf003);
-                var testdatetimepicker0019 = new Date(data1[0].cgqksj003);
-                $('#testdatetimepicker0019').find("input").val(testdatetimepicker0019.toLocaleString());
+                $('#baomi_xddzsblx1').val(data1.Baomi.xddzsblx1);
+                $('#baomi_xddzsbxh1').val(data1.Baomi.xddzsbxh1);
+                $('#baomi_xddzsbsmdj1').val(data1.Baomi.xddzsbsmdj1);
+                $('#baomi_xddzsblx2').val(data1.Baomi.xddzsblx2);
+                $('#baomi_xddzsbxh2').val(data1.Baomi.xddzsbxh2);
+                $('#baomi_xddzsbsmdj2').val(data1.Baomi.xddzsbsmdj2);
 
-                $('#qkb_cyxm001').val(data1[0].jtqkxm001);
-                $('#qkb_gx001').val(data1[0].jtqkgx001);
-                $('#qkb_dwzw001').val(data1[0].jtqkgzjzw001);
-                $('#qkb_gw1').val(data1[0].jtqkgwf001);
-                $('#qkb_cyxm002').val(data1[0].jtqkxm002);
-                $('#qkb_gx002').val(data1[0].jtqkgx002);
-                $('#qkb_dwzw002').val(data1[0].jtqkgzjzw002);
-                $('#qkb_gw2').val(data1[0].jtqkgwf002);
-                $('#qkb_cyxm003').val(data1[0].jtqkxm003);
-                $('#qkb_gx003').val(data1[0].jtqkgx003);
-                $('#qkb_dwzw003').val(data1[0].jtqkgzjzw003);
-                $('#qkb_gw3').val(data1[0].jtqkgwf003);
-
-                $('#qkb_scmxm').val(data1[0].swscmxm);
-                $('#qkb_scmdh').val(data1[0].swscmdh);
-                */
+                $('#baomi_xdsmzlmc1').val(data1.Baomi.xdsmzlmc1);
+                $('#baomi_xdsmzlfs1').val(data1.Baomi.xdsmzlfs1);
+                $('#baomi_xdsmzlsmdj1').val(data1.Baomi.xdsmzlsmdj1);
+                $('#baomi_xdsmzlmc2').val(data1.Baomi.xdsmzlmc2);
+                $('#baomi_xdsmzlfs2').val(data1.Baomi.xdsmzlfs2);
+                $('#baomi_xdsmzlsmdj2').val(data1.Baomi.xdsmzlsmdj2);
+                $('#baomi_xdsmzlyf').val(data1.Baomi.xdsmzlyf);
             },
             error: function () {
                 alert("Error");
@@ -805,8 +897,74 @@ $(function () {
 * */
 
     btn_xiazai0001.click(function(){
-        window.open("/outputfiles/word/sqrycgqkb-21-20181116161236.doc");
+        $.ajax({
+            type: "get",
+            url: "/staffextend/downQkb",
+            async: false,
+            data: {
+                'staff_id':staff_id
+            },
+            dataType:"json",
+            success: function (data1) {
+                //传递参数，显示变化
+                window.open(data1);
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
     });
+
+    /*
+* btn_xiazai0002
+* 责任书.下载
+*
+* */
+
+    btn_xiazai0002.click(function(){
+        $.ajax({
+            type: "get",
+            url: "/baomi/downBaomi",
+            async: false,
+            data: {
+                'staff_id':staff_id
+            },
+            dataType:"json",
+            success: function (data1) {
+                //传递参数，显示变化
+                window.open(data1);
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    });
+
+    /*
+* btn_xiazai0003
+* 邀请函（中文版）.下载
+*
+* */
+
+    btn_xiazai0003.click(function(){
+        $.ajax({
+            type: "get",
+            url: "/downYqhZW",
+            async: false,
+            data: {
+                'staff_id':staff_id
+            },
+            dataType:"json",
+            success: function (data1) {
+                //传递参数，显示变化
+                window.open(data1);
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    });
+
 
     /*
     * btn_shanchu0001
@@ -815,60 +973,15 @@ $(function () {
     btn_shanchu0001.click(function(){
         $.ajax({
             type: "get",
-            url: "/staffextend/updateStaffextend",
+            url: "/staffextend/deleteQkb",
             async: false,
             data: {
-                /*
-                'extend_nation':'',
-                'extend_educationle':'',
-                'extend_qkbzwhzc':'',
-                'extend_qkbjxhjb':'',
-                'extend_zzmianmao':'',
-                'extend_wgysp':'',
-                'extend_bysjbyyx':'',
-                'extend_ywhuzhao':'',
-                'passport_huzhaohao':'',
-                'passport_huzhaoyouxiaoq':'',
-                'extend_gzjlcsgzjzw001':'',
-                'extend_gzjlsj001':'',
-                'extend_gzjlcsgzjzw002':'',
-                'extend_gzjlsj002':'',
-                'extend_gzjlcsgzjzw003':'',
-                'extend_gzjlsj003':'',
-                'extend_gzjlcsgzjzw004':'',
-                'extend_gzjlsj004':'',
-                'extend_gzjlcsgzjzw005':'',
-                'extend_gzjlsj005':'',
-                'extend_cgqkgjjrw001':'',
-                'extend_cgqkdwsf001':'',
-                'extend_cgqksj001':'',
-                'extend_cgqkgjjrw002':'',
-                'extend_cgqkdwsf002':'',
-                'extend_cgqksj002':'',
-                'extend_cgqkgjjrw003':'',
-                'extend_cgqkdwsf003':'',
-                'extend_cgqksj003':'',
-                'extend_jtqkxm001':'',
-                'extend_jtqkgx001':'',
-                'extend_jtqkgzjzw001':'',
-                'extend_jtqkgwf001':'',
-                'extend_jtqkxm002':'',
-                'extend_jtqkgx002':'',
-                'extend_jtqkgzjzw002':'',
-                'extend_jtqkgwf002':'',
-                'extend_jtqkxm003':'',
-                'extend_jtqkgx003':'',
-                'extend_jtqkgzjzw003':'',
-                'extend_jtqkgwf003':'',
-                'task_swscmxm':'',
-                'task_swscmdh':'',
-                */
                 'staff_id':staff_id
             },
             dataType:"json",
             success: function (data1) {
                 //传递参数，显示变化
-                debugger;
+                alert(data1 + "已成功删除！");
             },
             error: function () {
                 alert("Error");
@@ -876,6 +989,51 @@ $(function () {
         });
     });
 
+    /*
+    * btn_shanchu0002
+    * 责任书.删除
+    * */
+    btn_shanchu0002.click(function(){
+        $.ajax({
+            type: "get",
+            url: "/baomi/deleteBaomi",
+            async: false,
+            data: {
+                'staff_id':staff_id
+            },
+            dataType:"json",
+            success: function (data1) {
+                //传递参数，显示变化
+                alert(data1 + "已成功删除！");
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    });
+
+    /*
+* btn_shanchu0003
+* 邀请函（中文版）.删除
+* */
+    btn_shanchu0003.click(function(){
+        $.ajax({
+            type: "get",
+            url: "/deleteYqhZW",
+            async: false,
+            data: {
+                'staff_id':staff_id
+            },
+            dataType:"json",
+            success: function (data1) {
+                //传递参数，显示变化
+                alert(data1 + "已成功删除！");
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    });
 });
 
 
@@ -907,7 +1065,7 @@ var TableInit = function () {
             singleSelect: false,//复选框只能选择一条记录
             sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
             pageNumber:1, //初始化加载第一页，默认第一页
-            pageSize: 10, //每页的记录行数（*）
+            pageSize: 500, //每页的记录行数（*）
             pageList: [10, 25, 50, 100,500], //可供选择的每页的行数（*）
             search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
             strictSearch: true,

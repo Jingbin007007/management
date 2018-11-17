@@ -140,7 +140,7 @@
   </div>
 </div>
 
-
+<body>
 <!-- Header starts -->
 <header>
 
@@ -541,7 +541,7 @@
                                     <div class="form-group" style="margin-top:15px">
                                       <label class="control-label col-sm-1" for="task_name_query">邀&nbsp&nbsp请&nbsp&nbsp函</label>
                                       <div class="btn-group">
-                                        <button type="button" style="margin-left:50px" id="btn_tianxie003" class="btn btn-primary">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp上传&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        <button type="button" style="margin-left:50px" id="btn_tianxie003" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp上传&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_xiugai0003" class="btn btn-success">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp脱密&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_yulan0003" class="btn btn-info">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp预览&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
                                         <button type="button" id="btn_xiazai0003" class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp下载&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
@@ -1103,8 +1103,6 @@
                   <div class="col-sm-3">
                     <input type="text" class="form-control" id="baomi_zhiji">
                   </div>
-                </div>
-                <div class="form-group" style="margin-top:15px">
                   <label class="control-label col-sm-1" for="baomi_buzhibie">部&nbsp&nbsp职&nbsp&nbsp别</label>
                   <div class="col-sm-3">
                     <input type="text" class="form-control" id="baomi_buzhibie">
@@ -1115,24 +1113,24 @@
                   <div class="col-sm-3">
                     <input type="text" class="form-control" id="qkb_zwzc">
                   </div>
-                </div>
-                <div class="form-group" style="margin-top:15px">
-                  <label class="control-label col-sm-1" for="qkb_dfgj">到访国家</label>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control" id="qkb_dfgj">
-                  </div>
                   <!--baomi_jwtlbeg离境时间-->
                   <label for="dtp_input20" class="col-md-1 control-label">离境时间</label>
                   <div id="testdatetimepicker0020" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input20">
                     <input class="form-control" size="16" type="text" value="" readonly>
                     <span class="input-group-addon">
 		                  <span class="glyphicon glyphicon-remove"></span>
-	                  </span>
+	                </span>
                     <span class="input-group-addon">
 		                  <span class="glyphicon glyphicon-th"></span>
-	                  </span>
+	                </span>
                   </div>
                   <input type="hidden" id="dtp_input20" value="" /><br/>
+                </div>
+                <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1" for="qkb_dfgj">到访国家</label>
+                  <div class="col-sm-3">
+                    <input type="text" class="form-control" id="qkb_dfgj">
+                  </div>
                   <!--baomi_jwtlend入境时间-->
                   <label for="dtp_input21" class="col-md-1 control-label">入境时间</label>
                   <div id="testdatetimepicker0021" class="input-group date form_datetime col-sm-3" data-link-field="dtp_input21">
@@ -1146,6 +1144,7 @@
                   </div>
                   <input type="hidden" id="dtp_input21" value="" /><br/>
                 </div>
+
                 <div class="form-group" style="margin-top:15px">
                   <label class="control-label col-sm-1" for="task_name">携带设备</label>
                 </div>
@@ -1189,9 +1188,8 @@
                   <label class="control-label col-sm-1" for="baomi_xddzsbyf">携带电脑</label>
                   <div class="col-sm-3">
                     <select id="baomi_xddzsbyf" data-first-option="false" data-live-search="true" class="form-control show-tick">
-                      <option  selected="selected"></option>
-                      <option >是</option>
-                      <option >否</option>
+                      <option value="0">是</option>
+                      <option value="1" selected="selected">否</option>
                     </select>
                   </div>
                 </div>
@@ -1239,9 +1237,8 @@
                   <label class="control-label col-sm-1" for="baomi_xdsmzlyf">涉密材料</label>
                   <div class="col-sm-3">
                     <select id="baomi_xdsmzlyf" data-first-option="false" data-live-search="true" class="form-control show-tick">
-                      <option  selected="selected"></option>
-                      <option >是</option>
-                      <option >否</option>
+                      <option value="0">是</option>
+                      <option value="1" selected="selected">否</option>
                     </select>
                   </div>
                 </div>
@@ -1264,7 +1261,32 @@
   </div>
 </div>
 
+<!-- Footer ends -->
+<!--fileinput-->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg vertical-align-center" role="document" style="left:10%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">预览</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input id="input-b9" name="input-b9" type="file" class="file-loading">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      <button type="button" class="btn btn-primary" title="Your custom upload logic">保存</button>
+    </div>
+  </div>
+</div>
+
 <!-- Scroll to top -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
+
+
+
 </body>
 </html>

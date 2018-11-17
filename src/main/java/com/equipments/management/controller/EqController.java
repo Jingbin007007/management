@@ -16,8 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -358,48 +360,6 @@ public class EqController {
         }
     }
 
-    /**
-     * 测试mapper
-     *
-     *
-     * */
-    @RequestMapping("/testMapper")
-    @ResponseBody
-    public void testMapper(HttpServletResponse response,HttpServletRequest request){
-        sqlSession = factory.openSession(true);
-
-        Hbtask2 hbtask2 = new Hbtask2();
-        hbtask2.setName("第二次测试Hbtask2");
-        hbtask2.setTarcountry("南极洲第一国");
-        hbtask2.setTarcity("北极熊一号城");
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date today = null;
-        try {
-            today = sdf.parse("2018-10-16");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        hbtask2.setCjsj(today);
-        hbtask2.setXgsj(today);
-        hbtask2.setLijingbeg(today);
-        hbtask2.setTaskhbid2(2);
-
-        sqlSession.delete("com.equipments.management.mapper.Hbtask2Mapper.removeHbtask2ById",hbtask2);
-        sqlSession.close();
-
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = null;
-        try{
-            out = response.getWriter();
-            //out.println(JSON.toJSONString(hbtask2List,SerializerFeature.DisableCircularReferenceDetect));
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            out.close();
-        }
-    }
 
     @RequestMapping("/selectAllTask")
     @ResponseBody
@@ -419,5 +379,188 @@ public class EqController {
         }finally {
             out.close();
         }
+    }
+
+    /*
+    * 上传邀请函文件
+    *
+    * */
+
+    @RequestMapping(value = "/admin/upload/files")
+    @ResponseBody
+    public Map<String, Object> updatePhoto(HttpServletRequest request,HttpServletResponse response,
+                                           @RequestParam("input-b9") MultipartFile myFile,
+                                           @RequestParam("staff_id") String staffid){
+        //fileid
+        sqlSession = factory.openSession(true);
+
+        Map<String, Object> json = new HashMap<String, Object>();
+        List<Staffextend> staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
+        Staffextend tempStaffextend = staffextendList.get(0);
+
+        Task tempTask = tempStaffextend.getTaskid();
+
+        try {
+            String url = request.getSession().getServletContext().getRealPath("/outputfiles/") + tempStaffextend.getTaskid().getId().toString()+ "/";
+
+            //String path = name + "." + ext;
+            String path = myFile.getOriginalFilename();
+            File file = new File(url);
+            if(!file.exists()){
+                file.mkdirs();
+            }
+
+            myFile.transferTo(new File(url + path));
+
+            tempTask.setYqhaddrzw(path);
+            //保存如表
+            sqlSession.update("com.equipments.management.mapper.TaskMapper.updateTask",tempTask);
+            json.put("success", path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        sqlSession.close();
+        return json ;
+    }
+
+    @RequestMapping("/downYqhZW")
+    @ResponseBody
+    public void downYqhZW(HttpServletResponse response,
+                          HttpServletRequest request,
+                          @RequestParam("staff_id") String staffid
+    ){
+        sqlSession = factory.openSession(true);
+        Staffextend tempStaffextend = null;
+        List<Staffextend> staffextendList = null;
+
+        //组装数据
+        //Staff tempStaff = new Staff();
+        if(staffid !=null){
+            staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
+            if(staffextendList !=null && staffextendList.get(0) !=null){
+                tempStaffextend = staffextendList.get(0);
+
+                try {
+
+                    String url = "/outputfiles/" + tempStaffextend.getTaskid().getId().toString()+ "/";
+                    //String url = "F:/output/";
+
+                    String tempFileName = tempStaffextend.getTaskid().getYqhaddrzw();
+                    String fileAddress = url + tempFileName;
+
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = null;
+                    try{
+                        out = response.getWriter();
+                        out.println(JSON.toJSONString(fileAddress,SerializerFeature.DisableCircularReferenceDetect));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        out.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else{
+            logger.info("-----------------------staffid is null-------------------------");
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = null;
+            try{
+                out = response.getWriter();
+                out.println(JSON.toJSONString("FALSE",SerializerFeature.DisableCircularReferenceDetect));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                out.close();
+            }
+        }
+        sqlSession.close();
+    }
+
+    @RequestMapping("/deleteYqhZW")
+    @ResponseBody
+    public void deleteYqhZW(HttpServletResponse response,
+                            HttpServletRequest request,
+                            @RequestParam("staff_id") String staffid
+    ){
+        sqlSession = factory.openSession(true);
+        Staffextend tempStaffextend = null;
+        List<Staffextend> staffextendList = null;
+
+        //组装数据
+        //Staff tempStaff = new Staff();
+        if(staffid !=null){
+            staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
+            if(staffextendList !=null && staffextendList.get(0) !=null){
+                tempStaffextend = staffextendList.get(0);
+
+                logger.info("---------------------------------");
+                logger.info("---------------------------------");
+                logger.info("---------------------------------");
+                logger.info("---------------------------------");
+                logger.info(tempStaffextend.toString());
+
+                try {
+
+                    String url = request.getSession().getServletContext().getRealPath("/outputfiles/") + tempStaffextend.getTaskid().getId().toString()+ "/";
+                    //String url = "F:/output/";
+
+                    String tempFileName = tempStaffextend.getTaskid().getYqhaddrzw();
+                    String fileAddress = url + tempFileName;
+
+                    File file = new File(fileAddress);
+
+                    if(file.exists() && file.isFile()){
+                        file.delete();
+                        Task tempTask = tempStaffextend.getTaskid();
+                        tempTask.setBmzrsaddr("");
+
+                        logger.info("---------------Task--------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info(tempTask.toString());
+                        sqlSession.update("com.equipments.management.mapper.TaskMapper.updateTask",tempTask);
+                    }
+                    else
+                    {
+                        logger.info("---------------Task--------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info("任务文件不存在！");
+                    }
+
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = null;
+                    try{
+                        out = response.getWriter();
+                        out.println(JSON.toJSONString(fileAddress,SerializerFeature.DisableCircularReferenceDetect));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        out.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else{
+            logger.info("-----------------------staffid is null-------------------------");
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = null;
+            try{
+                out = response.getWriter();
+                out.println(JSON.toJSONString("FALSE",SerializerFeature.DisableCircularReferenceDetect));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                out.close();
+            }
+        }
+        sqlSession.close();
     }
 }

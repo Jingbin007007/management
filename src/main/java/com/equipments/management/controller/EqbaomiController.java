@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -115,23 +116,24 @@ public class EqbaomiController {
     @RequestMapping(value="/selectBaomiByStaffLimit")
     @ResponseBody
     public void selectBaomiByStaffLimit(HttpServletResponse response,
-                                        @RequestParam("task_id") String taskid){
-        sqlSession = factory.openSession(true);
+                                        @RequestParam("staff_id") String staffid){
+        sqlSession = factory.openSession(false);
 
         List<Baomi> baomiList = null;
         List<Staffextend> staffextendList = null;
+        Map<String,Object> tempMap = new HashMap<String, Object>();
 
-
-        if(taskid !=null){
-            baomiList = sqlSession.selectList("com.equipments.management.mapper.BaomiMapper.getBaomiByTaskLimit",Integer.valueOf(taskid));
+        if(staffid !=null){
+            staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
             logger.info("---------------staffextendList----------------");
-            logger.info(baomiList.get(0).toString());
-            if(baomiList != null && baomiList.get(0) != null){
-                if(baomiList.get(0).getTaskid().getId() != null){
-                    Staffextend queryStaffextend = new Staffextend();
-                    queryStaffextend.setTaskid(baomiList.get(0).getTaskid());
-                    staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByAll",queryStaffextend);
-                }
+            logger.info(staffextendList.get(0).toString());
+            if(staffextendList != null && staffextendList.get(0) != null){
+                Staffextend queryStaffextend = staffextendList.get(0);
+                Task tempTask = queryStaffextend.getTaskid();
+                baomiList = sqlSession.selectList("com.equipments.management.mapper.BaomiMapper.getBaomiByTaskLimit",tempTask.getId());
+
+                tempMap.put("Staffextend",queryStaffextend);
+                tempMap.put("Baomi",baomiList.get(0));
             }
         }
 
@@ -141,8 +143,8 @@ public class EqbaomiController {
         PrintWriter out = null;
         try{
             out = response.getWriter();
-            out.println(JSON.toJSONString(baomiList,SerializerFeature.DisableCircularReferenceDetect));
-            out.println(JSON.toJSONString(staffextendList,SerializerFeature.DisableCircularReferenceDetect));
+            out.println(JSON.toJSONString(tempMap,SerializerFeature.DisableCircularReferenceDetect));
+            //out.println(JSON.toJSONString(staffextendList,SerializerFeature.DisableCircularReferenceDetect));
             //out.println(JSON.toJSONString("TRUE",SerializerFeature.DisableCircularReferenceDetect));
         }catch (Exception e){
             e.printStackTrace();
@@ -169,16 +171,28 @@ public class EqbaomiController {
             @RequestParam(name="baomi_xddzsblx2",required=false) String xddzsblx2,
             @RequestParam(name="baomi_xddzsbxh2",required=false) String xddzsbxh2,
             @RequestParam(name="baomi_xddzsbsmdj2",required=false) String xddzsbsmdj2,
-            @RequestParam(name="baomi_xddzsbyf",required=false) String xddzsbyf,
+            @RequestParam(name="baomi_xddzsbyf",required=false,defaultValue="0") String xddzsbyf,
             @RequestParam(name="baomi_xdsmzlmc1",required=false) String xdsmzlmc1,
-            @RequestParam(name="baomi_xdsmzlfs1",required=false) String xdsmzlfs1,
+            @RequestParam(name="baomi_xdsmzlfs1",required=false,defaultValue="0") String xdsmzlfs1,
             @RequestParam(name="baomi_xdsmzlsmdj",required=false) String xdsmzlsmdj1,
             @RequestParam(name="baomi_xdsmzlmc2",required=false) String xdsmzlmc2,
-            @RequestParam(name="baomi_xdsmzlfs2",required=false) String xdsmzlfs2,
+            @RequestParam(name="baomi_xdsmzlfs2",required=false,defaultValue="0") String xdsmzlfs2,
             @RequestParam(name="baomi_xdsmzlsmdj2",required=false) String xdsmzlsmdj2,
-            @RequestParam(name="baomi_xdsmzlyf",required=false) String xdsmzlyf
+            @RequestParam(name="baomi_xdsmzlyf",required=false,defaultValue="0") String xdsmzlyf
             ){
         sqlSession = factory.openSession(true);
+
+        logger.info("---------------------------------------");
+        logger.info("---------------------------------------");
+        logger.info(xdsmzlfs1);
+        logger.info("---------------------------------------");
+        logger.info("---------------------------------------");
+
+        logger.info("---------------------------------------");
+        logger.info("---------------------------------------");
+        logger.info(xdsmzlfs2);
+        logger.info("---------------------------------------");
+        logger.info("---------------------------------------");
 
         //设置Baomi对象
         List<Baomi> tempQueryBaomi = null;
@@ -250,7 +264,7 @@ public class EqbaomiController {
             if(xdsmzlmc1 != null){
                 tempBaomi.setXdsmzlmc1(xdsmzlmc1);
             }
-            if(xdsmzlfs1 != null){
+            if(xdsmzlfs1 != null && xdsmzlfs1 != ""){
                 tempBaomi.setXdsmzlfs1(Integer.valueOf(xdsmzlfs1));
             }
             if(xdsmzlsmdj1 != null){
@@ -259,7 +273,7 @@ public class EqbaomiController {
             if(xdsmzlmc2 != null){
                 tempBaomi.setXdsmzlmc2(xdsmzlmc2);
             }
-            if(xdsmzlfs2 != null){
+            if(xdsmzlfs2 != null && xdsmzlfs2 != ""){
                 tempBaomi.setXdsmzlfs2(Integer.valueOf(xdsmzlfs2));
             }
             if(xdsmzlsmdj2 != null){
@@ -294,7 +308,17 @@ public class EqbaomiController {
                 tempBaomi.setJwtlend(tempDate);
             }
 
-            sqlSession.update("com.equipments.management.mapper.BaomiMapper.updateBaomi", tempBaomi);
+        sqlSession.update("com.equipments.management.mapper.BaomiMapper.updateBaomi", tempBaomi);
+        Staffextend queryStaffextend = new Staffextend();
+
+        List<Staffextend> staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
+        if(staffextendList !=null && staffextendList.get(0) !=null) {
+            queryStaffextend = staffextendList.get(0);
+        }
+
+        Map<String,Object> tempMap = new HashMap<String, Object>();
+        tempMap.put("Baomi",tempBaomi);
+        tempMap.put("Staffextend",queryStaffextend);
 
         sqlSession.close();
 
@@ -302,129 +326,95 @@ public class EqbaomiController {
         PrintWriter out = null;
         try{
             out = response.getWriter();
-            out.println(JSON.toJSONString(tempBaomi));
+            out.println(JSON.toJSONString(tempMap,SerializerFeature.DisableCircularReferenceDetect));
         }catch (Exception e){
             e.printStackTrace();
         }finally {
             out.close();
         }
     }
-    @RequestMapping(value="/deleteBaomi")
-    public void deleteBaomi(
-            @RequestParam("task_id") String taskid){
-        sqlSession = factory.openSession(true);
 
-        /*
-        Task task = new Task();
-        if(taskid !=null){
-            task.setId(Integer.parseInt(taskid));
-        }
-
-        sqlSession.delete("com.equipments.management.mapper.TaskMapper.removeTaskById",task);
-        */
-        sqlSession.close();
-    }
-
-
-    /*
-    * 生成  模板.情况表
-    *
-    *
-    * */
     /**
      * 生成-保密表
      *
      * */
     @RequestMapping("/outputBaomi")
     @ResponseBody
-    public void outputQkb(HttpServletResponse response,
+    public void outputBaomi(HttpServletResponse response,
                           HttpServletRequest request,
                           @RequestParam("staff_id") String staffid
                           ){
-        sqlSession = factory.openSession(false);
+        sqlSession = factory.openSession(true);
         Staffextend tempStaffextend = null;
         List<Staffextend> staffextendList = null;
+        Task tempTask = new Task();
+        List<Baomi> baomiList = null;
+        Baomi tempBaomi = new Baomi();
+        Staff tempStaff = new Staff();
 
-        //组装数据
-        //Staff tempStaff = new Staff();
         if(staffid !=null){
             staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
             if(staffextendList !=null && staffextendList.get(0) !=null){
                 tempStaffextend = staffextendList.get(0);
+                tempTask = sqlSession.selectOne("com.equipments.management.mapper.TaskMapper.getTaskById",tempStaffextend.getTaskid().getId());
+                tempStaff = tempStaffextend.getStaffid();
+                baomiList = sqlSession.selectList("com.equipments.management.mapper.BaomiMapper.getBaomiByTaskLimit",tempTask.getId());
+                tempBaomi = baomiList.get(0);
 
                 Map<String,Object> tempMap = new HashMap<String, Object>();
-                tempMap.put("name",tempStaffextend.getStaffid().getName());
-                //tempMap.put("zhicheng",tempStaffextend.getStaffid().getZhicheng());
-                tempMap.put("gender",tempStaffextend.getStaffid().getGender());
+                tempMap.put("name",tempStaffextend.getStaffid().getName() + "");
+                tempMap.put("zhiji",tempBaomi.getZhiji() + "");
+                tempMap.put("buzhibie",tempBaomi.getBuzhibie() + "");
+                tempMap.put("tarcountry",tempTask.getTarcountry() + "");
+                tempMap.put("tarcity",tempTask.getTarcity() + "");
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
-                tempMap.put("birthyday",sdf.format(tempStaffextend.getStaffid().getBirthyday()));
-                tempMap.put("birthplace",tempStaffextend.getStaffid().getBirthplace());
-                tempMap.put("nation",tempStaffextend.getNation());
-                tempMap.put("educationle",tempStaffextend.getEducationle());
-                tempMap.put("qkbzwhzc",tempStaffextend.getQkbzwhzc());
-                tempMap.put("qkbjxhjb",tempStaffextend.getQkbjxhjb());
-                tempMap.put("zzmianmao",tempStaffextend.getZzmianmao());
-                tempMap.put("bysjbyyx",tempStaffextend.getBysjbyyx());
-                tempMap.put("wgysp",tempStaffextend.getWgysp());
-                tempMap.put("jgzhwzgbz",tempStaffextend.getStaffid().getJgzid());
+                tempMap.put("jwtlbeg",sdf.format(tempTask.getCjcfbeg()));
+                tempMap.put("jwtlend",sdf.format(tempTask.getCjggend()));
 
-                tempMap.put("jgzid",tempStaffextend.getStaffid().getJgzid());
+                tempMap.put("xddzsblx1",tempBaomi.getXddzsblx1() + "");
+                tempMap.put("xddzsblx2",tempBaomi.getXddzsblx2() + "");
+                tempMap.put("xddzsbxh1",tempBaomi.getXddzsbxh1() + "");
+                tempMap.put("xddzsbxh2",tempBaomi.getXddzsbxh2() + "");
+                tempMap.put("xddzsbsmdj1",tempBaomi.getXddzsbsmdj1() + "");
+                tempMap.put("xddzsbsmdj2",tempBaomi.getXddzsbsmdj2() + "");
+                tempMap.put("xddzsbyf",tempBaomi.getXddzsbyf() + "");
+                tempMap.put("duihao1",tempBaomi.getXddzsbyf() + "");
 
-                tempMap.put("phone",tempStaffextend.getStaffid().getPhone());
-                tempMap.put("ywhuzhao",tempStaffextend.getYwhuzhao());
-                tempMap.put("huzhaohao",tempStaffextend.getHuzhaohao());
-                tempMap.put("huzhaoyouxiaoqi",sdf.format(tempStaffextend.getHuzhaoyouxiaoqi()));
-                tempMap.put("gzjlsj001",tempStaffextend.getGzjlsj001());
-                tempMap.put("gzjlsj002",tempStaffextend.getGzjlsj002());
-                tempMap.put("gzjlsj003",tempStaffextend.getGzjlsj003());
-                tempMap.put("gzjlsj004",tempStaffextend.getGzjlsj004());
-                tempMap.put("gzjlsj005",tempStaffextend.getGzjlsj005());
-                tempMap.put("gzjlcsgzjzw001",tempStaffextend.getGzjlcsgzjzw001());
-                tempMap.put("gzjlcsgzjzw002",tempStaffextend.getGzjlcsgzjzw002());
-                tempMap.put("gzjlcsgzjzw003",tempStaffextend.getGzjlcsgzjzw003());
-                tempMap.put("gzjlcsgzjzw004",tempStaffextend.getGzjlcsgzjzw004());
-                tempMap.put("gzjlcsgzjzw005",tempStaffextend.getGzjlcsgzjzw005());
-                tempMap.put("cgqksj001",tempStaffextend.getCgqksj001());
-                tempMap.put("cgqksj002",tempStaffextend.getCgqksj002());
-                tempMap.put("cgqksj003",tempStaffextend.getCgqksj003());
-                tempMap.put("cgqkgjjrw001",tempStaffextend.getCgqkgjjrw001());
-                tempMap.put("cgqkgjjrw002",tempStaffextend.getCgqkgjjrw002());
-                tempMap.put("cgqkgjjrw003",tempStaffextend.getCgqkgjjrw003());
-                tempMap.put("cgqkdwsf001",tempStaffextend.getCgqkdwsf001());
-                tempMap.put("cgqkdwsf002",tempStaffextend.getCgqkdwsf002());
-                tempMap.put("cgqkdwsf003",tempStaffextend.getCgqkdwsf003());
-                tempMap.put("jtqkxm001",tempStaffextend.getJtqkxm001());
-                tempMap.put("jtqkxm002",tempStaffextend.getJtqkxm002());
-                tempMap.put("jtqkxm003",tempStaffextend.getJtqkxm003());
-                tempMap.put("jtqkgx001",tempStaffextend.getJtqkgx001());
-                tempMap.put("jtqkgx002",tempStaffextend.getJtqkgx002());
-                tempMap.put("jtqkgx003",tempStaffextend.getJtqkgx003());
-                tempMap.put("jtqkgzjzw001",tempStaffextend.getJtqkgzjzw001());
-                tempMap.put("jtqkgzjzw002",tempStaffextend.getJtqkgzjzw002());
-                tempMap.put("jtqkgzjzw003",tempStaffextend.getJtqkgzjzw003());
-                tempMap.put("jtqkgwf001",tempStaffextend.getJtqkgwf001());
-                tempMap.put("jtqkgwf002",tempStaffextend.getJtqkgwf002());
-                tempMap.put("jtqkgwf003",tempStaffextend.getJtqkgwf003());
-
-                tempMap.put("department",tempStaffextend.getStaffid().getDepartment().getName());
-                tempMap.put("swscmxm",tempStaffextend.getSwscmxm());
-                tempMap.put("swscmdh",tempStaffextend.getSwscmdh());
+                tempMap.put("xdsmzlmc1",tempBaomi.getXdsmzlmc1() + "");
+                tempMap.put("xdsmzlmc2",tempBaomi.getXdsmzlmc2() + "");
+                tempMap.put("xdsmzlfs1",tempBaomi.getXdsmzlfs1() + "");
+                tempMap.put("xdsmzlfs2",tempBaomi.getXdsmzlfs2() + "");
+                tempMap.put("xdsmzlsmdj1",tempBaomi.getXdsmzlsmdj1() + "");
+                tempMap.put("xdsmzlsmdj2",tempBaomi.getXdsmzlsmdj2() + "");
+                tempMap.put("xdsmzlyf",tempBaomi.getXdsmzlyf() + "");
+                tempMap.put("duihao2",tempBaomi.getXdsmzlyf() + "");
 
                 ExportDoc maker = new ExportDoc("UTF-8");
 
                 try {
-                    //String url = request.getSession().getServletContext().getRealPath("/output");
+
+                    String url = request.getSession().getServletContext().getRealPath("/outputfiles/") + tempStaffextend.getTaskid().getId().toString()+ "\\";
                     //String url = "F:/output/";
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-                    String tempFileName = "sqrycgqkb-" + df.format(new Date()) +".doc";
-                    //String fileAddress = url + tempFileName;
-                    maker.exportDoc(tempFileName,"sqrycgqkb.ftl",tempMap);
+
+                    SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String tempFileName = "bmzrs-" + staffid + "-" + df.format(new Date()) +".doc";
+                    String fileAddress = url + tempFileName;
+
+                    maker.exportDoc(fileAddress,"bmzrs.ftl",tempMap);
+
+                    //保存文件名称到数据记录表
+                    tempTask = tempStaffextend.getTaskid();
+                    tempTask.setBmzrsaddr(tempFileName);
+                    logger.info("----------------------------tempTask------------------------------");
+                    logger.info(tempTask.toString());
+                    sqlSession.update("com.equipments.management.mapper.TaskMapper.updateTask",tempTask);
 
                     response.setContentType("text/html;charset=UTF-8");
                     PrintWriter out = null;
                     try{
                         out = response.getWriter();
-                        out.println(JSON.toJSONString(tempFileName));
+                        out.println(JSON.toJSONString(tempFileName,SerializerFeature.DisableCircularReferenceDetect));
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally {
@@ -441,7 +431,150 @@ public class EqbaomiController {
             PrintWriter out = null;
             try{
                 out = response.getWriter();
-                out.println(JSON.toJSONString("FALSE"));
+                out.println(JSON.toJSONString("FALSE",SerializerFeature.DisableCircularReferenceDetect));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                out.close();
+            }
+        }
+        sqlSession.close();
+    }
+
+
+    @RequestMapping("/downBaomi")
+    @ResponseBody
+    public void downBaomi(HttpServletResponse response,
+                        HttpServletRequest request,
+                        @RequestParam("staff_id") String staffid
+    ){
+        sqlSession = factory.openSession(true);
+        Staffextend tempStaffextend = null;
+        List<Staffextend> staffextendList = null;
+
+        //组装数据
+        //Staff tempStaff = new Staff();
+        if(staffid !=null){
+            staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
+            if(staffextendList !=null && staffextendList.get(0) !=null){
+                tempStaffextend = staffextendList.get(0);
+
+                try {
+
+                    String url = "/outputfiles/" + tempStaffextend.getTaskid().getId().toString()+ "/";
+                    //String url = "F:/output/";
+
+                    String tempFileName = tempStaffextend.getTaskid().getBmzrsaddr();
+                    String fileAddress = url + tempFileName;
+
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = null;
+                    try{
+                        out = response.getWriter();
+                        out.println(JSON.toJSONString(fileAddress,SerializerFeature.DisableCircularReferenceDetect));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        out.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else{
+            logger.info("-----------------------staffid is null-------------------------");
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = null;
+            try{
+                out = response.getWriter();
+                out.println(JSON.toJSONString("FALSE",SerializerFeature.DisableCircularReferenceDetect));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                out.close();
+            }
+        }
+        sqlSession.close();
+    }
+
+
+    @RequestMapping("/deleteBaomi")
+    @ResponseBody
+    public void deleteBaomi(HttpServletResponse response,
+                          HttpServletRequest request,
+                          @RequestParam("staff_id") String staffid
+    ){
+        sqlSession = factory.openSession(true);
+        Staffextend tempStaffextend = null;
+        List<Staffextend> staffextendList = null;
+
+        //组装数据
+        //Staff tempStaff = new Staff();
+        if(staffid !=null){
+            staffextendList = sqlSession.selectList("com.equipments.management.mapper.StaffextendMapper.getStaffextendByStaffLimit",Integer.valueOf(staffid));
+            if(staffextendList !=null && staffextendList.get(0) !=null){
+                tempStaffextend = staffextendList.get(0);
+
+                logger.info("---------------------------------");
+                logger.info("---------------------------------");
+                logger.info("---------------------------------");
+                logger.info("---------------------------------");
+                logger.info(tempStaffextend.toString());
+
+                try {
+
+                    String url = request.getSession().getServletContext().getRealPath("/outputfiles/") + tempStaffextend.getTaskid().getId().toString()+ "/";
+                    //String url = "F:/output/";
+
+                    String tempFileName = tempStaffextend.getTaskid().getBmzrsaddr();
+                    String fileAddress = url + tempFileName;
+
+                    File file = new File(fileAddress);
+
+                    if(file.exists() && file.isFile()){
+                        file.delete();
+                        Task tempTask = tempStaffextend.getTaskid();
+                        tempTask.setBmzrsaddr("");
+
+                        logger.info("---------------Task--------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info(tempTask.toString());
+                        sqlSession.update("com.equipments.management.mapper.TaskMapper.updateTask",tempTask);
+                    }
+                    else
+                    {
+                        logger.info("---------------Task--------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info("---------------------------------");
+                        logger.info("任务文件不存在！");
+                    }
+
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = null;
+                    try{
+                        out = response.getWriter();
+                        out.println(JSON.toJSONString(fileAddress,SerializerFeature.DisableCircularReferenceDetect));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        out.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else{
+            logger.info("-----------------------staffid is null-------------------------");
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = null;
+            try{
+                out = response.getWriter();
+                out.println(JSON.toJSONString("FALSE",SerializerFeature.DisableCircularReferenceDetect));
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
